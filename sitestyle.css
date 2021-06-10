@@ -92,7 +92,7 @@ article {
 .about_me_article{
     display: flex;
     height: auto;
-    width: 50%;
+    width: 60%;
 }
 li{
     margin-bottom: 10px;
@@ -111,7 +111,7 @@ h1{
     margin-bottom: 4px;
 }
 .about_me_aside{
-    width: auto;
+    width: 40%;
 }
 .about_me_aside > img{
     display: block;
