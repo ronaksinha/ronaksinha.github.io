@@ -26,13 +26,21 @@
         
             <div id="header-sidebar">
 
-        <nav id="navbar">
-            <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="about_me.html">About Me</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+            <nav id="navbar">
+                <a href="home.html">Home</a>
+                <div class="dropdown">
+                    <a href="about_me.html" style="padding-right: 0px;">About Me</a>
+                    <button class="dropbtn">&#9660 
+                        <i class="fa fa-caret-down"></i>
+                        </button>
+                    <div class="dropdown-content">
+                        <a href="about_me.html">About Me</a>
+                        <a href="education.html">Education</a>
+                        <a href="experience.html">Work Experience</a>
+                    </div>
+                </div>
+                <a href="contact.html">Contact</a>
+            </nav>
     </header>
     
     <main>
@@ -47,13 +55,11 @@
     </main>
 
     <footer>
-        <nav>
-            <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="about_me.html">About Me</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+        <nav id="navbar">
+            <a href="home.html">Home</a>
+            <a href="about_me.html">About Me</a>
+            <a href="contact.html">Contact</a>
+    </nav>
     </footer>
 
     <script src="main.js"></script>
