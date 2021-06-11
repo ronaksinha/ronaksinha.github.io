@@ -84,14 +84,39 @@ p, li{
 .art-sec-head{
     padding-bottom: 1em;
 }
-.about_me_article > div > section{
-    background-color: white;
-    border: solid black 2px;
-    text-align: justify;
+.button__accordian{
+    display: block;
+    width: 100%;
     padding: 15px;
-    padding-bottom: 25px;
-    margin-bottom: 15px;
-    
+    outline: none;
+    cursor: pointer;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    transition: background-color 0.3s;
+    font-size: large;
+    margin-bottom: 10px;
+}
+.button__accordian::after{
+    content: '\25be';
+    float: right;
+    transform: scale(1.5)
+
+}
+.button__accordian--active{background-color: #555;}
+.button__accordian--active::after{ content: '\25b4';}
+
+.accordian__content{
+    transition: max-height 0.3s;
+    padding: 0px 25px;
+    font-family: sans-serif;
+    background-color: #fff;
+    overflow: hidden;
+    max-height: 0;
+}
+.p1__accordian__content{
+    padding-top: 10px;
+    padding-bottom: 0px;
 }
 h1{
     margin-bottom: 4px;
@@ -134,8 +159,6 @@ footer {
     ul{
         padding: 0 0 0 20px;
     }
-    .about_me_article > div > section{
-        text-align:left;
         
     }
     @media (min-width: 768px){

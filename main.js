@@ -15,3 +15,15 @@ function myFunction() {
     navbar.classList.remove("sticky");
   }
 }
+document.querySelectorAll('.button__accordian').forEach(button =>{
+  button.addEventListener('click', () => {
+      const accordianContent = button.nextElementSibling;
+      button.classList.toggle('button__accordian--active');
+      if(button.classList.contains('button__accordian--active')){
+          accordianContent.style.maxHeight = accordianContent.scrollHeight + 'px';
+      }
+      else{
+          accordianContent.style.maxHeight = 0;
+      }
+  })
+})
