@@ -77,16 +77,13 @@ article{
     width: 60%;
 }
 
+
+p, li{
+    margin-bottom: 1em;
+}
 .art-sec-head{
     padding-bottom: 1em;
 }
-p{
-    margin-bottom: 1em;
-}
-li{
-    margin-bottom: 1em;
-}
-
 .about_me_article > div > section{
     background-color: white;
     border: solid black 2px;
@@ -98,9 +95,6 @@ li{
 }
 h1{
     margin-bottom: 4px;
-}
-.about_me_aside{
-    width: 40%;
 }
 .about_me_aside > img{
     display: block;
@@ -117,40 +111,25 @@ footer {
     background-color: rgb(252, 252, 252);
 }
 
-@media (min-width: 768px){
-    main {
-        display:  flex;
-    }
 
-    aside{
-        margin-left: 2%;
-    }
-}
 @media (min-width: 375px){
     main {
         display:  block;
     }
+    article{
+        margin-left: 0%;
+        margin-right: 0%;
+        width: auto;
+    }
+    aside{
+        margin-left: 0px;
+        margin-right: 0px;
+        width: auto;
+    }
 
-    .home_aside{
-        width: auto;
-        margin-left: 0%;
-        margin-right: 0%;
-    }
-    .home_article{
-        margin-left: 0%;
-        margin-right: 0%;
-        width: auto;
-    }
-
-    .about_me_aside{
-        width: auto;
-        margin-left: 0%;
-        margin-right: 0%;
-    }
-    .about_me_article{
-        margin-left: 0%;
-        margin-right: 0%;
-        width: auto;
+    
+    p{
+        text-align: left;
     }
     ul{
         padding: 0 0 0 20px;
@@ -158,5 +137,28 @@ footer {
     .about_me_article > div > section{
         text-align:left;
         
+    }
+    @media (min-width: 768px){
+        main {
+            display:  flex;
+        }
+        
+        article{
+            margin-left:auto;
+            margin-right: auto;
+            width: 60%;
+        }
+        aside{
+            margin-left: auto;
+            margin-right: auto;
+            width: 40%;
+        }
+        p{
+            text-align: justify;
+        }
+        ul{
+            padding: 0 0 0 40px;
+        }
+    
     }
 }
