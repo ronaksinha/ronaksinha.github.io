@@ -28,8 +28,8 @@ header a:visited {
     text-decoration: none;
 }
 nav {
-    overflow: hidden;
-     background-color: #333;
+    display: block;
+    background-color: #333;
 }
 nav a{
     float: left;
@@ -47,8 +47,8 @@ nav a:visited, nav a:link {
     margin-top: 25px;
 }
 .dropdown {
-    float: left;
-    overflow: hidden;
+    position: relative;
+    display: inline-block;
 }
 
 .dropdown .dropbtn {
@@ -64,7 +64,6 @@ nav a:visited, nav a:link {
     padding-right: 0px;
     }
 .dropbtn{
-    transform: scale(0.6);
     padding-left: 0px;
 }
 .dropdown-content {
@@ -93,15 +92,14 @@ nav a:visited, nav a:link {
 .dropdown:hover .dropdown-content {
     display: block;
     }
-.sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
-  }
-  
-  .sticky + .content {
-    padding-top: 60px;
-  }
+h2{
+    font-size: 2.1rem;
+    line-height: 1.4;
+    letter-spacing: 0.25rem;
+    text-align: center;
+    color: white;
+    margin-bottom: 10px;
+}
 main {
     display: block;
     background-color: #666;
@@ -129,11 +127,11 @@ p, li{
     margin-bottom: 1em;
 }
 footer {
+    display: block;
     position: relative;
     padding-bottom: 10px;
     bottom: 0;
     width: 100%;
-    background-color: rgb(252, 252, 252);
 }
 /*------------------------------Global End-----------------*/
 
@@ -143,14 +141,7 @@ footer {
     padding-left: auto;
     padding-right: auto;
 }
-h2{
-    font-size: 2.1rem;
-    line-height: 1.4;
-    letter-spacing: 0.5rem;
-    text-align: center;
-    color: white;
-    margin-bottom: 10px;
-}
+
 * {box-sizing:border-box}
 .slideshow-container{
     max-width: 1000px;
@@ -160,6 +151,7 @@ h2{
 }
 img{
     width: 91%;
+    background-color: #aaa;
 
 }
 .mySlides{
@@ -300,7 +292,6 @@ img{
         margin-right: 0px;
         width: auto;
     }
-
     
     p{
         text-align: left;

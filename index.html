@@ -15,48 +15,6 @@
             padding: 0px;
             overflow-x: hidden; 
         }
-        .dropdown {
-            float: left;
-            overflow: hidden;
-        }
-
-        .dropdown .dropbtn {
-            font-size: 16px;  
-            border: none;
-            outline: none;
-            color: white;
-            padding: 14px 16px;
-            background-color: inherit;
-            font-family: inherit;
-            margin: 0;
-            }
-        .dropdown-content {
-            display: none;
-            margin-top: 16px;
-            position: absolute;
-            background-color: #444;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            }
-
-        .dropdown-content a {
-            float: none;
-            margin-top: 2px;
-            color: #f9f9f9;
-            padding: 15px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-            }
-
-        .dropdown-content a:hover {
-            background-color: #333;
-            }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-            }
     </style>
 </head>
 <body>
@@ -66,24 +24,27 @@
         
             <div id="header-sidebar">
 
-        <nav id="navbar">
-            <a href="home.html">Home</a>
-            <div class="dropdown">
-                <a href="about_me.html">About Me</a>
-                <button class="dropbtn">
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="about_me.html">About Me</a>
-                    <a href="education.html">Education</a>
-                    <a href="experience.html">Work Experience</a>
-                </div>
-            </div>
-            <a href="contact.html">Contact</a>
-        </nav>
+            
     </header>
+    <nav id="navbar">
+        <a href="home.html">Home</a>
+        <div class="dropdown">
+            <a style="padding-right: 0px;"></a>
+            <button class="dropbtn">About Me &#9660 
+                <i class="fa fa-caret-down"></i>
+                </button>
+            <div class="dropdown-content">
+                <a href="about_me.html">About Me</a>
+                <a href="education.html">Education</a>
+                <a href="experience.html">Work Experience</a>
+            </div>
+        </div>
+        <a href="contact.html">Contact</a>
+        <a href="sandbox.html" style="float: right;">Sandbox</a>
+    </nav>
+    
+    <h2 class="page-title">Home | Ronak Sinha</h2> 
     <main class="home_main">
-        <h2>Ronak Sinha</h2> 
         <div class="slideshow-container">
             <div class="mySlides fade">
                 <a href="about_me.html">
@@ -92,16 +53,16 @@
                     <p class="text"><a href="about_me.html" style="text-decoration: none;">About Me</a> </p>
             </div>     
             <div class="mySlides fade">
-                <a href="about_me.html">
+                <a href="education.html">
                     <img src="images/purdue.png" >
                     </a>
-                <p class="text"><a href="about_me.html" style="text-decoration: none;">About Me</a> </p>
+                <p class="text"><a href="education.html" style="text-decoration: none;">Education</a> </p>
             </div>  
             <div class="mySlides fade">
-                <a href="about_me.html">
+                <a href="experience.html">
                     <img src="images/omnicell.jpg" >
                     </a>
-                <p class="text"><a href="about_me.html" style="text-decoration: none;">About Me</a> </p>
+                <p class="text"><a href="experience.html" style="text-decoration: none;">Work Experience</a> </p>
             </div>    
             <a class="prev" onclick="plusSlides(-1)">&#10094</a>   
             <a class="next" onclick="plusSlides(1)">&#10095</a>  
@@ -118,6 +79,7 @@
             <a href="home.html">Home</a>
             <a href="about_me.html">About Me</a>
             <a href="contact.html">Contact</a>
+        <a href="sandbox.html" style="float: right;">Sandbox</a>
     </nav>
     </footer>
 
