@@ -3,74 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>Sandbox</title>
 </head>
 <style>
     body{
+        box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #222;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+    main{
         background-color: black;
+        height: auto;
+    }
+    section{ 
+        padding: 0 3rem;
+        position: relative;
+        transition: opacity 0.6s;
+    }
+    h2{
+        font-size: 2rem;
     }
     .interactive-text{
         font-family: sans-serif;
         margin-top: 0.25em;
         margin-bottom: 0.25em;
         display: inline-block;
-        font-size: 50px;
+        font-size: 1.6em;
         font-weight: bold;
         color: whitesmoke;
-        transition: 0.2s;
+        text-align: left;
+        animation-play-state: running;
+        
     }
-    .interactive-text:hover{
+    .interactive-text.animated{
         color: rgb(136, 255, 0);
+        animation: animate .2s ease-in-out;
     }
+
+    @keyframes animate{
+        0%{
+            transform: translateY(0px);
+        }
+        50%{
+            transform: translateY(-20px);
+        }
+        100%{
+            transform: translateY(0px);
+        }
+    }
+    
     .link:visited{
         color: white;
         text-decoration: none;
     }
+    #section-home{  
+        height: 90vh;
+        padding-top: 25vh;
+        padding-left: 10vh;
+        font-size: 2.5rem;
+    }
+    #section-about{
+        height: auto;
+        color: whitesmoke;
+        display: block;
+        background-color: #111;
+        font-size: 1.5rem;
+    }
+    .project-showcase-wall{
+        padding-top: 10vh;
+        display: block;
+        background-color: #111;
+    }
+    .project-container{
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .project-column-title-img{
+        flex: 50%;
+        margin: 10px 20px 20px 10%;
+        transition: 0.3s ease-in-out;
+    }
+    .project-container:hover .project-column-title-img{  
+        margin: 10px 20px 20px 0%;
+    }
+    .project-container:hover .project-img{  
+        opacity: 0.3;
+    }
+    .project-container:hover .project-title{  
+        opacity: 1;
+    }
+    .project-container:hover .project-column-desc{
+        -webkit-transition-delay: 0s;
+        flex: 50%;
+    }
+    .project-container:hover .project-desc{
+        transition-delay: .1s;
+        -webkit-transform: translate(0%);
+    }
+    .project-column-desc{
+        -webkit-transition: .3s ease-in-out;
+        -webkit-transition-delay: .1s;
+        overflow: hidden;
+        flex: 0%;
+        position: relative;
+    }
+    .project-title{
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 22%;
+        text-align: center;
+        text-decoration: none;
+        color: whitesmoke;
+        transition: .1s ease-in-out;
+
+    }
+    .project-img{
+        max-width: 100%;
+        max-height: 100%;
+        transition: .5s ease-in-out;
+    }
+    .project-desc{
+        line-height: 2vw;
+        font-size: 1.5vw;
+        font-family: sans-serif;
+        opacity: 1;
+        transition: .3s ease-in-out;
+        -webkit-transform: translate(100%);
+        position: absolute;
+        padding: 0 15px 0 15px;
+        color: whitesmoke;
+        overflow: hidden;
+    }
+    
 </style>
 <body>
-    <h2 class="site-title" style="color: white;">Sandbox</h2>
+    <h1 class="site-title" style="color: white;">Sandbox</h1>
     <a class="link" href="home.html">Go back Home</a>
+    <main>
+        <section id="section-home" class="homepage-section">
+            <div>
+                <div class="interactive-text-container">
+                    <span class="interactive-text">H</span>
+                    <span class="interactive-text">i</span>
+                    <span class="interactive-text">,</span>
+                    <br>
+                    <span class="interactive-text">I</span>
+                    <span class="interactive-text">'</span>
+                    <span class="interactive-text">m</span>
+                    <pre class="interactive-text"> </pre>
+                    <span class="interactive-text">R</span>
+                    <span class="interactive-text">o</span>
+                    <span class="interactive-text">n</span>
+                    <span class="interactive-text">a</span>
+                    <span class="interactive-text">k</span>
+                    <br>
+                    <span class="interactive-text">A</span>                    
+                    <pre class="interactive-text"> </pre>
+                    <span class="interactive-text">S</span>
+                    <span class="interactive-text">o</span>
+                    <span class="interactive-text">f</span>
+                    <span class="interactive-text">t</span>
+                    <span class="interactive-text">w</span>
+                    <span class="interactive-text">a</span>
+                    <span class="interactive-text">r</span>
+                    <span class="interactive-text">e</span>
+                    <pre class="interactive-text"> </pre>        
+                    <span class="interactive-text">E</span>
+                    <span class="interactive-text">n</span>
+                    <span class="interactive-text">g</span>
+                    <span class="interactive-text">i</span>
+                    <span class="interactive-text">n</span>
+                    <span class="interactive-text">e</span>
+                    <span class="interactive-text">e</span>
+                    <span class="interactive-text">r</span>
+        
+                </div>
+            </div>            
+        </section>
+        <section id="section-about" class="homepage-section">
+            <div>
+                <header>
+                    <h2>
+                        <span class="interactive-text">M</span>
+                        <span class="interactive-text">y</span>
+                        <pre class="interactive-text"> </pre>
+                        <span class="interactive-text">E</span>
+                        <span class="interactive-text">x</span>
+                        <span class="interactive-text">p</span>
+                        <span class="interactive-text">e</span>
+                        <span class="interactive-text">r</span>
+                        <span class="interactive-text">i</span>
+                        <span class="interactive-text">e</span>
+                        <span class="interactive-text">n</span>
+                        <span class="interactive-text">c</span>
+                        <span class="interactive-text">e</span>
 
-    <div class="interactive-text-container">
-        <p class="interactive-text">H</p>
-        <p class="interactive-text">i</p>
-        <p class="interactive-text">,</p>
-    </div>
-    <div class="interactive-text-container">
-        <p class="interactive-text">I</p>
-        <p class="interactive-text">'</p>
-        <p class="interactive-text">m</p>
-        <pre class="interactive-text"> </pre>
-        <p class="interactive-text">R</p>
-        <p class="interactive-text">o</p>
-        <p class="interactive-text">n</p>
-        <p class="interactive-text">a</p>
-        <p class="interactive-text">k</p>
-    </div>
-    <div class="interactive-text-container">
-        <p class="interactive-text">A</p>
-        <pre class="interactive-text"> </pre>
-
-        <p class="interactive-text">S</p>
-        <p class="interactive-text">o</p>
-        <p class="interactive-text">f</p>
-        <p class="interactive-text">t</p>
-        <p class="interactive-text">w</p>
-        <p class="interactive-text">a</p>
-        <p class="interactive-text">r</p>
-        <p class="interactive-text">e</p>
-        <pre class="interactive-text"> </pre>
-
-        <p class="interactive-text">E</p>
-        <p class="interactive-text">n</p>
-        <p class="interactive-text">g</p>
-        <p class="interactive-text">i</p>
-        <p class="interactive-text">n</p>
-        <p class="interactive-text">e</p>
-        <p class="interactive-text">e</p>
-        <p class="interactive-text">r</p>
-
-    </div>
+                    </h2>
+                </header>
+                <p>
+                    Here are a few of my projects that I've done either for fun, school, or work.
+                </p>
+            </div>
+            <div class="project-showcase-wall">
+                <div class="project-container">
+                    <div class="project-column-title-img">
+                        <a class="project-title" href="epics.html">EPICS</a>
+                        <img class="project-img" src="images/epics.png" alt="epics">
+                    </div>  
+                    <div class="project-column-desc">
+                        <p class="project-desc">The EPICS program (Engineering Projects in Community Service) is a service-learning design 
+                            program in which teams of students partner with local and global community organizations to address human, community, 
+                            and environmental needs. Click the picture to learn more.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="project-showcase-wall">
+                <div class="project-container">
+                    <div class="project-column-title-img">
+                        <a class="project-title" href="#">EPICS</a>
+                        <img class="project-img" src="images/epics.png" alt="epics">
+                    </div>  
+                    <div class="project-column-desc">
+                        <p class="project-desc">bla bla bla bla bla this is a temp project description. i am very cool guy what else can i say</p>
+                    </div>
+                </div>
+    
+            </div>
+        </section>
+        
+        
+    </main>
 </body>
+<script>
+    const interactive_text = document.getElementsByClassName('interactive-text');
+
+    for (let i = 0; i <= interactive_text.length; i++) {
+    interactive_text[i].addEventListener('animationend', function(e) {
+        interactive_text[i].classList.remove('animated');
+    });
+
+    interactive_text[i].addEventListener('mouseover', function(e) {
+    interactive_text[i].classList.add('animated')
+    })
+    }
+</script>
 </html>
