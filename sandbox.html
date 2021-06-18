@@ -7,13 +7,17 @@
     <title>Sandbox</title>
 </head>
 <style>
+    html{
+        scroll-behavior: smooth;
+    }
     body{
         box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #222;
-    margin-left: 0px;
-    margin-right: 0px;
-}
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #222;
+        margin-left: 0px;
+        margin-right: 0px;
+        overflow-x: hidden;
+    }
     main{
         background-color: black;
         height: auto;
@@ -24,14 +28,19 @@
         transition: opacity 0.6s;
     }
     h2{
-        font-size: 2rem;
+        font-size: 6vh;
+    }
+    li{
+        margin: 10px 0px 10px 0px;
+    }
+    a{
+        text-decoration: none;
     }
     .interactive-text{
         font-family: sans-serif;
         margin-top: 0.25em;
         margin-bottom: 0.25em;
         display: inline-block;
-        font-size: 1.6em;
         font-weight: bold;
         color: whitesmoke;
         text-align: left;
@@ -63,83 +72,179 @@
         height: 90vh;
         padding-top: 25vh;
         padding-left: 10vh;
-        font-size: 2.5rem;
+        font-size: 8vh;
     }
     #section-about{
         height: auto;
         color: whitesmoke;
         display: block;
         background-color: #111;
-        font-size: 1.5rem;
+        font-size: 4vh;
     }
     .project-showcase-wall{
-        padding-top: 10vh;
+        position: relative;
         display: block;
         background-color: #111;
     }
     .project-container{
-        overflow: hidden;
+        align-content: center;
+        margin-top: 15vh;
+        height: 75vh;
         position: relative;
         display: flex;
         margin-right: auto;
         margin-left: auto;
     }
     .project-column-title-img{
-        flex: 50%;
-        margin: 10px 20px 20px 10%;
-        transition: 0.3s ease-in-out;
-    }
-    .project-container:hover .project-column-title-img{  
-        margin: 10px 20px 20px 0%;
-    }
-    .project-container:hover .project-img{  
-        opacity: 0.3;
-    }
-    .project-container:hover .project-title{  
-        opacity: 1;
-    }
-    .project-container:hover .project-column-desc{
-        -webkit-transition-delay: 0s;
-        flex: 50%;
-    }
-    .project-container:hover .project-desc{
-        transition-delay: .1s;
-        -webkit-transform: translate(0%);
-    }
-    .project-column-desc{
-        -webkit-transition: .3s ease-in-out;
-        -webkit-transition-delay: .1s;
-        overflow: hidden;
-        flex: 0%;
+        width: 60vw;
+        margin-right: auto;
+        margin-left: auto;
         position: relative;
+        transform: translateX(20vw);
+        transition: all .5s ease-in-out;
+
+    } 
+    .project-column-desc{
+        float: right;
+        width: 40vw;
+        margin-right: auto;
+        margin-left: auto;
+        position: relative;
+        transform: translateX(40vw);
+        transition: all .5s ease-in-out;       
+        
     }
+    
     .project-title{
         opacity: 0;
         position: absolute;
-        top: 50%;
-        left: 22%;
+        top: 35%;
+        left: 45%;
         text-align: center;
         text-decoration: none;
         color: whitesmoke;
-        transition: .1s ease-in-out;
+        transition: .3s ease-in-out;
 
     }
     .project-img{
+        position: absolute;
         max-width: 100%;
         max-height: 100%;
-        transition: .5s ease-in-out;
+        transition: all .5s ease-in-out;
     }
     .project-desc{
+        opacity: 0;
         line-height: 2vw;
         font-size: 1.5vw;
         font-family: sans-serif;
-        opacity: 1;
-        transition: .3s ease-in-out;
-        -webkit-transform: translate(100%);
         position: absolute;
         padding: 0 15px 0 15px;
         color: whitesmoke;
-        overflow: hidden;
+        transition: all .6s ease-in-out;
+    }
+
+    .project-container.hovered .project-column-title-img{  
+        transform: translateX(0vw);
+    }
+    .project-container.hovered .project-img{  
+        opacity: 0.3;
+    }
+    .project-container.hovered .project-title{  
+        opacity: 1;
+    }
+    .project-container.hovered .project-column-desc{
+        transform: translateX(0vw);
+    }
+    .project-container.hovered .project-desc{
+        opacity: 1;
+    }
+   
+    nav{
+        position: relative;
+        display: flex;
+    }
+    .menu-btn{
+        margin: 10px 0px 10px 0px;
+        float: right;
+        margin-left: 90vw;
+        margin-right: auto;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 80px;
+        height: 80px;
+        cursor: pointer;
+        transition: all .5s ease-in-out;
+    }
+    .menu-btn-burger{
+        width: 40px;
+        height: 5px;
+        background: whitesmoke;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(255, 101, 47, .2);
+        transition: all .5s ease-in-out;
+    }
+    .menu-btn-burger::before,
+    .menu-btn-burger::after{
+        content: '';
+        position: absolute;
+        width: 40px;
+        height: 5px;
+        background: whitesmoke;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(255, 101, 47, .2);
+        transition: all .5s ease-in-out;
+    }
+    .menu-btn-burger::before{
+        transform:translateY(12px);
+    }
+    .menu-btn-burger::after{
+        transform: translateY(-12px);
+    }
+
+    .menu-container{
+        float: right;
+        display: flex;
+        position: relative;
+        margin-left: auto;
+        margin-right: 2vw;
+        justify-content: center;
+        align-items: center;
+        width: 20vw;
+        height: auto;
+        cursor: pointer;
+        transform: translateX(20vw);
+        transition: all .5s ease-in-out;
+    }
+    .menu-content{
+        font-family: sans-serif;
+        font-size: 3vh;
+        color: transparent;
+        transition: all .5s ease-in-out;
+    }
+
+
+    .menu-btn.open{
+        margin-left: 70vw;
+    }
+    .menu-btn.open .menu-btn-burger{
+        transform: translateX(-50px);
+        background: transparent;
+        box-shadow: none;
+    }
+    .menu-btn.open .menu-btn-burger::before{
+        transform: rotate(45deg) translate(35px, -35px);
+    }
+    .menu-btn.open .menu-btn-burger::after{
+        transform: rotate(-45deg) translate(35px, 35px);
+    }
+    .menu-container.open{
+        transform: translateX(-2vw);
+        border-color: whitesmoke;
+    }
+    .menu-container.open .menu-content{
+        color: whitesmoke;
     }
     
 </style>
@@ -147,6 +252,67 @@
     <h1 class="site-title" style="color: white;">Sandbox</h1>
     <a class="link" href="home.html">Go back Home</a>
     <main>
+        <nav>
+            <div class="menu-btn">
+                <div class="menu-btn-burger"></div>
+            </div>
+            <div class="menu-container">
+                <div class="menu-content">
+                    <ul style="list-style-type: none;">
+                        
+                        <li><a href="#section-about">
+                            <span class="interactive-text">M</span>
+                            <span class="interactive-text">y</span>
+                            <pre class="interactive-text"> </pre>
+                            <span class="interactive-text">E</span>
+                            <span class="interactive-text">x</span>
+                            <span class="interactive-text">p</span>
+                            <span class="interactive-text">e</span>
+                            <span class="interactive-text">r</span>
+                            <span class="interactive-text">i</span>
+                            <span class="interactive-text">e</span>
+                            <span class="interactive-text">n</span>
+                            <span class="interactive-text">c</span>
+                            <span class="interactive-text">e</span>
+                            </a>
+                        </li>
+                        <li><a href="#section-about">
+                            <span class="interactive-text">M</span>
+                            <span class="interactive-text">y</span>
+                            <pre class="interactive-text"> </pre>
+                            <span class="interactive-text">E</span>
+                            <span class="interactive-text">x</span>
+                            <span class="interactive-text">p</span>
+                            <span class="interactive-text">e</span>
+                            <span class="interactive-text">r</span>
+                            <span class="interactive-text">i</span>
+                            <span class="interactive-text">e</span>
+                            <span class="interactive-text">n</span>
+                            <span class="interactive-text">c</span>
+                            <span class="interactive-text">e</span>
+                            </a>
+                        </li>
+                        <li><a href="#section-about">
+                            <span class="interactive-text">M</span>
+                            <span class="interactive-text">y</span>
+                            <pre class="interactive-text"> </pre>
+                            <span class="interactive-text">E</span>
+                            <span class="interactive-text">x</span>
+                            <span class="interactive-text">p</span>
+                            <span class="interactive-text">e</span>
+                            <span class="interactive-text">r</span>
+                            <span class="interactive-text">i</span>
+                            <span class="interactive-text">e</span>
+                            <span class="interactive-text">n</span>
+                            <span class="interactive-text">c</span>
+                            <span class="interactive-text">e</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
         <section id="section-home" class="homepage-section">
             <div>
                 <div class="interactive-text-container">
@@ -215,7 +381,9 @@
                 <div class="project-container">
                     <div class="project-column-title-img">
                         <a class="project-title" href="epics.html">EPICS</a>
+                        <a href="epics.html">
                         <img class="project-img" src="images/epics.png" alt="epics">
+                        </a>
                     </div>  
                     <div class="project-column-desc">
                         <p class="project-desc">The EPICS program (Engineering Projects in Community Service) is a service-learning design 
@@ -223,35 +391,83 @@
                             and environmental needs. Click the picture to learn more.</p>
                     </div>
                 </div>
-            </div>
-            <div class="project-showcase-wall">
                 <div class="project-container">
                     <div class="project-column-title-img">
                         <a class="project-title" href="#">EPICS</a>
-                        <img class="project-img" src="images/epics.png" alt="epics">
+                        <a href="epics.html">
+                            <img class="project-img" src="images/epics.png" alt="epics">
+                        </a>
                     </div>  
                     <div class="project-column-desc">
                         <p class="project-desc">bla bla bla bla bla this is a temp project description. i am very cool guy what else can i say</p>
                     </div>
                 </div>
+            </div>
+                
     
             </div>
         </section>
         
         
     </main>
+    <script>
+        const interactive_text = document.getElementsByClassName('interactive-text');
+    
+        for (let i = 0; i <= interactive_text.length; i++) {
+        interactive_text[i].addEventListener('animationend', function(e) {
+            interactive_text[i].classList.remove('animated');
+        });
+    
+        interactive_text[i].addEventListener('mouseover', function(e) {
+        interactive_text[i].classList.add('animated')
+        })
+        }
+        
+    </script>
+    <script>
+        const project_container = document.getElementsByClassName('project-container');
+        
+        for (let i = 0; i <= project_container.length; i++) {
+            project_container[i].addEventListener('mouseleave', function(e) {
+                    project_container[i].classList.remove('hovered');
+                
+        });
+    
+        project_container[i].addEventListener('mouseenter', function(e) {
+            project_container[i].classList.add('hovered')
+        })
+        }
+    </script>
+    <script>
+        const menuBtn = document.querySelector('.menu-btn');
+        const menuCont = document.querySelector('.menu-container');
+        let menuOpen = false;
+        menuBtn.addEventListener('click', () => {
+            if(!menuOpen){
+                menuBtn.classList.add('open');
+                menuCont.classList.add('open');
+                menuOpen = true;
+            } else{
+                menuBtn.classList.remove('open');
+                menuCont.classList.remove('open');
+                menuOpen = false;
+            }
+        })
+    </script>
+    <script>
+       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+    </script>
+    
 </body>
-<script>
-    const interactive_text = document.getElementsByClassName('interactive-text');
 
-    for (let i = 0; i <= interactive_text.length; i++) {
-    interactive_text[i].addEventListener('animationend', function(e) {
-        interactive_text[i].classList.remove('animated');
-    });
 
-    interactive_text[i].addEventListener('mouseover', function(e) {
-    interactive_text[i].classList.add('animated')
-    })
-    }
-</script>
 </html>
