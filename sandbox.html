@@ -30,6 +30,9 @@
     h2{
         font-size: 6vh;
     }
+    ul{
+        padding-inline-start: 0px;
+    }
     li{
         margin: 10px 0px 10px 0px;
     }
@@ -72,7 +75,6 @@
         height: 90vh;
         padding-top: 25vh;
         padding-left: 10vh;
-        font-size: 8vh;
     }
     #section-about{
         height: auto;
@@ -166,7 +168,6 @@
     .menu-btn{
         margin: 10px 0px 10px 0px;
         float: right;
-        margin-left: 90vw;
         margin-right: auto;
         position: absolute;
         display: flex;
@@ -178,8 +179,8 @@
         transition: all .5s ease-in-out;
     }
     .menu-btn-burger{
-        width: 40px;
-        height: 5px;
+        width: 4vw;
+        height: .5vh;
         background: whitesmoke;
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(255, 101, 47, .2);
@@ -189,18 +190,18 @@
     .menu-btn-burger::after{
         content: '';
         position: absolute;
-        width: 40px;
-        height: 5px;
+        width: 4vw;
+        height: .5vh;
         background: whitesmoke;
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(255, 101, 47, .2);
         transition: all .5s ease-in-out;
     }
     .menu-btn-burger::before{
-        transform:translateY(12px);
+        transform:translateY(1vh);
     }
     .menu-btn-burger::after{
-        transform: translateY(-12px);
+        transform: translateY(-1vh);
     }
 
     .menu-container{
@@ -209,12 +210,11 @@
         position: relative;
         margin-left: auto;
         margin-right: 2vw;
-        justify-content: center;
-        align-items: center;
-        width: 20vw;
+        justify-content: right;
+        align-items:center;
         height: auto;
         cursor: pointer;
-        transform: translateX(20vw);
+        
         transition: all .5s ease-in-out;
     }
     .menu-content{
@@ -225,9 +225,7 @@
     }
 
 
-    .menu-btn.open{
-        margin-left: 70vw;
-    }
+    
     .menu-btn.open .menu-btn-burger{
         transform: translateX(-50px);
         background: transparent;
@@ -240,11 +238,101 @@
         transform: rotate(-45deg) translate(35px, 35px);
     }
     .menu-container.open{
-        transform: translateX(-2vw);
+        transform: translateX(0vw);
         border-color: whitesmoke;
     }
     .menu-container.open .menu-content{
         color: whitesmoke;
+    }
+    @media (min-width: 375px) {
+        .menu-btn-burger{
+            width: 6vw;
+            height: .5vh;
+        }
+        .menu-btn-burger::before,
+        .menu-btn-burger::after{
+            width: 6vw;
+            height: .5vh;
+        }
+        #section-home{
+            height: 75vh;
+            font-size: 2.9vh;
+            padding-top: 10vh;
+            padding-left: 2vw;
+            padding-right: 2vw;
+        }
+        .menu-btn{
+            margin-left: 80vw;
+        }
+        .menu-btn.open{
+            margin-left: 45vw;
+        }
+        .menu-container{
+            width: 35vw;
+            transform: translateX(100vw);
+        }
+        .menu-content{
+            font-size: 2.9vw;
+        }
+
+        
+    }
+    @media (min-width: 765px) {
+        .menu-btn-burger{
+            width: 5vw;
+            height: .5vh;
+        }
+        .menu-btn-burger::before,
+        .menu-btn-burger::after{
+            width: 5vw;
+            height: .5vh;
+        }
+        #section-home{
+            font-size: 3vh;
+            height: 75vh;
+            padding-top: 20vh;
+            padding-left: 5vw;
+        }
+        .menu-btn{            
+            margin-left: 90vw;
+        }   
+        .menu-btn.open{
+            margin-left: 60vw;
+        }
+        .menu-container{
+            width: 29vw;
+            transform: translateX(40vw);
+        }
+        .menu-content{
+            font-size: 2vw;
+        }
+    }
+    @media(min-width: 1000px){
+        .menu-btn-burger{
+            width: 2.5vw;
+            height: .5vh;
+        }
+        .menu-btn-burger::before,
+        .menu-btn-burger::after{
+            width: 2.5vw;
+            height: .5vh;
+        }
+        #section-home{
+            font-size: 3vw;
+        }
+        .menu-btn{            
+            margin-left: 90vw;
+        } 
+        .menu-btn.open{
+            margin-left: 60vw;
+        }
+        .menu-container{
+            width: 29vw;
+            transform: translateX(40vw);
+        }
+        .menu-content{
+            font-size: 2vw;
+        }
     }
     
 </style>
@@ -374,7 +462,7 @@
                     </h2>
                 </header>
                 <p>
-                    Here are a few of my projects that I've done either for fun, school, or work.
+                    Here are a few things that I've done for fun, school, or work.
                 </p>
             </div>
             <div class="project-showcase-wall">
@@ -382,7 +470,7 @@
                     <div class="project-column-title-img">
                         <a class="project-title" href="epics.html">EPICS</a>
                         <a href="epics.html">
-                        <img class="project-img" src="images/epics.png" alt="epics">
+                        <img class="project-img" src="images/epics.jpg" alt="epics">
                         </a>
                     </div>  
                     <div class="project-column-desc">
@@ -393,14 +481,30 @@
                 </div>
                 <div class="project-container">
                     <div class="project-column-title-img">
-                        <a class="project-title" href="#">EPICS</a>
-                        <a href="epics.html">
-                            <img class="project-img" src="images/epics.png" alt="epics">
+                        <a class="project-title" href="#">Omnicell</a>
+                        <a href="experience.html">
+                            <img class="project-img" src="images/omnicell_sandbox.jpg" alt="omnicell">
                         </a>
                     </div>  
                     <div class="project-column-desc">
-                        <p class="project-desc">bla bla bla bla bla this is a temp project description. i am very cool guy what else can i say</p>
+                        <p class="project-desc">Omnicell is a company that specializes in providing solutions to autonmous pharmacy distribution systems. 
+                            I have intenered at Omnicell from 2017-2020 during the summers and am now working here full-time. Click the picture to learn more
+                            about my experiences at Omnicell.</p>
                     </div>
+                </div>
+                <div class="project-container">
+                    <div class="project-column-title-img">
+                        <a class="project-title" href="#">Senior Design</a>
+                        <a href="education.html">
+                            <img class="project-img" src="images/senior_design.jpg" alt="senior_design">
+                        </a>
+                    </div>  
+                    <div class="project-column-desc">
+                        <p class="project-desc">For my Senior Design project at Purdue University, my team and I created a wireless phone charging handbag. 
+                            This was done during Spring 2020 therefore remotely. There were many challenges the team faced and we recorded all the modifications
+                             we made to our original idea. Click the picture to see several Design Documents as well as Demo Videos.</p>
+                    </div>
+                    
                 </div>
             </div>
                 
