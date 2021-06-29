@@ -28,6 +28,7 @@
         transition: opacity 0.6s;
     }
     h2{
+        margin-top: 0;
         font-size: 6vh;
     }
     ul{
@@ -83,6 +84,13 @@
         background-color: #111;
         font-size: 4vh;
     }
+    #section-timeline{
+        height: auto;
+        background-color: #1a1a1a;
+        font-size: 4vh;
+        display: block;
+        color: whitesmoke;
+    }
     .project-showcase-wall{
         position: relative;
         display: block;
@@ -104,7 +112,7 @@
         position: relative;
         transform: translateX(20vw);
         transition: all .5s ease-in-out;
-
+        text-align: left;
     } 
     .project-column-desc{
         float: right;
@@ -130,6 +138,8 @@
     }
     .project-img{
         position: absolute;
+        width: auto;
+        height: auto;
         max-width: 100%;
         max-height: 100%;
         transition: all .5s ease-in-out;
@@ -244,7 +254,67 @@
     .menu-container.open .menu-content{
         color: whitesmoke;
     }
+
+    .timeline-container{
+        margin: 0 auto;
+        max-width: 75vw;
+        padding: 25px;
+        display: grid;
+        grid-template-columns: 1fr 3px 1fr;
+    }
+    .timeline-content{
+        margin: 0 20px 20px 20px;
+    }
+    .timeline-content--bg{
+        transform: scale(98%);
+        padding: 1.5em;
+        background: rgba(255,255,255,0.1);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        border-radius: 10%;
+        transition: 0.3s ease-in-out;
+    }
+    .timeline-content--bg:hover{
+        transform: scale(103%);
+    }
+    .timeline-date--right{
+        text-align: right;
+    }
+    .timeline-line{
+        position: relative;
+        background-color: whitesmoke;
+    }
+    .timeline-point{
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: whitesmoke;
+    }
+    .timeline-point--bottom{
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: whitesmoke;
+    }
+    .timeline-title{
+        margin: 0;
+        font-size: 1.15em;
+    }
+    .timeline-paragraph{
+        font-size: 0.9em;
+        line-height: 1.5;
+    }
     @media (min-width: 375px) {
+        .project-img{
+            transform: scale(1, 1);
+        }
         .menu-btn-burger{
             width: 6vw;
             height: .5vh;
@@ -332,6 +402,15 @@
         }
         .menu-content{
             font-size: 2vw;
+        }
+    }
+    @media (min-width: 2560px){
+        .project-img{
+            transform: scale(1.25, 1.25);
+        }
+        .project-container.hovered .project-img{  
+            opacity: 0.3;
+            transform: translateX(6vw);
         }
     }
     
@@ -488,7 +567,7 @@
                     </div>  
                     <div class="project-column-desc">
                         <p class="project-desc">Omnicell is a company that specializes in providing solutions to autonmous pharmacy distribution systems. 
-                            I have intenered at Omnicell from 2017-2020 during the summers and am now working here full-time. Click the picture to learn more
+                            I have interned at Omnicell from 2017-2020 during the summers and am now working here full-time. Click the picture to learn more
                             about my experiences at Omnicell.</p>
                     </div>
                 </div>
@@ -510,6 +589,155 @@
                 
     
             </div>
+        </section>
+        <section id="section-timeline" class="homepage-section">
+            <div>
+                <header>
+                    <h2>
+                        <span class="interactive-text">M</span>
+                        <span class="interactive-text">y</span>
+                        <pre class="interactive-text"> </pre>
+                        <span class="interactive-text">T</span>
+                        <span class="interactive-text">i</span>
+                        <span class="interactive-text">m</span>
+                        <span class="interactive-text">e</span>
+                        <span class="interactive-text">l</span>
+                        <span class="interactive-text">i</span>
+                        <span class="interactive-text">n</span>
+                        <span class="interactive-text">e</span>
+
+                    </h2>
+                </header>
+                <p>
+                    A chronological list of milestones that were important to me
+                </p>
+            </div>
+            <div class="timeline-container">
+                <div class="timeline-content">
+                    <div class="timeline-date--right">June 29, 2021</div>
+                </div>
+                <div class="timeline-line">
+                    <div class="timeline-point"></div>
+                </div>
+                <div class="timeline-content timeline-content--bg">
+                    <h2 class="timeline-title">
+                        Last time this page was updated
+                    </h2>
+                    <p class="timeline-paragraph">
+                        In this update, I added the timeline section-yes the one you're looking at right now!
+                    </p>
+                </div>
+
+                <div class="timeline-content timeline-content--bg">
+                    <h2 class="timeline-title">
+                        First Full-Time Job
+                    </h2>
+                    <p class="timeline-paragraph">
+                        On this date, I started my career at Omnicell working as a Full-Stack Software Engineer. It was really exciting!
+                    </p>
+                </div>
+                <div class="timeline-line">
+                    <div class="timeline-point"></div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-date">May 17, 2021</div>
+                </div>
+
+                <div class="timeline-content">
+                    <div class="timeline-date--right">May 8, 2021</div>
+                </div>
+                <div class="timeline-line">
+                    <div class="timeline-point"></div>
+                </div>
+                <div class="timeline-content timeline-content--bg">
+                    <h2 class="timeline-title">
+                        Graduated from College
+                    </h2>
+                    <p class="timeline-paragraph">
+                        After a long, difficult, and memorable journey at college, I graduated from Purdue University with a Bachelor's Degree in Computer Engineering as well as a Certificate in Entrepreneurship and Innovation
+                    </p>
+                </div>
+
+                <div class="timeline-content timeline-content--bg">
+                    <h2 class="timeline-title">
+                        Internship - 3
+                    </h2>
+                    <p class="timeline-paragraph">
+                        I began my third internship with Omnicell, this time working with report building tools such as MSRB and Tableau.
+                    </p>
+                </div>
+                <div class="timeline-line">
+                    <div class="timeline-point"></div>
+                </div>
+
+                <div class="timeline-content">
+                    <div class="timeline-date">May 26, 2020</div>
+                </div>
+
+                <div class="timeline-content">
+                    <div class="timeline-date--right">May 27, 2019</div>
+                </div>
+                <div class="timeline-line">
+                    <div class="timeline-point"></div>
+                </div>
+                <div class="timeline-content timeline-content--bg">
+                    <h2 class="timeline-title">
+                        Internship - 2
+                    </h2>
+                    <p class="timeline-paragraph">
+                        This internship was again with Omnicell. Here I picked up some experience in web development and testing. This internship was located in Mountain View, California. It was nice being back home for the summer.
+                    </p>
+                </div>
+
+                <div class="timeline-content timeline-content--bg">
+                    <h2 class="timeline-title">
+                        Internship - 1
+                    </h2>
+                    <p class="timeline-paragraph">
+                        My first internship was with Omnicell. I was located near Pittsburgh, Pennsylvania. Out of all my internships, this was definitely the most fun. After all, I was working with robots and computer vision as a Sophomore in college!
+                    </p>
+                </div>
+                <div class="timeline-line">
+                    <div class="timeline-point"></div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-date">May 21, 2018</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date--right">August 8, 2016</div>
+                </div>
+                <div class="timeline-line">
+                    <div class="timeline-point"></div>
+                </div>
+                <div class="timeline-content timeline-content--bg">
+                    <h2 class="timeline-title">
+                        I started College
+                    </h2>
+                    <p class="timeline-paragraph">
+                        I began my journey at Purdue University - Boiler Up! I came to Purdue with the ambition of becoming a BioMedical Engineer. I really wanted to work in the medical engineering industry in High School and thought that BME would help get me there.
+                    </p>
+                </div>
+
+                <div class="timeline-content timeline-content--bg">
+                    <h2 class="timeline-title">
+                        Graduated from High School
+                    </h2>
+                    <p class="timeline-paragraph">
+                        High School was filled with amazing memories and friends, some of whom I still keep up with today! Graduating from Clovis North (Fresno, CA) and leaving everything and everyone behind going to Purdue (West Lafayette, IN) was heartbreaking, but a valuable lesson to learn.
+                    </p>
+                </div>
+                <div class="timeline-line">
+                    <div class="timeline-point"></div>
+                    <div class="timeline-point--bottom"></div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-date">June 6, 2016</div>
+                </div>
+
+            </div>
+            
+                
         </section>
         
         
@@ -559,10 +787,12 @@
         })
     </script>
     <script>
+       
        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
+            anchor.addEventListener('click', () => {
+                menuBtn.classList.remove('open');
+                menuCont.classList.remove('open');
+                menuOpen = false;
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
