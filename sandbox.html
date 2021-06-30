@@ -9,13 +9,13 @@
 <style>
     html{
         scroll-behavior: smooth;
+        background-color: #222;
     }
     body{
         box-sizing: border-box;
         font-family: Arial, Helvetica, sans-serif;
         background-color: #222;
-        margin-left: 0px;
-        margin-right: 0px;
+        margin: 0;
         overflow-x: hidden;
     }
     main{
@@ -27,7 +27,15 @@
         position: relative;
         transition: opacity 0.6s;
     }
+    .section-header{
+        opacity: 0;
+        transition: 0.4s ease-in-out;
+    }
+    .section-header[data-scroll="in"]{
+        opacity: 1;
+    }
     h2{
+        padding-top: 5vh;
         margin-top: 0;
         font-size: 6vh;
     }
@@ -264,6 +272,11 @@
     }
     .timeline-content{
         margin: 0 20px 20px 20px;
+        opacity: 0;
+        transition: 0.6s ease-in-out;
+    }
+    .timeline-content[data-scroll="in"]{
+        opacity: 1;
     }
     .timeline-content--bg{
         transform: scale(98%);
@@ -271,10 +284,11 @@
         background: rgba(255,255,255,0.1);
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
         border-radius: 10%;
-        transition: 0.3s ease-in-out;
     }
     .timeline-content--bg:hover{
         transform: scale(103%);
+        
+        transition: 0.3s ease-in-out;
     }
     .timeline-date--right{
         text-align: right;
@@ -310,6 +324,11 @@
     .timeline-paragraph{
         font-size: 0.9em;
         line-height: 1.5;
+        opacity: 0;
+        transition: 0.6s ease-in-out;
+    }
+    .timeline-paragraph[data-scroll="in"]{
+        opacity: 1;
     }
     @media (min-width: 375px) {
         .project-img{
@@ -416,8 +435,6 @@
     
 </style>
 <body>
-    <h1 class="site-title" style="color: white;">Sandbox</h1>
-    <a class="link" href="home.html">Go back Home</a>
     <main>
         <nav>
             <div class="menu-btn">
@@ -443,35 +460,27 @@
                             <span class="interactive-text">e</span>
                             </a>
                         </li>
-                        <li><a href="#section-about">
+                        <li><a href="#section-timeline">
                             <span class="interactive-text">M</span>
                             <span class="interactive-text">y</span>
                             <pre class="interactive-text"> </pre>
-                            <span class="interactive-text">E</span>
-                            <span class="interactive-text">x</span>
-                            <span class="interactive-text">p</span>
-                            <span class="interactive-text">e</span>
-                            <span class="interactive-text">r</span>
+                            <span class="interactive-text">T</span>
                             <span class="interactive-text">i</span>
+                            <span class="interactive-text">m</span>
                             <span class="interactive-text">e</span>
+                            <span class="interactive-text">l</span>
+                            <span class="interactive-text">i</span>
                             <span class="interactive-text">n</span>
-                            <span class="interactive-text">c</span>
                             <span class="interactive-text">e</span>
                             </a>
                         </li>
-                        <li><a href="#section-about">
-                            <span class="interactive-text">M</span>
-                            <span class="interactive-text">y</span>
+                        <li><a href="home.html">
+                            <span class="interactive-text">G</span>
+                            <span class="interactive-text">o</span>
                             <pre class="interactive-text"> </pre>
-                            <span class="interactive-text">E</span>
-                            <span class="interactive-text">x</span>
-                            <span class="interactive-text">p</span>
-                            <span class="interactive-text">e</span>
-                            <span class="interactive-text">r</span>
-                            <span class="interactive-text">i</span>
-                            <span class="interactive-text">e</span>
-                            <span class="interactive-text">n</span>
-                            <span class="interactive-text">c</span>
+                            <span class="interactive-text">H</span>
+                            <span class="interactive-text">o</span>
+                            <span class="interactive-text">m</span>
                             <span class="interactive-text">e</span>
                             </a>
                         </li>
@@ -523,7 +532,7 @@
         <section id="section-about" class="homepage-section">
             <div>
                 <header>
-                    <h2>
+                    <h2 class="section-header">
                         <span class="interactive-text">M</span>
                         <span class="interactive-text">y</span>
                         <pre class="interactive-text"> </pre>
@@ -593,7 +602,7 @@
         <section id="section-timeline" class="homepage-section">
             <div>
                 <header>
-                    <h2>
+                    <h2 class="section-header">
                         <span class="interactive-text">M</span>
                         <span class="interactive-text">y</span>
                         <pre class="interactive-text"> </pre>
@@ -800,7 +809,12 @@
         });
 
     </script>
-    
+    <script src="scroll-out.js"></script>
+    <script type="text/javascript">
+        ScrollOut({
+            targets: '.section-header, .timeline-content, .timeline-paragraph'
+        })
+    </script>
 </body>
 
 
