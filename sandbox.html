@@ -259,7 +259,7 @@
         align-items:center;
         height: auto;
         cursor: pointer;
-        
+        opacity: 0;
         transition: all .5s ease-in-out;
     }
     .menu-content{
@@ -286,6 +286,7 @@
     .menu-container.open{
         transform: translateX(0vw);
         border-color: whitesmoke;
+        opacity: 1;
     }
     .menu-container.open .menu-content{
         color: whitesmoke;
