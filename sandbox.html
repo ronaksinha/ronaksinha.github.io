@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <link href="fcf-assets/css/fcf.default.css" rel="stylesheet">
-    <link href="fcf-assets/css/fcf.default-custom.css" rel="stylesheet">
     <title>Sandbox</title>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
@@ -31,6 +29,24 @@
         position: relative;
         transition: opacity 0.6s;
         padding-bottom: 15vh;
+    }
+    input{
+        display: block;
+        margin: 0 auto 0 auto;
+        overflow: hidden;
+        resize: both;
+        line-height: 20px;
+        background-color: whitesmoke;
+    }
+    textarea {
+        display: block;
+        margin: 0 auto 0 auto;
+        min-width: 40vw;
+        min-height: 20vh;
+        overflow: hidden;
+        resize: both;
+        line-height: 20px;
+        background-color: whitesmoke;
     }
 
 
@@ -101,7 +117,7 @@
         color: white;
         text-decoration: none;
     }
-    #section-about, #section-timeline, #section-skills{
+    #section-about, #section-timeline, #section-skills, #section-contact{
             text-align: center;
     }
     #section-home{  
@@ -439,6 +455,18 @@
         transition: 0.3s ease;
     }
 
+    #contact-form{
+        color: whitesmoke;
+    }
+    #contact-form button{
+        width: 100px;
+        height: 30px;
+    }
+    #contact-form button:hover{
+        background-color: rgb(136, 255, 0);
+        width: 100px;
+        height: 30px;
+    }
 
     @media (min-width: 375px) {
         body{
@@ -878,7 +906,7 @@
             </div>
             <div class="timeline-container">
                 <div class="timeline-content">
-                    <div class="timeline-date--right">June 29, 2021</div>
+                    <div class="timeline-date--right">August 6, 2021</div>
                 </div>
                 <div class="timeline-line">
                     <div class="timeline-point"></div>
@@ -888,7 +916,7 @@
                         Last time this page was updated
                     </h2>
                     <p class="timeline-paragraph">
-                        In this update, I added the timeline section-yes the one you're looking at right now!
+                        In this update, I added the contact section. I learned that Github Pages does not support PHP so I had to use a different, and my opinion less clean, approach by using an external (but free) API.
                     </p>
                 </div>
 
@@ -1056,28 +1084,29 @@
                     <div class="skills-bar"  style="width: 60%;"  data-aos="fade-right" data-aos-duration="1000">
                         <div class="skills-bar-desc">Proficient</div>
                     </div>
+                </div> 
+                <div class="skills-skill">
+                    <div class="skills-name"> C#</div>
+                    <div class="skills-bar"  style="width: 50%;"  data-aos="fade-right" data-aos-duration="1000">
+                        <div class="skills-bar-desc">Basic</div>
+                    </div>
                 </div>
                 <div class="skills-skill">
                     <div class="skills-name"> HTML</div>
-                    <div class="skills-bar"  style="width: 30%;"  data-aos="fade-right" data-aos-duration="1000"> 
+                    <div class="skills-bar"  style="width: 50%;"  data-aos="fade-right" data-aos-duration="1000"> 
                         <div class="skills-bar-desc">Basic</div>
                     </div>
                 </div>
                 <div class="skills-skill">
                     <div class="skills-name"> CSS</div>
-                    <div class="skills-bar"  style="width: 30%;"  data-aos="fade-right" data-aos-duration="1000">
+                    <div class="skills-bar"  style="width: 50%;"  data-aos="fade-right" data-aos-duration="1000">
                         <div class="skills-bar-desc">Basic</div>
                     </div>
                 </div>
-                <div class="skills-skill">
-                    <div class="skills-name"> C#</div>
-                    <div class="skills-bar"  style="width: 30%;"  data-aos="fade-right" data-aos-duration="1000">
-                        <div class="skills-bar-desc">Basic</div>
-                    </div>
-                </div>
+               
                 <div class="skills-skill">
                     <div class="skills-name"> JavaScript</div>
-                    <div class="skills-bar"  style="width: 10%;"  data-aos="fade-right" data-aos-duration="1000">
+                    <div class="skills-bar"  style="width: 20%;"  data-aos="fade-right" data-aos-duration="1000">
                         <div class="skills-bar-desc">Lots to Learn!</div>
                     </div>
                 </div>
@@ -1148,74 +1177,56 @@
                         <div class="skills-bar-desc">Lots to Learn!</div>
                     </div>
                 </div>
-                <div class="skills-skill">
-                    <div class="skills-name"> CodeFresh</div>
-                    <div class="skills-bar"  style="width: 10%;"  data-aos="fade-right" data-aos-duration="1000">
-                        <div class="skills-bar-desc">Lots to Learn!</div>
-                    </div>
-                </div>
                 
             </div>
-        </section>
-        <section id="section-contact">
-            <div class="fcf-body">
-                <div class="fcf-form-wrap">
-                    <div id="fcf-form">
-                        <form class="fcf-form-class" method="post" action="fcf-assets/fcf.process.php">
-        
-                            <div class="fcf-field">
-                                <label for="Name" class="fcf-label has-text-weight-normal">Your name</label>
-                                <div class="fcf-control">
-                                    <input type="text" name="Name" id="Name" class="fcf-input is-full-width" maxlength="60"
-                                        data-validate-field="Name">
-                                </div>
-                            </div>
-                            <div class="fcf-field">
-                                <label for="Email" class="fcf-label has-text-weight-normal">Your email address</label>
-                                <div class="fcf-control">
-                                    <input type="email" name="Email" id="Email" class="fcf-input is-full-width" maxlength="100"
-                                        data-validate-field="Email">
-                                </div>
-                            </div>
-                            <div class="fcf-field">
-                                <label for="Phone" class="fcf-label has-text-weight-normal">Your phone number (optional)</label>
-                                <div class="fcf-control">
-                                    <input type="text" name="Phone" id="Phone" class="fcf-input is-full-width" maxlength="30"
-                                        data-validate-field="Phone">
-                                </div>
-                            </div>
-                            <div class="fcf-field">
-                                <label for="Message" class="fcf-label has-text-weight-normal">Your message</label>
-                                <div class="fcf-control">
-                                    <textarea name="Message" id="Message" class="fcf-textarea" maxlength="3000" rows="5"
-                                        data-validate-field="Message"></textarea>
-                                </div>
-                            </div>
-                            <div id="fcf-status" class="fcf-status"></div>
-                            <div class="fcf-field">
-                                <div class="fcf-buttons">
-                                    <button id="fcf-button" type="submit" class="fcf-button is-link is-medium is-fullwidth">Send
-                                        Message</button>
-                                </div>
-                            </div>
-                            <!-- You MUST retain the attribution below -->
-                            <div class="fcf-attribution">Contact Form by <a href="https://www.freecontactform.com/"
-                                    class="fcf-attribution-link">FreeContactForm</a></div>
-                        </form>
-                    </div>
-                    <div id="fcf-thank-you" style="display:none">
-                        <!-- Thank you message goes below -->
-                        <p>Thanks for contacting us, we will get back in touch with you soon.</p>
-                        <!-- Thank you message goes above -->
-                    </div>
-                </div>
+        </section>   
+        <section id="section-contact">       
+            <div>
+                <header>
+                    <h2 class="section-header">
+                        <span class="interactive-text">C</span>
+                        <span class="interactive-text">o</span>
+                        <span class="interactive-text">n</span>
+                        <span class="interactive-text">t</span>
+                        <span class="interactive-text">a</span>
+                        <span class="interactive-text">c</span>
+                        <span class="interactive-text">t</span>
+                        <pre class="interactive-text"> </pre>
+                        <span class="interactive-text">m</span>
+                        <span class="interactive-text">e</span>
+
+                    </h2>
+                </header>
+                <p class="section-paragraph">
+                    Send me a message to begin a conversation!
+                </p>
             </div>
-            <script src="fcf-assets/js/lang/fcf.en.js"></script>
-            <script src="fcf-assets/js/fcf.just-validate.min.js"></script>
-            <script src="fcf-assets/js/fcf.form.js"></script>
-        </section>
-        
-        
+            <div id="contact">
+                <div id="contact-form">
+                        <form action="https://formspree.io/f/xwkarjek" method="POST">
+                        <input type="hidden" name="_subject" value="Contact request from personal website" />
+                        <div>
+                            <p>
+                                Your email
+                                <input type="email" name="_replyto" placeholder="email@mail.com" required style="display: block;">
+                            </p>
+                            
+                        </div>
+                        <div>
+                            <p>
+                                Message: 
+                               <textarea name="message" required ></textarea>
+                            </p>
+                            
+                        </div>
+                        <div>
+                            <button type="submit">Send</button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>   
+        </section>  
         
     </main>
     <script>
