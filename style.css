@@ -88,7 +88,7 @@ a{
     color: white;
     text-decoration: none;
 }
-#section-about, #section-timeline, #section-skills, #section-contact{
+#section-about, #section-timeline, #section-skills, #section-contact, #section-website{
         text-align: center;
 }
 #section-home{  
@@ -122,6 +122,17 @@ a{
     font-size: 4vh;
     display: block;
     color: whitesmoke; 
+}
+#section-website{
+    min-height: 100vh;
+    background-color: #313131;
+    font-size: 4vh;
+    display: block;
+    color: whitesmoke; 
+}
+.website-desc-p{
+    text-align: left;
+    font-size: 0.5em;
 }
 .project-showcase-wall{
     position: relative;
