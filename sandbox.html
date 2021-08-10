@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Sandbox</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Home</title>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="style.css">
 </head>
@@ -522,7 +523,7 @@
                         <div>
                             <p>
                                 Message 
-                               <textarea name="message" required ></textarea>
+                               <textarea  name="message" required ></textarea>
                             </p>
                             
                         </div>
@@ -568,8 +569,18 @@
             </div>
 
         </section>
+        <div class="loader-wrapper">
+            <span class="loader"><span class="loader-inner"></span></span>
+            <span class="loader"><span class="loader-inner"></span></span>
+            <span class="loader"><span class="loader-inner"></span></span>
+          </div>
         
     </main>
+    <script>
+        $(window).on("load", function(){
+            $(".loader-wrapper").fadeOut("slow");
+        });
+    </script>
     <script>
         const interactive_text = document.getElementsByClassName('interactive-text');
     
@@ -639,6 +650,7 @@
     <script>
       AOS.init();
     </script>
+    
 </body>
 
 
