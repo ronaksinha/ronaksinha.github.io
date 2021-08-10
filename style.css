@@ -503,10 +503,6 @@ nav{
     .project-img{
         transform: scale(1.5, 1.5);
     }
-    .project-container.hovered .project-img{  
-        opacity: 0.3;
-        transform: translateX(6vw);
-    }
 
     .timeline-container, .skills-container{
         max-width: 100%;
@@ -657,6 +653,38 @@ nav{
     }
 }
 @media(min-width: 1280px){
+    .menu-btn-burger{
+        width: 3vw;
+        height: .5vh;
+    }
+    .menu-btn-burger::before,
+    .menu-btn-burger::after{
+        width: 3vw;
+        height: .5vh;
+    }
+    #section-home{
+        font-size: 3.9em;
+        margin-top: 0vh;
+    }
+    .section-header{
+        font-size: 2em;
+    }
+    .section-paragraph{
+        font-size: 1.75em;
+    }
+    .menu-btn{            
+        margin-left: 90vw;
+    }   
+    .menu-btn.open{
+        margin-left: 60vw;
+    }
+    .menu-container{
+        width: 30vw;
+        transform: translateX(40vw);
+    }
+    .menu-content{
+        font-size: 2vw;
+    }
     .project-container{
         height: 100vh;
         margin-top: 10vh;
@@ -709,6 +737,15 @@ nav{
 
 }
 @media (min-width: 2560px){
+    .menu-btn-burger{
+        width: 3vw;
+        height: .5vh;
+    }
+    .menu-btn-burger::before,
+    .menu-btn-burger::after{
+        width: 3vw;
+        height: .5vh;
+    }
     #section-home{
         font-size: 5em;
         margin-top: 0vh;
