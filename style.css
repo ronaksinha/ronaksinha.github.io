@@ -453,6 +453,7 @@ nav{
 
 #contact-form{
     color: whitesmoke;
+    height: auto;
 }
 #contact-form button{
     width: 100px;
@@ -476,6 +477,8 @@ nav{
     overflow: hidden;
     resize: both;
     line-height: 20px;
+    font-size: 20px;
+    font-family: sans-serif;
     background-color: whitesmoke;
     }
     input{
@@ -486,7 +489,8 @@ nav{
     min-width: 200px;
     overflow: hidden;
     resize: both;
-    line-height: 20px;
+    line-height: 25px;
+    font-size: 25px;
     font-family: sans-serif;
     background-color: whitesmoke;
     }
@@ -523,14 +527,14 @@ nav{
         margin-left: 80vw;
     }
     .menu-btn.open{
-        margin-left: 45vw;
+        margin-left: 25vw;
     }
     .menu-container{
-        width: 35vw;
+        width: 55vw;
         transform: translateX(100vw);
     }
     .menu-content{
-        font-size: 2.9vw;
+        font-size: 5vw;
     }
     .project-container{
         height: 20vh;
@@ -585,7 +589,7 @@ nav{
         font-size: 3em;
         height: 65vh;
         padding-left: 5vw;
-        margin-top: 20vh;
+        margin-top: 5vh;
     }
     .section-header{
         font-size: 1.15em;
@@ -597,14 +601,14 @@ nav{
         margin-left: 90vw;
     }   
     .menu-btn.open{
-        margin-left: 60vw;
+        margin-left: 50vw;
     }
     .menu-container{
-        width: 29vw;
+        width: 40vw;
         transform: translateX(40vw);
     }
     .menu-content{
-        font-size: 2vw;
+        font-size: 3.5vw;
     }
     .project-container{
         height: 40vh;
@@ -621,36 +625,36 @@ nav{
 }
 @media(min-width: 1000px){
     .menu-btn-burger{
-        width: 2.5vw;
+        width: 4vw;
         height: .5vh;
     }
     .menu-btn-burger::before,
     .menu-btn-burger::after{
-        width: 2.5vw;
+        width: 4vw;
         height: .5vh;
     }
     #section-home{
-        font-size: 3em;
-        margin-top: 9vh;
+        font-size: 3.9em;
+        margin-top: 10vh;
     }
     .section-header{
-        font-size: 1.5em;
+        font-size: 1em;
     }
     .section-paragraph{
-        font-size: 1.15em;
+        font-size: 0.75em;
     }
     .menu-btn{            
         margin-left: 90vw;
-    } 
+    }   
     .menu-btn.open{
-        margin-left: 60vw;
+        margin-left: 50vw;
     }
     .menu-container{
-        width: 29vw;
+        width: 40vw;
         transform: translateX(40vw);
     }
     .menu-content{
-        font-size: 2vw;
+        font-size: 3.5vw;
     }
     .project-container{
         height: 50vh;
@@ -662,6 +666,34 @@ nav{
     .project-container.hovered .project-img{  
         opacity: 0.3;
         transform: translateX(6vw);
+    }
+    #section-contact{
+        height: 100vh;
+    }
+    input{
+        text-align: center;
+        display: block;
+        margin: 0 auto 0 auto;
+        min-height: 30px;
+        min-width: 200px;
+        overflow: hidden;
+        resize: both;
+        line-height: 20px;
+        font-size: 20px;
+        font-family: sans-serif;
+        background-color: whitesmoke;
+    }
+    textarea {
+        display: block;
+        margin: 0 auto 0 auto;
+        min-width: 40vw;
+        min-height: 20vh;
+        overflow: hidden;
+        resize: both;
+        line-height: 25px;
+        font-family: sans-serif;
+        font-size: 20px;
+        background-color: whitesmoke;
     }
 }
 @media(min-width: 1280px){
@@ -697,28 +729,7 @@ nav{
     .skills-bar{
         height: 0.75em;
     }
-    input{
-        text-align: center;
-        display: block;
-        margin: 0 auto 0 auto;
-        min-height: 30px;
-        min-width: 200px;
-        overflow: hidden;
-        resize: both;
-        line-height: 20px;
-        font-family: sans-serif;
-        background-color: whitesmoke;
-    }
-    textarea {
-        display: block;
-        margin: 0 auto 0 auto;
-        min-width: 40vw;
-        min-height: 20vh;
-        overflow: hidden;
-        resize: both;
-        line-height: 20px;
-        background-color: whitesmoke;
-    }
+    
 
 }
 @media (min-width: 2560px){
