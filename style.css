@@ -131,8 +131,11 @@ a{
     color: white;
     text-decoration: none;
 }
-#section-about, #section-timeline, #section-skills, #section-contact, #section-website{
+#section-about, #section-timeline, #section-skills, #section-contact, #section-website, #section-epics, #section-omnicell{
         text-align: center;
+        color: whitesmoke;
+        display: block;
+        font-size: 4vh;
 }
 #section-home{  
     height: 90vh;
@@ -140,42 +143,27 @@ a{
 }
 #section-about{
     height: auto;
-    color: whitesmoke;
-    display: block;
     background-color: #111;
-    font-size: 4vh;
 }
 #section-timeline{
     height: auto;
     background-color: #1a1a1a;
-    font-size: 4vh;
-    display: block;
-    color: whitesmoke;
 }
 #section-skills{
     min-height: 100vh;
     background-color: #222;
-    font-size: 4vh;
-    display: block;
-    color: whitesmoke; 
 }
 #section-contact{
     min-height: 100vh;
     background-color: #2a2a2a;
-    font-size: 4vh;
-    display: block;
-    color: whitesmoke; 
 }
 #section-website{
     min-height: 100vh;
     background-color: #313131;
-    font-size: 4vh;
-    display: block;
-    color: whitesmoke; 
 }
-.website-desc-p{
-    text-align: left;
-    font-size: 0.5em;
+#section-epics, #section-omnicell{
+    min-height: 100vh;
+    background-color: #000;
 }
 .project-showcase-wall{
     position: relative;
@@ -236,6 +224,19 @@ a{
     font-size: 1.5vw;
     font-family: sans-serif;
     position: absolute;
+    padding: 0 15px 0 15px;
+    color: whitesmoke;
+    transition: all .6s ease-in-out;
+}
+.epics-desc, .omnicell-desc{
+    width: 100%;
+    position: relative;
+    height: fit-content;
+    text-align: left;
+    opacity: 1;
+    line-height: 2vw;
+    font-size: 1.5vw;
+    font-family: sans-serif;
     padding: 0 15px 0 15px;
     color: whitesmoke;
     transition: all .6s ease-in-out;

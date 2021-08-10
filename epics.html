@@ -4,16 +4,144 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>EPICS</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p class="project-desc">The EPICS program (Engineering Projects in Community Service) is a service-learning design 
-        program in which teams of students partner with local and global community organizations to address human, community, 
-        and environmental needs. Here, I had the opportunity to work with the I2R (Innovation to Reality) team to encourage students
-         from K-12 to consider becoming an engineer. Our team had a focus of making sure that all students felt like they belonged, 
-         regardless of race, creed, color, or religion. Our team designed a hands-on learning activity that revolved around a theme
-        of sustainability and promoted ideas of diminishing climate change. The experience was meant to not only be educational, but also
-        fun and engaging. Guest speakers from the College of Agriculture were present and spoke about things we can all do to help reduce
-        global warming</p>
+    <main>
+        <nav>
+            <div class="menu-btn">
+                <div class="menu-btn-burger"></div>
+            </div>
+            <div class="menu-container">
+                <div class="menu-content">
+                    <ul style="list-style-type: none;">
+                        <li><a href="index.html">
+                            <span class="interactive-text">H</span>
+                            <span class="interactive-text">o</span>
+                            <span class="interactive-text">m</span>
+                            <span class="interactive-text">e</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+        <section id="section-epics">
+            <div>
+                <header>
+                    <h2 class="section-header">
+                        <span class="interactive-text">E</span>
+                        <span class="interactive-text">P</span>
+                        <span class="interactive-text">I</span>
+                        <span class="interactive-text">C</span>
+                        <span class="interactive-text">S</span>
+
+                    </h2>
+                </header>
+                <p class="section-paragraph">
+                    EPICS (Engineering Projects in Community Service)
+                </p>
+            </div>
+            <div>
+                <img src="images/epics.jpg" alt="epics">
+                <p class="epics-desc">
+                    <hr>
+                    EPICS program (Engineering Projects in Community Service) is a service-learning design 
+                    program in which teams of students partner with local and global community organizations to address human, community, 
+                    and environmental needs. Here, I had the opportunity to work with the I2R (Innovation to Reality) team to encourage students
+                    from K-12 to consider becoming an engineer. Our team had a focus of making sure that all students felt like they belonged, 
+                    regardless of race, creed, color, or religion. Our team designed a hands-on learning activity that revolved around a theme
+                    of sustainability and promoted ideas of diminishing climate change. The experience was meant to not only be educational, but also
+                    fun and engaging. Guest speakers from the College of Agriculture were present and spoke about things we can all do to help reduce
+                    global warming
+                </p>
+            </div>
+            
+        </section>
+
+        <div class="loader-wrapper">
+            <span class="loader"><span class="loader-inner"></span></span>
+            <span class="loader"><span class="loader-inner"></span></span>
+            <span class="loader"><span class="loader-inner"></span></span>
+          </div>
+    </main>
+    <script>
+        $(window).on("load", function(){
+            $(".loader-wrapper").fadeOut("slow");
+        });
+    </script>
+    <script>
+        const interactive_text = document.getElementsByClassName('interactive-text');
+    
+        for (let i = 0; i <= interactive_text.length; i++) {
+        interactive_text[i].addEventListener('animationend', function(e) {
+            interactive_text[i].classList.remove('animated');
+        });
+    
+        interactive_text[i].addEventListener('mouseover', function(e) {
+        interactive_text[i].classList.add('animated')
+        })
+        }
+        
+    </script>
+    <script>
+        
+        const project_container = document.getElementsByClassName('project-container');
+        
+        for (let i = 0; i <= project_container.length; i++) {
+            project_container[i].addEventListener('mouseleave', function(e) {
+                    project_container[i].classList.remove('hovered');
+                
+        });
+    
+        project_container[i].addEventListener('mouseenter', function(e) {
+            project_container[i].classList.add('hovered')
+        })
+        }
+    </script>
+    <script>
+        const menuBtn = document.querySelector('.menu-btn');
+        const menuCont = document.querySelector('.menu-container');
+        let menuOpen = false;
+        menuBtn.addEventListener('click', () => {
+            if(!menuOpen){
+                menuBtn.classList.add('open');
+                menuCont.classList.add('open');
+                menuOpen = true;
+            } else{
+                menuBtn.classList.remove('open');
+                menuCont.classList.remove('open');
+                menuOpen = false;
+            }
+        })
+    </script>
+    <script>
+       
+       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', () => {
+                menuBtn.classList.remove('open');
+                menuCont.classList.remove('open');
+                menuOpen = false;
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+    </script>
+    <script src="scroll-out.js"></script>
+    <script type="text/javascript">
+        ScrollOut({
+            targets: '.section-header, .section-paragraph, .timeline-content, .timeline-paragraph, .fading-effect'
+        })
+    </script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
 </body>
 </html>
