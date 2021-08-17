@@ -509,31 +509,37 @@
                     Send me a message to begin a conversation!
                 </p>
             </div>
-            <div id="contact">
-                <div id="contact-form">
-                        <form action="https://formspree.io/f/xwkarjek" method="POST">
-                        <input type="hidden" name="_subject" value="Contact request from personal website" />
-                        <div>
-                            <p>
-                                Your email
-                                <input type="email" name="_replyto" placeholder="email@mail.com" required style="display: block;">
-                            </p>
-                            
-                        </div>
-                        <div>
-                            <p>
-                                Message 
-                               <textarea  name="message" required ></textarea>
-                            </p>
-                            
-                        </div>
-                        <div>
-                            <button type="submit">Send</button>
-                        </div>
-                        
-                    </form>
+            <div class="contact-grid">
+                <div class="badge-container">
+                    <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="ronak-sinha" data-version="v1"></div>
                 </div>
-            </div>   
+                <div id="contact">
+                    <div id="contact-form">
+                            <form action="https://formspree.io/f/xwkarjek" method="POST">
+                            <input type="hidden" name="_subject" value="Contact request from personal website" />
+                            <div>
+                                <p>
+                                    Your email
+                                    <input type="email" name="_replyto" placeholder="email@mail.com" required style="display: block;">
+                                </p>
+                                
+                            </div>
+                            <div>
+                                <p>
+                                    Message 
+                                <textarea  name="message" required ></textarea>
+                                </p>
+                                
+                            </div>
+                            <div>
+                                <button type="submit">Send</button>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>   
+            </div>
+            
         </section>  
         <section id=section-website>
             <div>
@@ -554,7 +560,7 @@
                 <p class="section-paragraph">
                     What is this website all about
                 </p>
-                <p class=website-desc-p>
+                <p class="website-desc-p">
                     The main reason I made this website was really to teach myself how to actually do it. I started off with a tutorial video on Pluralsight which taught the basics of front end development. I was able to recreate what the tutorial had shown but wanted to do more. 
                     I then created a website (an older version of this) which was very basic and similar to the structure of what the tutorial had shown; it wasn't personalized. Then, I set out to make what you're visiting today. This website was more of a personal challenge to push me to 
                     build something that is more my taste and to force me to learn more about front end development. 
@@ -581,6 +587,7 @@
             $(".loader-wrapper").fadeOut("slow");
         });
     </script>
+    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
     <script>
         const interactive_text = document.getElementsByClassName('interactive-text');
     
