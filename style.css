@@ -86,7 +86,7 @@ section{
 h2{
     padding-top: 5vh;
     margin-top: 0;
-    font-size: 6vh;
+    font-size: 50px;
 }
 ul{
     padding-inline-start: 0px;
@@ -138,7 +138,7 @@ a{
     text-align: center;
     color: whitesmoke;
     display: block;
-    font-size: 4vh;
+    font-size: 30px;
 }
 #section-home{  
     height: 90vh;
@@ -298,7 +298,7 @@ nav{
 .menu-content{
     width: 100%;
     font-family: sans-serif;
-    font-size: 3vh;
+    font-size: 25px;
     color: transparent;
     opacity: 0;
     transition: all .5s ease-in-out;
@@ -460,7 +460,10 @@ nav{
     transform: translateX(9vw);
     transition: 0.3s ease;
 }
-
+.badge-container{
+    margin: auto, 0, auto, 0;
+    transform: translateX(40%);
+}
 
 
 @media (min-width: 375px) {
@@ -597,6 +600,10 @@ nav{
         max-height: 100vh;
         margin: auto;
     }
+    .badge-container{
+        margin: auto, 0, auto, 0;
+        transform: translateX(15%);
+    }
     
 }
 @media (min-width: 765px) {
@@ -648,6 +655,10 @@ nav{
     .website-desc-p, .epics-desc, .omnicell-desc{
         font-size: 1.5rem;
         text-align: left;
+    }
+    .badge-container{
+        margin: auto, 0, auto, 0;
+        transform: translateX(33%);
     }
     
 }
@@ -726,6 +737,10 @@ nav{
     .website-desc-p, .epics-desc, .omnicell-desc{
         font-size: 1.75rem;
         text-align: left;
+    }
+    .badge-container{
+        margin: auto, 0, auto, 0;
+        transform: translateX(37%);
     }
 }
 @media(min-width: 1280px){
@@ -841,6 +856,7 @@ nav{
 
 }
 @media (min-width: 2560px){
+    
     .menu-btn-burger{
         width: 3vw;
         height: .5vh;
@@ -855,7 +871,7 @@ nav{
         margin-top: 0vh;
     }
     .section-header{
-        font-size: 1.5em;
+        font-size: 3em;
     }
     .section-paragraph{
         font-size: 1.2em;
@@ -863,6 +879,16 @@ nav{
     .project-container, .skills-container{
         height: 70vh;
         margin-top: 10vh;
+    }
+    .skills-skill{
+        display: grid;
+        grid-template-columns: 8em auto;
+        opacity: 1;
+        margin: 30px 0 30px 20px;
+        font-size: 1.2em;
+    }
+    .skills-header{
+        font-size: 1.3em;;
     }
     .project-img{
         transform: scale(1.25, 1.25);
