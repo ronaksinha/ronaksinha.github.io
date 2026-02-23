@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlagUp | Ronak Sinha</title>
+    <link rel="stylesheet" href="../assets/styles/flagup.css">
+</head>
+<body>
+    <header class="topbar">
+        <a class="topbar-link" href="../index.html">Back To Main</a>
+        <p class="topbar-kicker">Global Flag Challenge</p>
+    </header>
+
+    <main class="game-shell">
+        <section class="game-card">
+            <h1 class="title">
+                <span class="interactive-text">F</span>
+                <span class="interactive-text">l</span>
+                <span class="interactive-text">a</span>
+                <span class="interactive-text">g</span>
+                <span class="interactive-text">U</span>
+                <span class="interactive-text">p</span>
+            </h1>
+            <p class="subhead">Match each flag to the correct country.</p>
+            <div class="mode-row" role="group" aria-label="Game mode">
+                <button id="mode-easy-btn" class="mode-btn active" type="button">Easy</button>
+                <button id="mode-medium-btn" class="mode-btn" type="button">Medium</button>
+                <button id="mode-hard-btn" class="mode-btn" type="button">Hard</button>
+                <button id="mode-expert-btn" class="mode-btn" type="button">Expert</button>
+            </div>
+
+            <div class="score-row">
+                <span id="score-label">Score: 0</span>
+                <span id="round-label">Round: 0</span>
+                <span id="hint-label" class="hidden">Hints: 6</span>
+            </div>
+
+            <div class="flag-wrapper">
+                <img id="flag-image" src="" alt="Country flag quiz prompt">
+            </div>
+
+            <div id="choices" class="choices"></div>
+            <div id="hard-answer" class="hard-answer hidden">
+                <input id="country-input" type="text" autocomplete="off" placeholder="Type country name">
+                <button id="submit-answer-btn" type="button">Submit</button>
+            </div>
+            <div id="hint-row" class="hint-row hidden">
+                <button id="hint-btn" type="button">Use Hint</button>
+            </div>
+
+            <p id="feedback" class="feedback" aria-live="polite"></p>
+
+            <div class="action-row">
+                <button id="next-btn" type="button">Next Flag</button>
+                <button id="restart-btn" type="button">Restart</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="../assets/scripts/flagup-core.js"></script>
+    <script src="../assets/scripts/flagup.js"></script>
+    <script>
+        const interactiveText = document.getElementsByClassName('interactive-text');
+
+        for (let i = 0; i < interactiveText.length; i++) {
+            interactiveText[i].addEventListener('animationend', function () {
+                interactiveText[i].classList.remove('animated');
+            });
+            interactiveText[i].addEventListener('mouseover', function () {
+                interactiveText[i].classList.add('animated');
+            });
+        }
+    </script>
+</body>
+</html>

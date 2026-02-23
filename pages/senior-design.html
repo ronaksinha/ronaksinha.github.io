@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senior Design</title>
+    <link rel="stylesheet" href="../assets/styles/style.css">
+</head>
+<body>
+    <main>
+        <nav>
+            <div class="menu-btn">
+                <div class="menu-btn-burger"></div>
+            </div>
+            <div class="menu-container">
+                <div class="menu-content">
+                    <ul style="list-style-type: none;">
+                        <li><a href="../index.html">
+                            <span class="interactive-text">H</span>
+                            <span class="interactive-text">o</span>
+                            <span class="interactive-text">m</span>
+                            <span class="interactive-text">e</span>
+                        </a></li>
+                        <li><a href="flagup.html">
+                            <span class="interactive-text">F</span>
+                            <span class="interactive-text">l</span>
+                            <span class="interactive-text">a</span>
+                            <span class="interactive-text">g</span>
+                            <span class="interactive-text">U</span>
+                            <span class="interactive-text">p</span>
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <section id="section-website">
+            <header>
+                <h2 class="section-header">
+                    <span class="interactive-text">S</span>
+                    <span class="interactive-text">e</span>
+                    <span class="interactive-text">n</span>
+                    <span class="interactive-text">i</span>
+                    <span class="interactive-text">o</span>
+                    <span class="interactive-text">r</span>
+                    <pre class="interactive-text"> </pre>
+                    <span class="interactive-text">D</span>
+                    <span class="interactive-text">e</span>
+                    <span class="interactive-text">s</span>
+                    <span class="interactive-text">i</span>
+                    <span class="interactive-text">g</span>
+                    <span class="interactive-text">n</span>
+                </h2>
+            </header>
+            <p class="website-desc-p">
+                For my Purdue senior design project, my team built a wireless phone-charging handbag
+                and iterated through multiple design revisions during the Spring 2020 semester.
+            </p>
+            <p class="website-desc-p">
+                The project combined hardware prototyping, power management decisions, and engineering
+                tradeoff analysis under remote collaboration constraints.
+            </p>
+            <div class="imgbox">
+                <img class="omnicell-img" src="../assets/images/senior_design.jpg" alt="Senior design prototype">
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const interactive_text = document.getElementsByClassName('interactive-text');
+
+        for (let i = 0; i < interactive_text.length; i++) {
+            interactive_text[i].addEventListener('animationend', function () {
+                interactive_text[i].classList.remove('animated');
+            });
+
+            interactive_text[i].addEventListener('mouseover', function () {
+                interactive_text[i].classList.add('animated');
+            });
+        }
+    </script>
+    <script>
+        const menuBtn = document.querySelector('.menu-btn');
+        const menuCont = document.querySelector('.menu-container');
+        let menuOpen = false;
+        menuBtn.addEventListener('click', () => {
+            if (!menuOpen) {
+                menuBtn.classList.add('open');
+                menuCont.classList.add('open');
+                menuOpen = true;
+            } else {
+                menuBtn.classList.remove('open');
+                menuCont.classList.remove('open');
+                menuOpen = false;
+            }
+        });
+    </script>
+    <script src="../assets/scripts/scroll-bg.js"></script>
+</body>
+</html>

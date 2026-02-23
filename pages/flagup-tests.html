@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlagUp Unit Tests</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Consolas, "Courier New", monospace;
+            background: #0d1117;
+            color: #e6edf3;
+            padding: 1rem;
+        }
+        .row {
+            margin-bottom: 0.7rem;
+        }
+        button {
+            padding: 0.45rem 0.8rem;
+            border-radius: 8px;
+            border: 1px solid #3d444d;
+            background: #161b22;
+            color: #e6edf3;
+            cursor: pointer;
+        }
+        .pass { color: #3fb950; }
+        .fail { color: #f85149; }
+        pre {
+            white-space: pre-wrap;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <a href="../index.html" style="color:#58a6ff;">Back To Main</a>
+    </div>
+    <div class="row">
+        <button id="run-tests-btn" type="button">Run FlagUp Unit Tests</button>
+    </div>
+    <pre id="output">Click "Run FlagUp Unit Tests"</pre>
+
+    <script src="../assets/scripts/flagup-core.js"></script>
+    <script src="../assets/tests/flagup-core.test.js"></script>
+    <script>
+        const output = document.getElementById("output");
+        const button = document.getElementById("run-tests-btn");
+
+        function renderResults(results) {
+            const passed = results.filter((r) => r.status === "pass").length;
+            const total = results.length;
+            const lines = [`${passed}/${total} tests passed`, ""];
+
+            results.forEach((result) => {
+                if (result.status === "pass") {
+                    lines.push(`[PASS] ${result.name}`);
+                } else {
+                    lines.push(`[FAIL] ${result.name}`);
+                    lines.push(`  ${result.error}`);
+                }
+            });
+
+            output.textContent = lines.join("\n");
+            output.className = passed === total ? "pass" : "fail";
+        }
+
+        button.addEventListener("click", function () {
+            const results = window.FlagUpCoreTests.runTests();
+            renderResults(results);
+        });
+    </script>
+</body>
+</html>

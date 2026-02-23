@@ -1,13 +1,22 @@
 
+:root{
+    --scroll-bg-shade: 0;
+    --scroll-fg-shade: 245;
+    --scroll-fg-muted-shade: 185;
+    --scroll-stroke-shade: 150;
+    --scroll-surface-rgb: 255, 255, 255;
+    --scroll-inverse-rgb: 0, 0, 0;
+}
+
 html{
     scroll-behavior: smooth;
-    background-color: #222;
+    background-color: #000;
     overflow-x: hidden;
 }
 body{
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #222;
+    background-color: rgb(var(--scroll-bg-shade), var(--scroll-bg-shade), var(--scroll-bg-shade));
     margin: 0;
     overflow-x: hidden;
 }
@@ -58,7 +67,7 @@ p{
     100% { height: 0%;}
   }
 main{
-    background-color: black;
+    background: transparent;
     height: auto;
 }
 section{ 
@@ -146,33 +155,33 @@ a{
 }
 #section-about{
     height: auto;
-    background-color: #111;
+    background-color: transparent;
 }
 #section-timeline{
     height: auto;
-    background-color: #1a1a1a;
+    background-color: transparent;
 }
 #section-skills{
     min-height: 100vh;
-    background-color: #222;
+    background-color: transparent;
 }
 #section-contact{
     min-height: 100vh;
     height: auto;
-    background-color: #2a2a2a;
+    background-color: transparent;
 }
 #section-website{
     min-height: 100vh;
-    background-color: #313131;
+    background-color: transparent;
 }
 #section-epics, #section-omnicell{
     min-height: 100vh;
-    background-color: #000;
+    background-color: transparent;
 }
 .project-showcase-wall{
     position: relative;
     display: block;
-    background-color: #111;
+    background-color: transparent;
 }
 .project-container{
     align-content: center;
@@ -897,4 +906,67 @@ nav{
         opacity: 0.3;
         transform: translateX(6vw);
     }
+}
+
+/* Scroll-aware foreground colors for contrast against dynamic background. */
+p,
+a,
+.link:visited,
+.interactive-text,
+.project-title,
+.project-desc,
+.epics-desc,
+.omnicell-desc,
+.timeline-title,
+.timeline-date,
+.timeline-date--right,
+.skills-header,
+.menu-container.open .menu-content,
+#section-about,
+#section-timeline,
+#section-skills,
+#section-contact,
+#section-website,
+#section-epics,
+#section-omnicell {
+    color: rgb(var(--scroll-fg-shade), var(--scroll-fg-shade), var(--scroll-fg-shade));
+    text-shadow: 0 1px 2px rgba(var(--scroll-inverse-rgb), 0.2);
+}
+
+.section-header,
+.section-paragraph,
+.section-header-skills,
+.skills-name,
+.timeline-paragraph {
+    color: rgb(var(--scroll-fg-shade), var(--scroll-fg-shade), var(--scroll-fg-shade));
+}
+
+.skills-bar-desc {
+    color: rgb(var(--scroll-fg-muted-shade), var(--scroll-fg-muted-shade), var(--scroll-fg-muted-shade));
+}
+
+.menu-btn-burger,
+.menu-btn-burger::before,
+.menu-btn-burger::after {
+    background: rgb(var(--scroll-fg-shade), var(--scroll-fg-shade), var(--scroll-fg-shade));
+}
+
+.menu-container.open {
+    border-color: rgb(var(--scroll-fg-shade), var(--scroll-fg-shade), var(--scroll-fg-shade));
+}
+
+.timeline-line,
+.timeline-point,
+.timeline-point--bottom {
+    background-color: rgb(var(--scroll-fg-shade), var(--scroll-fg-shade), var(--scroll-fg-shade));
+}
+
+.timeline-content--bg {
+    background: rgba(var(--scroll-surface-rgb), 0.16);
+    border: 1px solid rgba(var(--scroll-stroke-shade), var(--scroll-stroke-shade), var(--scroll-stroke-shade), 0.45);
+}
+
+.skills-bar {
+    background-color: rgba(var(--scroll-fg-shade), var(--scroll-fg-shade), var(--scroll-fg-shade), 0.88);
+    border: 1px solid rgba(var(--scroll-stroke-shade), var(--scroll-stroke-shade), var(--scroll-stroke-shade), 0.45);
 }

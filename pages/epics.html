@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>EPICS</title>
+        <title>EPICS</title>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/styles/style.css">
 </head>
 <body>
     <main>
@@ -18,7 +17,7 @@
             <div class="menu-container">
                 <div class="menu-content">
                     <ul style="list-style-type: none;">
-                        <li><a href="index.html">
+                        <li><a href="../index.html">
                             <span class="interactive-text">H</span>
                             <span class="interactive-text">o</span>
                             <span class="interactive-text">m</span>
@@ -47,7 +46,7 @@
                 </p>
             </div>
             <div class="imgbox">
-                <img class="epics-img" src="images/epics.jpg" alt="epics">
+                <img class="epics-img" src="../assets/images/epics.jpg" alt="epics">
                 <p class="epics-desc">
                     EPICS program (Engineering Projects in Community Service) is a service-learning design 
                     program in which teams of students partner with local and global community organizations to address human, community, 
@@ -69,14 +68,21 @@
           </div>
     </main>
     <script>
-        $(window).on("load", function(){
-            $(".loader-wrapper").fadeOut("slow");
+        window.addEventListener('load', function () {
+            const loader = document.querySelector('.loader-wrapper');
+            if (loader) {
+                loader.style.opacity = '0';
+                loader.style.pointerEvents = 'none';
+                setTimeout(function () {
+                    loader.style.display = 'none';
+                }, 300);
+            }
         });
     </script>
     <script>
         const interactive_text = document.getElementsByClassName('interactive-text');
     
-        for (let i = 0; i <= interactive_text.length; i++) {
+        for (let i = 0; i < interactive_text.length; i++) {
         interactive_text[i].addEventListener('animationend', function(e) {
             interactive_text[i].classList.remove('animated');
         });
@@ -91,7 +97,7 @@
         
         const project_container = document.getElementsByClassName('project-container');
         
-        for (let i = 0; i <= project_container.length; i++) {
+        for (let i = 0; i < project_container.length; i++) {
             project_container[i].addEventListener('mouseleave', function(e) {
                     project_container[i].classList.remove('hovered');
                 
@@ -121,18 +127,23 @@
     <script>
        
        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', () => {
+            anchor.addEventListener('click', function (event) {
                 menuBtn.classList.remove('open');
                 menuCont.classList.remove('open');
                 menuOpen = false;
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                event.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
     </script>
-    <script src="scroll-out.js"></script>
+    <script src="../assets/scripts/scroll-out.js"></script>
+    <script src="../assets/scripts/scroll-bg.js"></script>
     <script type="text/javascript">
         ScrollOut({
             targets: '.section-header, .section-paragraph, .timeline-content, .timeline-paragraph, .fading-effect'
@@ -144,3 +155,4 @@
     </script>
 </body>
 </html>
+
