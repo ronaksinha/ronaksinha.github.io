@@ -66,6 +66,14 @@
                 ]);
                 const result = core.evaluateTypedGuess("medium", "japan", "Japan", lookup);
                 assertEqual(result.status, "correct", "correct answer should pass in typing modes");
+            },
+            function evaluateTypedGuess_alias_for_correct_country() {
+                const lookup = core.buildCountryLookup([
+                    { country: "United States", code: "us" }
+                ]);
+                lookup.set(core.normalizeAnswer("USA"), "United States");
+                const result = core.evaluateTypedGuess("hard", "USA", "United States", lookup);
+                assertEqual(result.status, "correct", "alias mapped to correct country should pass");
             }
         ];
 

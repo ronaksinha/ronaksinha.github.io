@@ -15,20 +15,22 @@
 
     <main class="game-shell">
         <section class="game-card">
-            <h1 class="title">
-                <span class="interactive-text">F</span>
-                <span class="interactive-text">l</span>
-                <span class="interactive-text">a</span>
-                <span class="interactive-text">g</span>
-                <span class="interactive-text">U</span>
-                <span class="interactive-text">p</span>
-            </h1>
-            <p class="subhead">Match each flag to the correct country.</p>
-            <div class="mode-row" role="group" aria-label="Game mode">
-                <button id="mode-easy-btn" class="mode-btn active" type="button">Easy</button>
-                <button id="mode-medium-btn" class="mode-btn" type="button">Medium</button>
-                <button id="mode-hard-btn" class="mode-btn" type="button">Hard</button>
-                <button id="mode-expert-btn" class="mode-btn" type="button">Expert</button>
+            <div class="card-top">
+                <h1 class="title">
+                    <span class="interactive-text">F</span>
+                    <span class="interactive-text">l</span>
+                    <span class="interactive-text">a</span>
+                    <span class="interactive-text">g</span>
+                    <span class="interactive-text">U</span>
+                    <span class="interactive-text">p</span>
+                </h1>
+                <p class="subhead">Match each flag to the correct country.</p>
+                <div class="mode-row" role="group" aria-label="Game mode">
+                    <button id="mode-easy-btn" class="mode-btn active" type="button">Easy</button>
+                    <button id="mode-medium-btn" class="mode-btn" type="button">Medium</button>
+                    <button id="mode-hard-btn" class="mode-btn" type="button">Hard</button>
+                    <button id="mode-expert-btn" class="mode-btn" type="button">Expert</button>
+                </div>
             </div>
 
             <div class="score-row">
@@ -37,27 +39,45 @@
                 <span id="hint-label" class="hidden">Hints: 6</span>
             </div>
 
-            <div class="flag-wrapper">
-                <img id="flag-image" src="" alt="Country flag quiz prompt">
-            </div>
+            <div class="card-main">
+                <div class="flag-panel">
+                    <div class="flag-wrapper">
+                        <img id="flag-image" src="" alt="Country flag quiz prompt">
+                    </div>
+                </div>
 
-            <div id="choices" class="choices"></div>
-            <div id="hard-answer" class="hard-answer hidden">
-                <input id="country-input" type="text" autocomplete="off" placeholder="Type country name">
-                <button id="submit-answer-btn" type="button">Submit</button>
-            </div>
-            <div id="hint-row" class="hint-row hidden">
-                <button id="hint-btn" type="button">Use Hint</button>
-            </div>
+                <div class="answer-panel">
+                    <div id="choices" class="choices"></div>
+                    <div id="hard-answer" class="hard-answer hidden">
+                        <input id="country-input" type="text" autocomplete="off" placeholder="Type country name">
+                    </div>
+                    <div id="hint-row" class="hint-row hidden">
+                        <button id="hint-btn" type="button">Use Hint</button>
+                    </div>
 
-            <p id="feedback" class="feedback" aria-live="polite"></p>
+                    <p id="feedback" class="feedback" aria-live="polite"></p>
 
-            <div class="action-row">
-                <button id="next-btn" type="button">Next Flag</button>
-                <button id="restart-btn" type="button">Restart</button>
+                    <div class="action-row">
+                        <button id="giveup-btn" type="button">Give Up</button>
+                        <button id="next-btn" type="button">Next Flag</button>
+                        <button id="restart-btn" type="button">Restart</button>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
+    <div id="gameover-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="gameover-title">
+        <div class="modal-card">
+            <h2 id="gameover-title">Game Over</h2>
+            <p id="gameover-message">You missed in Expert mode.</p>
+            <p id="gameover-score">Score: 0</p>
+            <p id="gameover-best">Best: 0</p>
+            <div class="modal-actions">
+                <button id="retry-btn" type="button">Retry</button>
+                <button id="close-modal-btn" type="button">Close</button>
+            </div>
+        </div>
+    </div>
 
     <script src="../assets/scripts/flagup-core.js"></script>
     <script src="../assets/scripts/flagup.js"></script>

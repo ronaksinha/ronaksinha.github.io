@@ -72,6 +72,9 @@
         }
 
         const matchedCountry = normalizedLookup.get(normalizedTyped);
+        if (matchedCountry && normalizeAnswer(matchedCountry) === normalizedCorrect) {
+            return { status: "correct" };
+        }
 
         if (mode === "expert") {
             if (matchedCountry) {

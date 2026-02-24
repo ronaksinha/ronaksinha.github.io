@@ -1,0 +1,9 @@
+{
+  "name": "website-flagup-tests",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Local unit tests for FlagUp core logic",
+  "scripts": {
+    "test": "node --test assets/tests/flagup-core.node.test.cjs"
+  }
+}
