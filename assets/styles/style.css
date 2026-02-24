@@ -908,6 +908,133 @@ nav{
     }
 }
 
+@media (max-width: 767px) {
+    section {
+        padding: 0 1rem 4rem 1rem;
+    }
+
+    #section-home {
+        height: auto;
+        min-height: 60vh;
+        margin-top: 5rem;
+        padding-left: 0;
+        font-size: clamp(1.9rem, 10vw, 2.5rem);
+    }
+
+    .menu-btn {
+        margin: 0;
+        top: 0.6rem;
+        right: 0.6rem;
+        width: 60px;
+        height: 60px;
+    }
+
+    .menu-btn.open {
+        margin-left: 0;
+    }
+
+    .menu-btn-burger,
+    .menu-btn-burger::before,
+    .menu-btn-burger::after {
+        width: 28px;
+    }
+
+    .menu-container {
+        margin-right: 0;
+        padding-top: 4.5rem;
+        width: min(85vw, 340px);
+        transform: translateX(100%);
+    }
+
+    .menu-content {
+        font-size: 1.35rem;
+    }
+
+    .project-container {
+        display: block;
+        height: auto;
+        margin-top: 3rem;
+    }
+
+    .project-column-title-img,
+    .project-column-desc {
+        width: 100%;
+        transform: none;
+    }
+
+    .project-img {
+        position: static;
+        width: 100%;
+        max-height: none;
+        transform: none;
+    }
+
+    .project-title,
+    .project-desc {
+        position: static;
+        opacity: 1;
+    }
+
+    .project-title {
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
+
+    .project-desc {
+        font-size: 1rem;
+        line-height: 1.6;
+        padding: 0;
+    }
+
+    .timeline-container {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+        gap: 0.8rem;
+        padding: 0;
+    }
+
+    .timeline-line {
+        display: none;
+    }
+
+    .timeline-date--right {
+        text-align: left;
+    }
+
+    .skills-container {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .skills-skill {
+        grid-template-columns: 1fr;
+        margin: 0.9rem 0;
+        gap: 0.35rem;
+    }
+
+    .skills-bar-desc {
+        transform: none;
+        width: auto;
+    }
+
+    .contact-grid {
+        display: block;
+        margin: 0;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .badge-container {
+        transform: none;
+    }
+}
+
 /* Scroll-aware foreground colors for contrast against dynamic background. */
 p,
 a,

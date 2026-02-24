@@ -55,6 +55,8 @@ const modeEasyBtn = document.getElementById("mode-easy-btn");
 const modeMediumBtn = document.getElementById("mode-medium-btn");
 const modeHardBtn = document.getElementById("mode-hard-btn");
 const modeExpertBtn = document.getElementById("mode-expert-btn");
+const modeToggleBtn = document.getElementById("mode-toggle-btn");
+const modeRow = document.getElementById("mode-row");
 const hardAnswerEl = document.getElementById("hard-answer");
 const countryInput = document.getElementById("country-input");
 const hintRow = document.getElementById("hint-row");
@@ -66,6 +68,7 @@ const gameOverScore = document.getElementById("gameover-score");
 const gameOverBest = document.getElementById("gameover-best");
 const retryBtn = document.getElementById("retry-btn");
 const closeModalBtn = document.getElementById("close-modal-btn");
+const phoneDifficultyMenuQuery = window.matchMedia("(max-width: 430px)");
 
 let countryPool = [];
 let questionQueue = [];
@@ -99,6 +102,51 @@ function isTypingMode() {
 
 function shouldKeepTypingFocus() {
     return isTypingMode() && !gameOver && !countryInput.disabled;
+}
+
+function toModeLabel(mode) {
+    if (!mode) {
+        return "";
+    }
+    return mode.charAt(0).toUpperCase() + mode.slice(1);
+}
+
+function isPhoneDifficultyMenu() {
+    return phoneDifficultyMenuQuery.matches;
+}
+
+function updateModeToggleLabel() {
+    if (!modeToggleBtn) {
+        return;
+    }
+    const expanded = modeToggleBtn.getAttribute("aria-expanded") === "true";
+    const suffix = isPhoneDifficultyMenu() ? (expanded ? " ▲" : " ▼") : "";
+    modeToggleBtn.textContent = `Difficulty: ${toModeLabel(currentMode)}${suffix}`;
+}
+
+function syncDifficultyMenuState() {
+    if (!modeToggleBtn || !modeRow) {
+        return;
+    }
+    if (isPhoneDifficultyMenu()) {
+        modeToggleBtn.classList.remove("hidden");
+        const expanded = modeToggleBtn.getAttribute("aria-expanded") === "true";
+        modeRow.classList.toggle("collapsed", !expanded);
+    } else {
+        modeToggleBtn.classList.add("hidden");
+        modeToggleBtn.setAttribute("aria-expanded", "false");
+        modeRow.classList.remove("collapsed");
+    }
+    updateModeToggleLabel();
+}
+
+function collapseDifficultyMenuOnPhone() {
+    if (!modeToggleBtn || !modeRow || !isPhoneDifficultyMenu()) {
+        return;
+    }
+    modeToggleBtn.setAttribute("aria-expanded", "false");
+    modeRow.classList.add("collapsed");
+    updateModeToggleLabel();
 }
 
 function updateStats() {
@@ -269,6 +317,7 @@ function updateModeUI() {
     if (currentMode === "expert") {
         nextBtn.disabled = true;
     }
+    updateModeToggleLabel();
 }
 
 function disableChoices() {
@@ -468,6 +517,7 @@ function switchMode(mode) {
     hintsRemaining = MEDIUM_HINT_COUNT;
     updateModeUI();
     restartGame();
+    collapseDifficultyMenuOnPhone();
 }
 
 async function initGame() {
@@ -506,6 +556,19 @@ closeModalBtn.addEventListener("click", function () {
     hideGameOverModal();
     restartGame();
 });
+if (modeToggleBtn && modeRow) {
+    modeToggleBtn.addEventListener("click", function () {
+        const expanded = modeToggleBtn.getAttribute("aria-expanded") === "true";
+        modeToggleBtn.setAttribute("aria-expanded", String(!expanded));
+        modeRow.classList.toggle("collapsed", expanded);
+        updateModeToggleLabel();
+    });
+}
+if (typeof phoneDifficultyMenuQuery.addEventListener === "function") {
+    phoneDifficultyMenuQuery.addEventListener("change", syncDifficultyMenuState);
+} else if (typeof phoneDifficultyMenuQuery.addListener === "function") {
+    phoneDifficultyMenuQuery.addListener(syncDifficultyMenuState);
+}
 countryInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         event.preventDefault();
@@ -572,3 +635,4 @@ document.addEventListener("keydown", function (event) {
 });
 
 initGame();
+syncDifficultyMenuState();
