@@ -1,7 +1,24 @@
-const COUNTRY_API_URL = "https://restcountries.com/v3.1/all?fields=name,cca2,independent";
-const DESIRED_COUNTRY_COUNT = 197;
+const LOCAL_COUNTRY_DATA_URL = "../assets/data/countries-195.json";
+const DESIRED_COUNTRY_COUNT = 195;
 const MEDIUM_HINT_COUNT = 6;
 const Core = window.FlagUpCore;
+const COUNTRY_ALIASES = {
+    "United States": ["usa", "us", "u.s.", "u.s.a."],
+    "United Kingdom": ["uk", "gbr", "great britain", "britain"],
+    "United Arab Emirates": ["uae"],
+    "Czechia": ["czech republic"],
+    "Eswatini": ["swaziland"],
+    "Myanmar": ["burma"],
+    "Cote d'Ivoire": ["ivory coast"],
+    "Democratic Republic of the Congo": ["drc", "congo kinshasa"],
+    "Republic of the Congo": ["congo brazzaville"],
+    "South Korea": ["rok", "republic of korea"],
+    "North Korea": ["dprk"],
+    "Cape Verde": ["cabo verde"],
+    "Viet Nam": ["vietnam"],
+    "São Tomé and Príncipe": ["sao tome and principe", "stp"],
+    "SÃ£o TomÃ© and PrÃ­ncipe": ["sao tome and principe", "stp"]
+};
 
 const fallbackFlagData = [
     { country: "Argentina", code: "ar" },
@@ -40,9 +57,15 @@ const modeHardBtn = document.getElementById("mode-hard-btn");
 const modeExpertBtn = document.getElementById("mode-expert-btn");
 const hardAnswerEl = document.getElementById("hard-answer");
 const countryInput = document.getElementById("country-input");
-const submitAnswerBtn = document.getElementById("submit-answer-btn");
 const hintRow = document.getElementById("hint-row");
 const hintBtn = document.getElementById("hint-btn");
+const giveUpBtn = document.getElementById("giveup-btn");
+const gameOverModal = document.getElementById("gameover-modal");
+const gameOverMessage = document.getElementById("gameover-message");
+const gameOverScore = document.getElementById("gameover-score");
+const gameOverBest = document.getElementById("gameover-best");
+const retryBtn = document.getElementById("retry-btn");
+const closeModalBtn = document.getElementById("close-modal-btn");
 
 let countryPool = [];
 let questionQueue = [];
@@ -55,6 +78,11 @@ let currentMode = "easy";
 let normalizedCountryLookup = new Map();
 let hintsRemaining = MEDIUM_HINT_COUNT;
 let hintedThisQuestion = false;
+let gameOver = false;
+let gameOverOpenedAt = 0;
+let gameOverRetryMode = "expert";
+
+const EXPERT_BEST_SCORE_KEY = "flagup_expert_best_score";
 
 function shuffle(array) {
     const copy = [...array];
@@ -69,10 +97,62 @@ function isTypingMode() {
     return currentMode === "medium" || currentMode === "hard" || currentMode === "expert";
 }
 
+function shouldKeepTypingFocus() {
+    return isTypingMode() && !gameOver && !countryInput.disabled;
+}
+
 function updateStats() {
     scoreLabel.textContent = `Score: ${score}`;
     roundLabel.textContent = `Round: ${round} / ${totalRounds}`;
     hintLabel.textContent = `Hints: ${hintsRemaining}`;
+}
+
+function getExpertBestScore() {
+    const raw = window.localStorage.getItem(EXPERT_BEST_SCORE_KEY);
+    const value = Number(raw);
+    return Number.isFinite(value) && value >= 0 ? value : 0;
+}
+
+function saveExpertBestScore(value) {
+    window.localStorage.setItem(EXPERT_BEST_SCORE_KEY, String(value));
+}
+
+function setInteractionEnabled(enabled) {
+    nextBtn.disabled = !enabled;
+    countryInput.disabled = !enabled;
+    hintBtn.disabled = !enabled || currentMode !== "medium" || hintedThisQuestion || hintsRemaining <= 0;
+    giveUpBtn.disabled = !enabled || (currentMode !== "medium" && currentMode !== "hard");
+}
+
+function showExpertGameOver(message, correctAnswer, retryMode) {
+    gameOver = true;
+    answered = true;
+    setInteractionEnabled(false);
+
+    const current = score;
+    const previousBest = getExpertBestScore();
+    const best = Math.max(current, previousBest);
+    if (best !== previousBest) {
+        saveExpertBestScore(best);
+    }
+
+    gameOverMessage.textContent = `${message} Correct answer: ${correctAnswer}.`;
+    gameOverScore.textContent = `Score: ${current}`;
+    gameOverBest.textContent = `All-time best: ${best}`;
+    gameOverOpenedAt = Date.now();
+    gameOverRetryMode = retryMode || currentMode;
+    gameOverModal.classList.remove("hidden");
+}
+
+function hideGameOverModal() {
+    gameOverModal.classList.add("hidden");
+}
+
+function retryExpertRun() {
+    currentMode = gameOverRetryMode || currentMode;
+    hintsRemaining = MEDIUM_HINT_COUNT;
+    updateModeUI();
+    restartGame();
 }
 
 function setFeedback(text, ok) {
@@ -88,26 +168,62 @@ function normalizeCountryData(rawList) {
     return Core.normalizeCountryData(rawList, DESIRED_COUNTRY_COUNT);
 }
 
+function repairCountryLabel(value) {
+    const text = String(value || "");
+    if (!/[ÃÂ]/.test(text)) {
+        return text;
+    }
+    try {
+        const bytes = new Uint8Array(Array.from(text).map((ch) => ch.charCodeAt(0) & 0xff));
+        return new TextDecoder("utf-8").decode(bytes);
+    } catch (error) {
+        return text;
+    }
+}
+
 function rebuildCountryLookup() {
     normalizedCountryLookup = Core.buildCountryLookup(countryPool);
+    const canonicalByNormalized = new Map();
+
+    countryPool.forEach((entry) => {
+        canonicalByNormalized.set(normalizeAnswer(entry.country), entry.country);
+    });
+
+    Object.keys(COUNTRY_ALIASES).forEach((canonicalName) => {
+        const actualCanonical = canonicalByNormalized.get(normalizeAnswer(canonicalName));
+        if (!actualCanonical) {
+            return;
+        }
+
+        COUNTRY_ALIASES[canonicalName].forEach((alias) => {
+            normalizedCountryLookup.set(normalizeAnswer(alias), actualCanonical);
+        });
+    });
 }
 
 async function loadCountryPool() {
     try {
-        const response = await fetch(COUNTRY_API_URL);
+        const response = await fetch(LOCAL_COUNTRY_DATA_URL);
         if (!response.ok) {
-            throw new Error(`Country API failed with ${response.status}`);
+            throw new Error(`Local country file failed with ${response.status}`);
         }
 
-        const raw = await response.json();
-        const normalized = normalizeCountryData(raw);
+        const localData = await response.json();
+        const normalized = (Array.isArray(localData) ? localData : [])
+            .filter((entry) => entry && entry.country && entry.code && String(entry.code).length === 2)
+            .map((entry) => ({
+                country: repairCountryLabel(entry.country).trim(),
+                code: String(entry.code).toLowerCase().trim()
+            }))
+            .sort((a, b) => a.country.localeCompare(b.country))
+            .slice(0, DESIRED_COUNTRY_COUNT);
 
-        if (normalized.length >= 4) {
+        if (normalized.length >= DESIRED_COUNTRY_COUNT) {
             countryPool = normalized;
             return;
         }
     } catch (error) {
-        console.error("Falling back to local flag list.", error);
+        console.error("Falling back to in-script flag list.", error);
     }
 
     countryPool = fallbackFlagData;
@@ -148,6 +264,11 @@ function updateModeUI() {
     hardAnswerEl.classList.toggle("hidden", !isTypingMode());
     hintRow.classList.toggle("hidden", currentMode !== "medium");
     hintLabel.classList.toggle("hidden", currentMode !== "medium");
+    giveUpBtn.classList.toggle("hidden", currentMode !== "medium" && currentMode !== "hard");
+    nextBtn.classList.toggle("hidden", currentMode === "expert");
+    if (currentMode === "expert") {
+        nextBtn.disabled = true;
+    }
 }
 
 function disableChoices() {
@@ -157,7 +278,7 @@ function disableChoices() {
 }
 
 function handleChoice(button, selectedCountry) {
-    if (answered || !currentQuestion) {
+    if (gameOver || answered || !currentQuestion) {
         return;
     }
 
@@ -184,7 +305,7 @@ function handleChoice(button, selectedCountry) {
 }
 
 function handleTypedSubmit() {
-    if (answered || !currentQuestion || !isTypingMode()) {
+    if (gameOver || answered || !currentQuestion || !isTypingMode()) {
         return;
     }
 
@@ -213,16 +334,11 @@ function handleTypedSubmit() {
     }
 
     if (result.status === "expert_fail_country" || result.status === "expert_fail") {
-        answered = true;
-        if (result.status === "expert_fail_country") {
-            setFeedback(`Expert fail. ${result.matchedCountry} is valid, but not this flag.`, false);
-        } else {
-            setFeedback("Expert fail. Wrong answer.", false);
-        }
-        updateStats();
-        window.setTimeout(function () {
-            nextQuestion();
-        }, 320);
+        const message = result.status === "expert_fail_country"
+            ? `Expert fail. ${result.matchedCountry} is valid, but not this flag.`
+            : "Expert fail. Wrong answer.";
+        setFeedback(message, false);
+        showExpertGameOver(message, currentQuestion.country, "expert");
         return;
     }
 
@@ -236,7 +352,7 @@ function handleTypedSubmit() {
 }
 
 function useMediumHint() {
-    if (currentMode !== "medium" || !currentQuestion || answered) {
+    if (gameOver || currentMode !== "medium" || !currentQuestion || answered) {
         return;
     }
     if (hintedThisQuestion) {
@@ -257,6 +373,29 @@ function useMediumHint() {
     updateStats();
 }
 
+function handleGiveUp() {
+    if (gameOver || answered || !currentQuestion) {
+        return;
+    }
+
+    answered = true;
+    setFeedback(`Give up used. The correct answer is ${currentQuestion.country}.`, false);
+    giveUpBtn.disabled = true;
+
+    if (currentMode === "hard") {
+        showExpertGameOver("Hard mode fail. You gave up.", currentQuestion.country, "hard");
+        return;
+    }
+
+    if (currentMode === "medium") {
+        countryInput.disabled = true;
+        hintBtn.disabled = true;
+    }
+
+    nextBtn.disabled = false;
+    updateStats();
+}
+
 function finishQuiz() {
     currentQuestion = null;
     answered = true;
@@ -264,13 +403,13 @@ function finishQuiz() {
     flagImage.alt = "Flag quiz complete";
     choicesEl.innerHTML = "";
     setFeedback(`Quiz complete. Final score: ${score} / ${totalRounds}.`, true);
-    nextBtn.disabled = true;
-    countryInput.disabled = true;
-    submitAnswerBtn.disabled = true;
-    hintBtn.disabled = true;
+    setInteractionEnabled(false);
 }
 
 function nextQuestion() {
+    if (gameOver) {
+        return;
+    }
     if (questionQueue.length === 0) {
         finishQuiz();
         return;
@@ -287,22 +426,27 @@ function nextQuestion() {
 
     if (currentMode === "easy") {
         renderChoices(options);
+        giveUpBtn.disabled = true;
     } else {
         choicesEl.innerHTML = "";
         countryInput.value = "";
         countryInput.disabled = false;
-        submitAnswerBtn.disabled = false;
         hintBtn.disabled = currentMode !== "medium";
+        giveUpBtn.disabled = currentMode !== "medium" && currentMode !== "hard";
         countryInput.focus();
     }
 
     feedbackEl.textContent = "";
     feedbackEl.style.color = "#c7d3e3";
-    nextBtn.disabled = false;
+    nextBtn.disabled = currentMode === "expert";
     updateStats();
 }
 
 function restartGame() {
+    gameOver = false;
+    hideGameOverModal();
+    setInteractionEnabled(true);
+    restartBtn.disabled = false;
     score = 0;
     round = 0;
     if (currentMode === "medium") {
@@ -355,8 +499,13 @@ modeHardBtn.addEventListener("click", function () {
 modeExpertBtn.addEventListener("click", function () {
     switchMode("expert");
 });
-submitAnswerBtn.addEventListener("click", handleTypedSubmit);
 hintBtn.addEventListener("click", useMediumHint);
+giveUpBtn.addEventListener("click", handleGiveUp);
+retryBtn.addEventListener("click", retryExpertRun);
+closeModalBtn.addEventListener("click", function () {
+    hideGameOverModal();
+    restartGame();
+});
 countryInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         event.preventDefault();
@@ -371,21 +520,55 @@ countryInput.addEventListener("input", function () {
         return;
     }
 
-    const normalizedTyped = normalizeAnswer(countryInput.value);
-    const normalizedCorrect = normalizeAnswer(currentQuestion.country);
+    const result = Core.evaluateTypedGuess(
+        currentMode,
+        countryInput.value,
+        currentQuestion.country,
+        normalizedCountryLookup
+    );
 
-    if (normalizedTyped === normalizedCorrect) {
+    if (result.status === "correct") {
         handleTypedSubmit();
         return;
     }
 
-    const matchedCountry = normalizedCountryLookup.get(normalizedTyped);
-    if (matchedCountry && normalizedTyped !== normalizedCorrect) {
-        setFeedback(`You're thinking of ${matchedCountry}, but this flag is different.`, false);
+    if (result.status === "wrong_other_country" && result.matchedCountry) {
+        setFeedback(`You're thinking of ${result.matchedCountry}, but this flag is different.`, false);
+    } else if (currentMode === "medium" && hintedThisQuestion) {
+        // Keep the active hint visible throughout this question.
+        return;
     } else if (!feedbackEl.textContent.startsWith("Loaded ")) {
         feedbackEl.textContent = "";
         feedbackEl.style.color = "#c7d3e3";
     }
+});
+document.addEventListener("mousedown", function (event) {
+    if (!shouldKeepTypingFocus()) {
+        return;
+    }
+    if (event.target === countryInput) {
+        return;
+    }
+
+    window.setTimeout(function () {
+        if (shouldKeepTypingFocus()) {
+            countryInput.focus();
+        }
+    }, 0);
+});
+document.addEventListener("keydown", function (event) {
+    if (event.key !== "Enter") {
+        return;
+    }
+    if (gameOverModal.classList.contains("hidden")) {
+        return;
+    }
+    if (Date.now() - gameOverOpenedAt < 180) {
+        return;
+    }
+
+    event.preventDefault();
+    retryExpertRun();
 });
 
 initGame();
