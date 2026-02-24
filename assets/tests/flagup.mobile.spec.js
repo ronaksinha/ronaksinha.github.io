@@ -73,3 +73,31 @@ test("hard failure end-screen shows missed flag thumbnail and answer text on iph
     await expect(missedText).toContainText("Correct:");
     await expect(missedText).toContainText("Your answers: Gave up");
 });
+
+test("typing modes place input above flag and action buttons below flag on iphone", async ({ page }) => {
+    await page.locator("#mode-toggle-btn").click();
+    await page.locator("#mode-hard-btn").click();
+
+    const input = page.locator("#country-input");
+    const flag = page.locator("#flag-image");
+    const flagPanel = page.locator(".flag-panel");
+    const actions = page.locator(".action-row");
+
+    await expect(input).toBeVisible();
+    await expect(flag).toBeVisible();
+    await expect(flagPanel).toBeVisible();
+    await expect(actions).toBeVisible();
+
+    const inputBox = await input.boundingBox();
+    const flagBox = await flag.boundingBox();
+    const flagPanelBox = await flagPanel.boundingBox();
+    const actionBox = await actions.boundingBox();
+
+    expect(inputBox).not.toBeNull();
+    expect(flagBox).not.toBeNull();
+    expect(flagPanelBox).not.toBeNull();
+    expect(actionBox).not.toBeNull();
+
+    expect(inputBox.y).toBeLessThan(flagBox.y);
+    expect(actionBox.y).toBeGreaterThan(flagPanelBox.y + flagPanelBox.height - 1);
+});

@@ -98,6 +98,10 @@ body {
     flex-direction: column;
 }
 
+.mobile-layout-slot {
+    display: none;
+}
+
 .title {
     margin: 0;
     font-size: clamp(2rem, 6vw, 3.4rem);
@@ -503,6 +507,10 @@ body {
         overflow: hidden;
     }
 
+    .card-main {
+        gap: 0.4rem;
+    }
+
     .card-top {
         gap: 0.2rem;
     }
@@ -612,6 +620,27 @@ body {
     .action-row button {
         flex: 1 1 31%;
         min-width: 0;
+    }
+
+    .mobile-layout-slot {
+        display: block;
+    }
+
+    .mobile-layout-slot.hidden {
+        display: none;
+    }
+
+    #mobile-typing-top .hard-answer {
+        margin-top: 0;
+    }
+
+    #mobile-typing-top .feedback {
+        margin-top: 0.35rem;
+        margin-bottom: 0;
+    }
+
+    #mobile-typing-bottom .action-row {
+        margin-top: 0;
     }
 
     .modal-card {

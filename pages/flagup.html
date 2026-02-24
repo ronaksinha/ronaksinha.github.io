@@ -41,23 +41,28 @@
             </div>
 
             <div class="card-main">
+                <div id="mobile-typing-top" class="mobile-layout-slot hidden"></div>
                 <div class="flag-panel">
                     <div class="flag-wrapper">
                         <img id="flag-image" src="" alt="Country flag quiz prompt">
                     </div>
                 </div>
+                <div id="mobile-typing-bottom" class="mobile-layout-slot hidden"></div>
 
                 <div class="answer-panel">
                     <div id="choices" class="choices"></div>
-                    <div id="hard-answer" class="hard-answer hidden">
-                        <input id="country-input" type="text" autocomplete="off" placeholder="Type country name">
-                    </div>
-                    <div id="hint-row" class="hint-row hidden">
-                        <button id="hint-btn" type="button">Use Hint</button>
+                    <div id="typing-stack-anchor"></div>
+                    <div id="typing-stack">
+                        <div id="hard-answer" class="hard-answer hidden">
+                            <input id="country-input" type="text" autocomplete="off" placeholder="Type country name">
+                        </div>
+                        <div id="hint-row" class="hint-row hidden">
+                            <button id="hint-btn" type="button">Use Hint</button>
+                        </div>
+                        <p id="feedback" class="feedback" aria-live="polite"></p>
                     </div>
 
-                    <p id="feedback" class="feedback" aria-live="polite"></p>
-
+                    <div id="action-row-anchor"></div>
                     <div class="action-row">
                         <button id="giveup-btn" type="button">Give Up</button>
                         <button id="next-btn" type="button">Next Flag</button>
