@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlagUp Leaderboard | Ronak Sinha</title>
+    <link rel="stylesheet" href="../assets/styles/flagup-leaderboard.css">
+</head>
+<body>
+    <header class="topbar">
+        <a class="topbar-link" href="flagup.html">Back To FlagUp</a>
+        <a class="topbar-link" href="../index.html">Back To Main</a>
+    </header>
+
+    <main class="board-shell">
+        <section class="board-card">
+            <h1>FlagUp Leaderboard</h1>
+            <p class="subhead">Top 10 scores by mode.</p>
+
+            <div class="mode-row" role="group" aria-label="Leaderboard mode">
+                <button id="lb-mode-easy" class="mode-btn active" type="button">Easy</button>
+                <button id="lb-mode-medium" class="mode-btn" type="button">Medium</button>
+                <button id="lb-mode-hard" class="mode-btn" type="button">Hard</button>
+                <button id="lb-mode-expert" class="mode-btn" type="button">Expert</button>
+            </div>
+
+            <p id="leaderboard-status" class="status">Loading...</p>
+            <ol id="leaderboard-list" class="leaderboard-list"></ol>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/scripts/flagup-leaderboard.js"></script>
+</body>
+</html>

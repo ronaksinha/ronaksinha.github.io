@@ -1,0 +1,1763 @@
+[
+  {
+    "country": "Afghanistan",
+    "code": "af",
+    "facts": [
+      "The capital city is Kabul.",
+      "A popular destination here is the Blue Mosque in Mazar-i-Sharif.",
+      "This country has 3 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Albania",
+    "code": "al",
+    "facts": [
+      "The capital city is Tirana.",
+      "This country's official or primary language is Albanian.",
+      "This country has about 2,363,314 people."
+    ]
+  },
+  {
+    "country": "Algeria",
+    "code": "dz",
+    "facts": [
+      "The capital city is Algiers.",
+      "This country's official or primary language is Arabic."
+    ]
+  },
+  {
+    "country": "Andorra",
+    "code": "ad",
+    "facts": [
+      "The capital city is Andorra la Vella.",
+      "This country's official or primary language is Catalan."
+    ]
+  },
+  {
+    "country": "Angola",
+    "code": "ao",
+    "facts": [
+      "The capital city is Luanda.",
+      "This country's official or primary language is Portuguese."
+    ]
+  },
+  {
+    "country": "Antigua and Barbuda",
+    "code": "ag",
+    "facts": [
+      "The capital city is Saint John's.",
+      "This country's official or primary language is English.",
+      "This country has about 103,603 people."
+    ]
+  },
+  {
+    "country": "Argentina",
+    "code": "ar",
+    "facts": [
+      "The capital city is Buenos Aires.",
+      "A major city here is Buenos Aires.",
+      "A popular destination here is Iguazu Falls.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Armenia",
+    "code": "am",
+    "facts": [
+      "The capital city is Yerevan.",
+      "This country's official or primary language is Armenian."
+    ]
+  },
+  {
+    "country": "Australia",
+    "code": "au",
+    "facts": [
+      "The capital city is Canberra.",
+      "A major city here is Sydney.",
+      "A popular destination here is the Great Barrier Reef.",
+      "A globally known actor from this country is Hugh Jackman.",
+      "A native animal often associated with this country is the kangaroo.",
+      "This country hosted the Summer Olympics in 1956, 2000.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Austria",
+    "code": "at",
+    "facts": [
+      "The capital city is Vienna.",
+      "A popular destination here is Schonbrunn Palace.",
+      "A globally known actor from this country is Christoph Waltz.",
+      "This country hosted the Winter Olympics in 1964, 1976.",
+      "This country's official or primary language is German."
+    ]
+  },
+  {
+    "country": "Azerbaijan",
+    "code": "az",
+    "facts": [
+      "The capital city is Baku.",
+      "This country's official or primary language is Azerbaijani."
+    ]
+  },
+  {
+    "country": "Bahamas",
+    "code": "bs",
+    "facts": [
+      "The capital city is Nassau.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Bahrain",
+    "code": "bh",
+    "facts": [
+      "The capital city is Manama.",
+      "This country's official or primary language is Arabic."
+    ]
+  },
+  {
+    "country": "Bangladesh",
+    "code": "bd",
+    "facts": [
+      "The capital city is Dhaka.",
+      "This country's official or primary language is Bengali.",
+      "This country ranks #8 by population among countries in this quiz."
+    ]
+  },
+  {
+    "country": "Barbados",
+    "code": "bb",
+    "facts": [
+      "The capital city is Bridgetown.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Belarus",
+    "code": "by",
+    "facts": [
+      "The capital city is Minsk.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Belgium",
+    "code": "be",
+    "facts": [
+      "The capital city is Brussels.",
+      "A popular destination here is Grand Place in Brussels.",
+      "This country hosted the Summer Olympics in 1920.",
+      "This country has 3 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Belize",
+    "code": "bz",
+    "facts": [
+      "The capital city is Belmopan.",
+      "This country has 3 official or widely used language(s).",
+      "This country has about 417,634 people."
+    ]
+  },
+  {
+    "country": "Benin",
+    "code": "bj",
+    "facts": [
+      "The capital city is Porto-Novo.",
+      "This country's official or primary language is French."
+    ]
+  },
+  {
+    "country": "Bhutan",
+    "code": "bt",
+    "facts": [
+      "The capital city is Thimphu.",
+      "This country's official or primary language is Dzongkha."
+    ]
+  },
+  {
+    "country": "Bolivia",
+    "code": "bo",
+    "facts": [
+      "The capital city is Sucre.",
+      "This country has 4 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Bosnia and Herzegovina",
+    "code": "ba",
+    "facts": [
+      "The capital city is Sarajevo.",
+      "This country has 3 official or widely used language(s).",
+      "This country has about 3,422,000 people."
+    ]
+  },
+  {
+    "country": "Botswana",
+    "code": "bw",
+    "facts": [
+      "The capital city is Gaborone.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Brazil",
+    "code": "br",
+    "facts": [
+      "The capital city is Brasília.",
+      "A major city here is Rio de Janeiro.",
+      "A popular destination here is Christ the Redeemer in Rio.",
+      "This country hosted the Summer Olympics in 2016.",
+      "This country's official or primary language is Portuguese.",
+      "This country ranks #7 by population among countries in this quiz."
+    ]
+  },
+  {
+    "country": "Brunei",
+    "code": "bn",
+    "facts": [
+      "The capital city is Bandar Seri Begawan.",
+      "This country's official or primary language is Malay."
+    ]
+  },
+  {
+    "country": "Bulgaria",
+    "code": "bg",
+    "facts": [
+      "The capital city is Sofia.",
+      "This country's official or primary language is Bulgarian."
+    ]
+  },
+  {
+    "country": "Burkina Faso",
+    "code": "bf",
+    "facts": [
+      "The capital city is Ouagadougou.",
+      "This country's official or primary language is French.",
+      "This country has about 24,070,553 people."
+    ]
+  },
+  {
+    "country": "Burundi",
+    "code": "bi",
+    "facts": [
+      "The capital city is Gitega.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Cambodia",
+    "code": "kh",
+    "facts": [
+      "The capital city is Phnom Penh.",
+      "This country's official or primary language is Khmer."
+    ]
+  },
+  {
+    "country": "Cameroon",
+    "code": "cm",
+    "facts": [
+      "The capital city is Yaoundé.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Canada",
+    "code": "ca",
+    "facts": [
+      "The capital city is Ottawa.",
+      "A major city here is Toronto.",
+      "A popular destination here is Banff National Park.",
+      "A globally known actor from this country is Ryan Reynolds.",
+      "A widely recognized native animal here is the beaver.",
+      "This country hosted the Summer Olympics in 1976.",
+      "This country hosted the Winter Olympics in 1988, 2010.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Cape Verde",
+    "code": "cv",
+    "facts": [
+      "The capital city is Praia.",
+      "This country's official or primary language is Portuguese."
+    ]
+  },
+  {
+    "country": "Central African Republic",
+    "code": "cf",
+    "facts": [
+      "The capital city is Bangui.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Chad",
+    "code": "td",
+    "facts": [
+      "The capital city is N'Djamena.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Chile",
+    "code": "cl",
+    "facts": [
+      "The capital city is Santiago.",
+      "A popular destination here is Torres del Paine National Park.",
+      "This country's official or primary language is Spanish."
+    ]
+  },
+  {
+    "country": "China",
+    "code": "cn",
+    "facts": [
+      "The capital city is Beijing.",
+      "A major city here is Shanghai.",
+      "A popular destination here is the Great Wall.",
+      "A globally known actor from this country is Jackie Chan.",
+      "A globally famous native animal from this country is the giant panda.",
+      "This country saw the 1949 founding of the People's Republic of China.",
+      "This country hosted the Summer Olympics in 2008.",
+      "This country hosted the Winter Olympics in 2022.",
+      "This country's official or primary language is Chinese."
+    ]
+  },
+  {
+    "country": "Colombia",
+    "code": "co",
+    "facts": [
+      "The capital city is Bogotá.",
+      "A popular destination here is Cartagena's historic walled city.",
+      "This country's official or primary language is Spanish."
+    ]
+  },
+  {
+    "country": "Comoros",
+    "code": "km",
+    "facts": [
+      "The capital city is Moroni.",
+      "This country has 3 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Costa Rica",
+    "code": "cr",
+    "facts": [
+      "The capital city is San José.",
+      "A popular destination here is Arenal Volcano National Park.",
+      "This country's official or primary language is Spanish."
+    ]
+  },
+  {
+    "country": "Croatia",
+    "code": "hr",
+    "facts": [
+      "The capital city is Zagreb.",
+      "A popular destination here is Dubrovnik's Old Town.",
+      "This country's official or primary language is Croatian."
+    ]
+  },
+  {
+    "country": "Cuba",
+    "code": "cu",
+    "facts": [
+      "The capital city is Havana.",
+      "This country's official or primary language is Spanish."
+    ]
+  },
+  {
+    "country": "Cyprus",
+    "code": "cy",
+    "facts": [
+      "The capital city is Nicosia.",
+      "This country has 2 official or widely used language(s).",
+      "This country has about 1,442,614 people."
+    ]
+  },
+  {
+    "country": "Czechia",
+    "code": "cz",
+    "facts": [
+      "The capital city is Prague.",
+      "A popular destination here is Prague Castle.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Denmark",
+    "code": "dk",
+    "facts": [
+      "The capital city is Copenhagen.",
+      "This country often ranks among the happiest countries.",
+      "This country's official or primary language is Danish."
+    ]
+  },
+  {
+    "country": "Djibouti",
+    "code": "dj",
+    "facts": [
+      "The capital city is Djibouti.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Dominica",
+    "code": "dm",
+    "facts": [
+      "The capital city is Roseau.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Dominican Republic",
+    "code": "do",
+    "facts": [
+      "The capital city is Santo Domingo.",
+      "A popular destination here is Punta Cana beaches.",
+      "This country's official or primary language is Spanish."
+    ]
+  },
+  {
+    "country": "DR Congo",
+    "code": "cd",
+    "facts": [
+      "The capital city is Kinshasa.",
+      "This country has 5 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Ecuador",
+    "code": "ec",
+    "facts": [
+      "The capital city is Quito.",
+      "This country's official or primary language is Spanish.",
+      "This country has about 18,103,660 people."
+    ]
+  },
+  {
+    "country": "Egypt",
+    "code": "eg",
+    "facts": [
+      "The capital city is Cairo.",
+      "A major city here is Alexandria.",
+      "A popular destination here is the Pyramids of Giza.",
+      "A globally known actor from this country is Omar Sharif.",
+      "This country saw the 1922 discovery of Tutankhamun's tomb.",
+      "This country's official or primary language is Arabic."
+    ]
+  },
+  {
+    "country": "El Salvador",
+    "code": "sv",
+    "facts": [
+      "The capital city is San Salvador.",
+      "This country's official or primary language is Spanish."
+    ]
+  },
+  {
+    "country": "Equatorial Guinea",
+    "code": "gq",
+    "facts": [
+      "The capital city is Malabo.",
+      "This country has 3 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Eritrea",
+    "code": "er",
+    "facts": [
+      "The capital city is Asmara.",
+      "This country has 3 official or widely used language(s).",
+      "This country has about 3,607,000 people."
+    ]
+  },
+  {
+    "country": "Estonia",
+    "code": "ee",
+    "facts": [
+      "The capital city is Tallinn.",
+      "This country's official or primary language is Estonian."
+    ]
+  },
+  {
+    "country": "Eswatini",
+    "code": "sz",
+    "facts": [
+      "The capital city is Mbabane.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Ethiopia",
+    "code": "et",
+    "facts": [
+      "The capital city is Addis Ababa.",
+      "This country's official or primary language is Amharic."
+    ]
+  },
+  {
+    "country": "Fiji",
+    "code": "fj",
+    "facts": [
+      "The capital city is Suva.",
+      "This country has 3 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Finland",
+    "code": "fi",
+    "facts": [
+      "The capital city is Helsinki.",
+      "A popular destination here is Lapland's northern lights region.",
+      "This country has ranked #1 in the World Happiness Report in recent years.",
+      "This country hosted the Summer Olympics in 1952.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "France",
+    "code": "fr",
+    "facts": [
+      "The capital city is Paris.",
+      "A major city here is Paris.",
+      "A popular destination here is the Eiffel Tower.",
+      "A globally known actor from this country is Marion Cotillard.",
+      "This country saw the French Revolution begin in 1789.",
+      "This country hosted the Summer Olympics in 1900, 1924, 2024.",
+      "This country hosted the Winter Olympics in 1924, 1968, 1992.",
+      "This country's official or primary language is French."
+    ]
+  },
+  {
+    "country": "Gabon",
+    "code": "ga",
+    "facts": [
+      "The capital city is Libreville.",
+      "This country's official or primary language is French.",
+      "This country has about 2,469,296 people."
+    ]
+  },
+  {
+    "country": "Gambia",
+    "code": "gm",
+    "facts": [
+      "The capital city is Banjul.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Georgia",
+    "code": "ge",
+    "facts": [
+      "The capital city is Tbilisi.",
+      "This country's official or primary language is Georgian."
+    ]
+  },
+  {
+    "country": "Germany",
+    "code": "de",
+    "facts": [
+      "The capital city is Berlin.",
+      "A major city here is Munich.",
+      "A popular destination here is Neuschwanstein Castle.",
+      "A globally known actor from this country is Diane Kruger.",
+      "This country saw the fall of the Berlin Wall in 1989.",
+      "This country hosted the Summer Olympics in 1936, 1972.",
+      "This country hosted the Winter Olympics in 1936.",
+      "This country's official or primary language is German."
+    ]
+  },
+  {
+    "country": "Ghana",
+    "code": "gh",
+    "facts": [
+      "The capital city is Accra.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Greece",
+    "code": "gr",
+    "facts": [
+      "The capital city is Athens.",
+      "A major city here is Thessaloniki.",
+      "A popular destination here is the Acropolis of Athens.",
+      "This country hosted the first modern Olympic Games in 1896.",
+      "This country hosted the Summer Olympics in 1896, 2004.",
+      "This country's official or primary language is Greek."
+    ]
+  },
+  {
+    "country": "Grenada",
+    "code": "gd",
+    "facts": [
+      "The capital city is St. George's.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Guatemala",
+    "code": "gt",
+    "facts": [
+      "The capital city is Guatemala City.",
+      "This country's official or primary language is Spanish."
+    ]
+  },
+  {
+    "country": "Guinea",
+    "code": "gn",
+    "facts": [
+      "The capital city is Conakry.",
+      "This country's official or primary language is French."
+    ]
+  },
+  {
+    "country": "Guinea-Bissau",
+    "code": "gw",
+    "facts": [
+      "The capital city is Bissau.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Guyana",
+    "code": "gy",
+    "facts": [
+      "The capital city is Georgetown.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Haiti",
+    "code": "ht",
+    "facts": [
+      "The capital city is Port-au-Prince.",
+      "This country has 2 official or widely used language(s).",
+      "This country has about 11,867,032 people."
+    ]
+  },
+  {
+    "country": "Honduras",
+    "code": "hn",
+    "facts": [
+      "The capital city is Tegucigalpa.",
+      "This country's official or primary language is Spanish."
+    ]
+  },
+  {
+    "country": "Hungary",
+    "code": "hu",
+    "facts": [
+      "The capital city is Budapest.",
+      "A popular destination here is the Buda Castle district.",
+      "This country's official or primary language is Hungarian."
+    ]
+  },
+  {
+    "country": "Iceland",
+    "code": "is",
+    "facts": [
+      "The capital city is Reykjavik.",
+      "A popular destination here is the Blue Lagoon.",
+      "This country often ranks among the happiest countries.",
+      "This country's official or primary language is Icelandic."
+    ]
+  },
+  {
+    "country": "India",
+    "code": "in",
+    "facts": [
+      "The capital city is New Delhi.",
+      "A major city here is Mumbai.",
+      "A popular destination here is the Taj Mahal.",
+      "A globally known actor from this country is Shah Rukh Khan.",
+      "A well-known native animal here is the Bengal tiger.",
+      "This country gained independence in 1947.",
+      "This country has 3 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Indonesia",
+    "code": "id",
+    "facts": [
+      "The capital city is Jakarta.",
+      "A popular destination here is Bali.",
+      "A famous native reptile from this country is the Komodo dragon.",
+      "This country's official or primary language is Indonesian."
+    ]
+  },
+  {
+    "country": "Iran",
+    "code": "ir",
+    "facts": [
+      "The capital city is Tehran.",
+      "This country's official or primary language is Persian (Farsi)."
+    ]
+  },
+  {
+    "country": "Iraq",
+    "code": "iq",
+    "facts": [
+      "The capital city is Baghdad.",
+      "This country has 3 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Ireland",
+    "code": "ie",
+    "facts": [
+      "The capital city is Dublin.",
+      "A popular destination here is the Cliffs of Moher.",
+      "A globally known actor from this country is Cillian Murphy.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Israel",
+    "code": "il",
+    "facts": [
+      "The capital city is Jerusalem.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Italy",
+    "code": "it",
+    "facts": [
+      "The capital city is Rome.",
+      "A major city here is Milan.",
+      "A popular destination here is the Colosseum.",
+      "A globally known actor from this country is Sophia Loren.",
+      "This country saw the 79 CE eruption of Vesuvius that buried Pompeii.",
+      "This country hosted the Summer Olympics in 1960.",
+      "This country hosted the Winter Olympics in 1956, 2006, 2026.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Ivory Coast",
+    "code": "ci",
+    "facts": [
+      "The capital city is Yamoussoukro.",
+      "This country's official or primary language is French."
+    ]
+  },
+  {
+    "country": "Jamaica",
+    "code": "jm",
+    "facts": [
+      "The capital city is Kingston.",
+      "This country has 2 official or widely used language(s).",
+      "This country has about 2,825,544 people."
+    ]
+  },
+  {
+    "country": "Japan",
+    "code": "jp",
+    "facts": [
+      "The capital city is Tokyo.",
+      "A major city here is Osaka.",
+      "A popular destination here is Mount Fuji.",
+      "A globally known actor from this country is Ken Watanabe.",
+      "This country underwent the Meiji Restoration in 1868.",
+      "This country hosted the Summer Olympics in 1964, 2020.",
+      "This country hosted the Winter Olympics in 1972, 1998.",
+      "This country's official or primary language is Japanese.",
+      "This country ranks #11 by population among countries in this quiz."
+    ]
+  },
+  {
+    "country": "Jordan",
+    "code": "jo",
+    "facts": [
+      "The capital city is Amman.",
+      "This country's official or primary language is Arabic."
+    ]
+  },
+  {
+    "country": "Kazakhstan",
+    "code": "kz",
+    "facts": [
+      "The capital city is Astana.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Kenya",
+    "code": "ke",
+    "facts": [
+      "The capital city is Nairobi.",
+      "A popular destination here is the Maasai Mara.",
+      "A famous native mammal here is the African elephant.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Kiribati",
+    "code": "ki",
+    "facts": [
+      "The capital city is South Tarawa.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Kosovo",
+    "code": "xk",
+    "facts": [
+      "The capital city is Pristina.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Kuwait",
+    "code": "kw",
+    "facts": [
+      "The capital city is Kuwait City.",
+      "This country's official or primary language is Arabic."
+    ]
+  },
+  {
+    "country": "Kyrgyzstan",
+    "code": "kg",
+    "facts": [
+      "The capital city is Bishkek.",
+      "This country has 2 official or widely used language(s).",
+      "This country has about 7,281,800 people."
+    ]
+  },
+  {
+    "country": "Laos",
+    "code": "la",
+    "facts": [
+      "The capital city is Vientiane.",
+      "This country's official or primary language is Lao.",
+      "This country has about 7,647,000 people."
+    ]
+  },
+  {
+    "country": "Latvia",
+    "code": "lv",
+    "facts": [
+      "The capital city is Riga.",
+      "This country's official or primary language is Latvian."
+    ]
+  },
+  {
+    "country": "Lebanon",
+    "code": "lb",
+    "facts": [
+      "The capital city is Beirut.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Lesotho",
+    "code": "ls",
+    "facts": [
+      "The capital city is Maseru.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Liberia",
+    "code": "lr",
+    "facts": [
+      "The capital city is Monrovia.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Libya",
+    "code": "ly",
+    "facts": [
+      "The capital city is Tripoli.",
+      "This country's official or primary language is Arabic."
+    ]
+  },
+  {
+    "country": "Liechtenstein",
+    "code": "li",
+    "facts": [
+      "The capital city is Vaduz.",
+      "This country's official or primary language is German."
+    ]
+  },
+  {
+    "country": "Lithuania",
+    "code": "lt",
+    "facts": [
+      "The capital city is Vilnius.",
+      "This country's official or primary language is Lithuanian."
+    ]
+  },
+  {
+    "country": "Luxembourg",
+    "code": "lu",
+    "facts": [
+      "The capital city is Luxembourg.",
+      "This country has 3 official or widely used language(s).",
+      "This country has about 681,973 people."
+    ]
+  },
+  {
+    "country": "Madagascar",
+    "code": "mg",
+    "facts": [
+      "The capital city is Antananarivo.",
+      "A signature native animal from this country is the lemur.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Malawi",
+    "code": "mw",
+    "facts": [
+      "The capital city is Lilongwe.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Malaysia",
+    "code": "my",
+    "facts": [
+      "The capital city is Kuala Lumpur.",
+      "A popular destination here is Petronas Towers.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Maldives",
+    "code": "mv",
+    "facts": [
+      "The capital city is Malé.",
+      "This country's official or primary language is Maldivian."
+    ]
+  },
+  {
+    "country": "Mali",
+    "code": "ml",
+    "facts": [
+      "The capital city is Bamako.",
+      "This country's official or primary language is French."
+    ]
+  },
+  {
+    "country": "Malta",
+    "code": "mt",
+    "facts": [
+      "The capital city is Valletta.",
+      "This country has 2 official or widely used language(s).",
+      "This country has about 574,250 people."
+    ]
+  },
+  {
+    "country": "Marshall Islands",
+    "code": "mh",
+    "facts": [
+      "The capital city is Majuro.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Mauritania",
+    "code": "mr",
+    "facts": [
+      "The capital city is Nouakchott.",
+      "This country's official or primary language is Arabic."
+    ]
+  },
+  {
+    "country": "Mauritius",
+    "code": "mu",
+    "facts": [
+      "The capital city is Port Louis.",
+      "This country has 3 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Mexico",
+    "code": "mx",
+    "facts": [
+      "The capital city is Mexico City.",
+      "A major city here is Guadalajara.",
+      "A popular destination here is Chichen Itza.",
+      "A globally known actor from this country is Salma Hayek.",
+      "This country saw the start of its War of Independence in 1810.",
+      "This country hosted the Summer Olympics in 1968.",
+      "This country's official or primary language is Spanish."
+    ]
+  },
+  {
+    "country": "Micronesia",
+    "code": "fm",
+    "facts": [
+      "The capital city is Palikir.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Moldova",
+    "code": "md",
+    "facts": [
+      "The capital city is Chișinău.",
+      "This country's official or primary language is Romanian."
+    ]
+  },
+  {
+    "country": "Monaco",
+    "code": "mc",
+    "facts": [
+      "The capital city is Monaco.",
+      "This country's official or primary language is French."
+    ]
+  },
+  {
+    "country": "Mongolia",
+    "code": "mn",
+    "facts": [
+      "The capital city is Ulan Bator.",
+      "This country's official or primary language is Mongolian."
+    ]
+  },
+  {
+    "country": "Montenegro",
+    "code": "me",
+    "facts": [
+      "The capital city is Podgorica.",
+      "This country's official or primary language is Montenegrin.",
+      "This country has about 623,327 people."
+    ]
+  },
+  {
+    "country": "Morocco",
+    "code": "ma",
+    "facts": [
+      "The capital city is Rabat.",
+      "A popular destination here is Marrakesh medina.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Mozambique",
+    "code": "mz",
+    "facts": [
+      "The capital city is Maputo.",
+      "This country's official or primary language is Portuguese."
+    ]
+  },
+  {
+    "country": "Myanmar",
+    "code": "mm",
+    "facts": [
+      "The capital city is Naypyidaw.",
+      "This country's official or primary language is Burmese."
+    ]
+  },
+  {
+    "country": "Namibia",
+    "code": "na",
+    "facts": [
+      "The capital city is Windhoek.",
+      "This country has 9 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Nauru",
+    "code": "nr",
+    "facts": [
+      "The capital city is Yaren.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Nepal",
+    "code": "np",
+    "facts": [
+      "The capital city is Kathmandu.",
+      "This country's official or primary language is Nepali."
+    ]
+  },
+  {
+    "country": "Netherlands",
+    "code": "nl",
+    "facts": [
+      "The capital city is Amsterdam.",
+      "A major city here is Amsterdam.",
+      "A popular destination here is Keukenhof gardens.",
+      "This country often ranks among the happiest countries.",
+      "This country hosted the signing of the Treaty of Maastricht in 1992.",
+      "This country hosted the Summer Olympics in 1928.",
+      "This country's official or primary language is Dutch."
+    ]
+  },
+  {
+    "country": "New Zealand",
+    "code": "nz",
+    "facts": [
+      "The capital city is Wellington.",
+      "A popular destination here is Milford Sound.",
+      "A globally known actor from this country is Russell Crowe.",
+      "A native animal strongly associated with this country is the kiwi bird.",
+      "This country has 3 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Nicaragua",
+    "code": "ni",
+    "facts": [
+      "The capital city is Managua.",
+      "This country's official or primary language is Spanish.",
+      "This country has about 6,803,886 people."
+    ]
+  },
+  {
+    "country": "Niger",
+    "code": "ne",
+    "facts": [
+      "The capital city is Niamey.",
+      "This country's official or primary language is French."
+    ]
+  },
+  {
+    "country": "Nigeria",
+    "code": "ng",
+    "facts": [
+      "The capital city is Abuja.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "North Korea",
+    "code": "kp",
+    "facts": [
+      "The capital city is Pyongyang.",
+      "This country's official or primary language is Korean."
+    ]
+  },
+  {
+    "country": "North Macedonia",
+    "code": "mk",
+    "facts": [
+      "The capital city is Skopje.",
+      "This country's official or primary language is Macedonian."
+    ]
+  },
+  {
+    "country": "Norway",
+    "code": "no",
+    "facts": [
+      "The capital city is Oslo.",
+      "A major city here is Bergen.",
+      "A popular destination here is the Geirangerfjord.",
+      "This country often ranks highly for quality of life.",
+      "A notable native marine mammal here is the orca.",
+      "This country is where the Nobel Peace Prize is awarded.",
+      "This country hosted the Winter Olympics in 1952, 1994.",
+      "This country has 3 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Oman",
+    "code": "om",
+    "facts": [
+      "The capital city is Muscat.",
+      "This country's official or primary language is Arabic.",
+      "This country has about 5,343,630 people."
+    ]
+  },
+  {
+    "country": "Pakistan",
+    "code": "pk",
+    "facts": [
+      "The capital city is Islamabad.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Palau",
+    "code": "pw",
+    "facts": [
+      "The capital city is Ngerulmud.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Panama",
+    "code": "pa",
+    "facts": [
+      "The capital city is Panama City.",
+      "This country's official or primary language is Spanish."
+    ]
+  },
+  {
+    "country": "Papua New Guinea",
+    "code": "pg",
+    "facts": [
+      "The capital city is Port Moresby.",
+      "This country has 3 official or widely used language(s).",
+      "This country has about 11,781,559 people."
+    ]
+  },
+  {
+    "country": "Paraguay",
+    "code": "py",
+    "facts": [
+      "The capital city is Asunción.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Peru",
+    "code": "pe",
+    "facts": [
+      "The capital city is Lima.",
+      "A major city here is Cusco.",
+      "A popular destination here is Machu Picchu.",
+      "A native animal strongly associated with this country is the llama.",
+      "This country has 3 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Philippines",
+    "code": "ph",
+    "facts": [
+      "The capital city is Manila.",
+      "A popular destination here is Palawan.",
+      "This country has 2 official or widely used language(s).",
+      "This country ranks #12 by population among countries in this quiz."
+    ]
+  },
+  {
+    "country": "Poland",
+    "code": "pl",
+    "facts": [
+      "The capital city is Warsaw.",
+      "A popular destination here is Krakow's Old Town.",
+      "This country saw the rise of the Solidarity movement in 1980.",
+      "This country's official or primary language is Polish."
+    ]
+  },
+  {
+    "country": "Portugal",
+    "code": "pt",
+    "facts": [
+      "The capital city is Lisbon.",
+      "A major city here is Porto.",
+      "A popular destination here is the Belem Tower.",
+      "A globally known actor from this country is Daniela Ruah.",
+      "This country saw the Carnation Revolution in 1974.",
+      "This country's official or primary language is Portuguese."
+    ]
+  },
+  {
+    "country": "Qatar",
+    "code": "qa",
+    "facts": [
+      "The capital city is Doha.",
+      "This country's official or primary language is Arabic.",
+      "This country has about 3,173,024 people."
+    ]
+  },
+  {
+    "country": "Republic of the Congo",
+    "code": "cg",
+    "facts": [
+      "The capital city is Brazzaville.",
+      "This country has 3 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Romania",
+    "code": "ro",
+    "facts": [
+      "The capital city is Bucharest.",
+      "A popular destination here is Bran Castle.",
+      "This country's official or primary language is Romanian."
+    ]
+  },
+  {
+    "country": "Russia",
+    "code": "ru",
+    "facts": [
+      "The capital city is Moscow.",
+      "A popular destination here is Red Square.",
+      "A notable native big cat here is the Siberian tiger.",
+      "This country saw the October Revolution in 1917.",
+      "This country hosted the Summer Olympics in 1980.",
+      "This country hosted the Winter Olympics in 2014.",
+      "This country's official or primary language is Russian."
+    ]
+  },
+  {
+    "country": "Rwanda",
+    "code": "rw",
+    "facts": [
+      "The capital city is Kigali.",
+      "This country has 3 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "SÃ£o TomÃ© and PrÃ­ncipe",
+    "code": "st",
+    "facts": [
+      "The capital city is São Tomé.",
+      "This country's official or primary language is Portuguese."
+    ]
+  },
+  {
+    "country": "Saint Kitts and Nevis",
+    "code": "kn",
+    "facts": [
+      "The capital city is Basseterre.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Saint Lucia",
+    "code": "lc",
+    "facts": [
+      "The capital city is Castries.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Saint Vincent and the Grenadines",
+    "code": "vc",
+    "facts": [
+      "The capital city is Kingstown.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Samoa",
+    "code": "ws",
+    "facts": [
+      "The capital city is Apia.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "San Marino",
+    "code": "sm",
+    "facts": [
+      "The capital city is City of San Marino.",
+      "This country's official or primary language is Italian."
+    ]
+  },
+  {
+    "country": "Saudi Arabia",
+    "code": "sa",
+    "facts": [
+      "The capital city is Riyadh.",
+      "A popular destination here is Al-Ula's heritage sites.",
+      "This country's official or primary language is Arabic."
+    ]
+  },
+  {
+    "country": "Senegal",
+    "code": "sn",
+    "facts": [
+      "The capital city is Dakar.",
+      "This country's official or primary language is French.",
+      "This country has about 18,593,258 people."
+    ]
+  },
+  {
+    "country": "Serbia",
+    "code": "rs",
+    "facts": [
+      "The capital city is Belgrade.",
+      "This country's official or primary language is Serbian."
+    ]
+  },
+  {
+    "country": "Seychelles",
+    "code": "sc",
+    "facts": [
+      "The capital city is Victoria.",
+      "This country has 3 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Sierra Leone",
+    "code": "sl",
+    "facts": [
+      "The capital city is Freetown.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Singapore",
+    "code": "sg",
+    "facts": [
+      "The capital city is Singapore.",
+      "A popular destination here is Gardens by the Bay.",
+      "This country is often ranked among the cleanest places globally.",
+      "This country has 4 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Slovakia",
+    "code": "sk",
+    "facts": [
+      "The capital city is Bratislava.",
+      "This country's official or primary language is Slovak."
+    ]
+  },
+  {
+    "country": "Slovenia",
+    "code": "si",
+    "facts": [
+      "The capital city is Ljubljana.",
+      "This country's official or primary language is Slovene.",
+      "This country has about 2,130,638 people."
+    ]
+  },
+  {
+    "country": "Solomon Islands",
+    "code": "sb",
+    "facts": [
+      "The capital city is Honiara.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Somalia",
+    "code": "so",
+    "facts": [
+      "The capital city is Mogadishu.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "South Africa",
+    "code": "za",
+    "facts": [
+      "The capital city is Pretoria.",
+      "A major city here is Cape Town.",
+      "A popular destination here is Table Mountain.",
+      "A globally known actor from this country is Charlize Theron.",
+      "A famous native mammal here is the lion.",
+      "This country held its first fully democratic election in 1994.",
+      "This country has 11 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "South Korea",
+    "code": "kr",
+    "facts": [
+      "The capital city is Seoul.",
+      "A major city here is Busan.",
+      "A popular destination here is Gyeongbokgung Palace.",
+      "A globally known actor from this country is Lee Byung-hun.",
+      "This country hosted the Summer Olympics in 1988.",
+      "This country hosted the Winter Olympics in 2018.",
+      "This country's official or primary language is Korean."
+    ]
+  },
+  {
+    "country": "South Sudan",
+    "code": "ss",
+    "facts": [
+      "The capital city is Juba.",
+      "This country's official or primary language is English.",
+      "This country has about 15,786,898 people."
+    ]
+  },
+  {
+    "country": "Spain",
+    "code": "es",
+    "facts": [
+      "The capital city is Madrid.",
+      "A major city here is Barcelona.",
+      "A popular destination here is the Sagrada Familia.",
+      "This country has 4 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Sri Lanka",
+    "code": "lk",
+    "facts": [
+      "The capital city is Sri Jayawardenepura Kotte.",
+      "This country has 2 official or widely used language(s).",
+      "This country has about 21,763,170 people."
+    ]
+  },
+  {
+    "country": "Sudan",
+    "code": "sd",
+    "facts": [
+      "The capital city is Khartoum.",
+      "This country has 2 official or widely used language(s).",
+      "This country has about 51,662,000 people."
+    ]
+  },
+  {
+    "country": "Suriname",
+    "code": "sr",
+    "facts": [
+      "The capital city is Paramaribo.",
+      "This country's official or primary language is Dutch."
+    ]
+  },
+  {
+    "country": "Sweden",
+    "code": "se",
+    "facts": [
+      "The capital city is Stockholm.",
+      "A popular destination here is Stockholm's Gamla Stan.",
+      "This country often ranks among the happiest countries.",
+      "A globally known actor from this country is Alicia Vikander.",
+      "This country hosted the Summer Olympics in 1912.",
+      "This country's official or primary language is Swedish."
+    ]
+  },
+  {
+    "country": "Switzerland",
+    "code": "ch",
+    "facts": [
+      "The capital city is Bern.",
+      "A popular destination here is the Matterhorn region.",
+      "This country often ranks highly for quality of life.",
+      "This country hosted the Winter Olympics in 1928, 1948.",
+      "This country has 4 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Syria",
+    "code": "sy",
+    "facts": [
+      "The capital city is Damascus.",
+      "This country's official or primary language is Arabic."
+    ]
+  },
+  {
+    "country": "Tajikistan",
+    "code": "tj",
+    "facts": [
+      "The capital city is Dushanbe.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Tanzania",
+    "code": "tz",
+    "facts": [
+      "The capital city is Dodoma.",
+      "A popular destination here is Serengeti National Park.",
+      "A notable native mammal here is the giraffe.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Thailand",
+    "code": "th",
+    "facts": [
+      "The capital city is Bangkok.",
+      "A popular destination here is the Grand Palace in Bangkok.",
+      "A native animal associated with this country is the Asian elephant.",
+      "This country's official or primary language is Thai."
+    ]
+  },
+  {
+    "country": "Timor-Leste",
+    "code": "tl",
+    "facts": [
+      "The capital city is Dili.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Togo",
+    "code": "tg",
+    "facts": [
+      "The capital city is Lomé.",
+      "This country's official or primary language is French."
+    ]
+  },
+  {
+    "country": "Tonga",
+    "code": "to",
+    "facts": [
+      "The capital city is Nuku'alofa.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Trinidad and Tobago",
+    "code": "tt",
+    "facts": [
+      "The capital city is Port of Spain.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Tunisia",
+    "code": "tn",
+    "facts": [
+      "The capital city is Tunis.",
+      "This country's official or primary language is Arabic."
+    ]
+  },
+  {
+    "country": "Turkey",
+    "code": "tr",
+    "facts": [
+      "The capital city is Ankara.",
+      "A major city here is Istanbul.",
+      "A popular destination here is Cappadocia.",
+      "A globally known actor from this country is Haluk Bilginer.",
+      "This country became a modern republic in 1923.",
+      "This country's official or primary language is Turkish."
+    ]
+  },
+  {
+    "country": "Turkmenistan",
+    "code": "tm",
+    "facts": [
+      "The capital city is Ashgabat.",
+      "This country has 2 official or widely used language(s).",
+      "This country has about 7,057,841 people."
+    ]
+  },
+  {
+    "country": "Tuvalu",
+    "code": "tv",
+    "facts": [
+      "The capital city is Funafuti.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Uganda",
+    "code": "ug",
+    "facts": [
+      "The capital city is Kampala.",
+      "This country has 2 official or widely used language(s).",
+      "This country has about 45,905,417 people."
+    ]
+  },
+  {
+    "country": "Ukraine",
+    "code": "ua",
+    "facts": [
+      "The capital city is Kyiv.",
+      "This country's official or primary language is Ukrainian."
+    ]
+  },
+  {
+    "country": "United Arab Emirates",
+    "code": "ae",
+    "facts": [
+      "The capital city is Abu Dhabi.",
+      "This country's official or primary language is Arabic."
+    ]
+  },
+  {
+    "country": "United Kingdom",
+    "code": "gb",
+    "facts": [
+      "The capital city is London.",
+      "A major city here is London.",
+      "A popular destination here is the Tower of London.",
+      "A globally known actor from this country is Daniel Craig.",
+      "This country hosted the signing of the Magna Carta in 1215.",
+      "This country hosted the Summer Olympics in 1908, 1948, 2012.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "United States",
+    "code": "us",
+    "facts": [
+      "The capital city is Washington, D.C..",
+      "A major city here is New York City.",
+      "A popular destination here is the Grand Canyon.",
+      "A globally known actor from this country is Denzel Washington.",
+      "A classic native bird associated with this country is the bald eagle.",
+      "This country signed its Declaration of Independence in 1776.",
+      "This country hosted the Summer Olympics in 1904, 1932, 1984, 1996, 2028.",
+      "This country hosted the Winter Olympics in 1932, 1960, 1980, 2002.",
+      "This country's official or primary language is English.",
+      "This country ranks #3 by population among countries in this quiz."
+    ]
+  },
+  {
+    "country": "Uruguay",
+    "code": "uy",
+    "facts": [
+      "The capital city is Montevideo.",
+      "This country's official or primary language is Spanish."
+    ]
+  },
+  {
+    "country": "Uzbekistan",
+    "code": "uz",
+    "facts": [
+      "The capital city is Tashkent.",
+      "This country has 2 official or widely used language(s)."
+    ]
+  },
+  {
+    "country": "Vanuatu",
+    "code": "vu",
+    "facts": [
+      "The capital city is Port Vila.",
+      "This country has 3 official or widely used language(s).",
+      "This country has about 321,409 people."
+    ]
+  },
+  {
+    "country": "Vatican City",
+    "code": "va",
+    "facts": [
+      "The capital city is Vatican City.",
+      "This country has 2 official or widely used language(s).",
+      "This country has about 882 people."
+    ]
+  },
+  {
+    "country": "Venezuela",
+    "code": "ve",
+    "facts": [
+      "The capital city is Caracas.",
+      "This country's official or primary language is Spanish."
+    ]
+  },
+  {
+    "country": "Vietnam",
+    "code": "vn",
+    "facts": [
+      "The capital city is Hanoi.",
+      "A major city here is Ho Chi Minh City.",
+      "A popular destination here is Ha Long Bay.",
+      "This country's official or primary language is Vietnamese."
+    ]
+  },
+  {
+    "country": "Yemen",
+    "code": "ye",
+    "facts": [
+      "The capital city is Sana'a.",
+      "This country's official or primary language is Arabic."
+    ]
+  },
+  {
+    "country": "Zambia",
+    "code": "zm",
+    "facts": [
+      "The capital city is Lusaka.",
+      "This country's official or primary language is English."
+    ]
+  },
+  {
+    "country": "Zimbabwe",
+    "code": "zw",
+    "facts": [
+      "The capital city is Harare.",
+      "This country has 15 official or widely used language(s)."
+    ]
+  }
+]

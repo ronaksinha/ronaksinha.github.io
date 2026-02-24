@@ -49,6 +49,17 @@ body {
     background: rgba(136, 255, 0, 0.12);
 }
 
+.topbar-link-leaderboard {
+    border-color: rgba(136, 255, 0, 0.72);
+    background: rgba(136, 255, 0, 0.2);
+    font-weight: 700;
+}
+
+.topbar-link-leaderboard:hover {
+    border-color: rgba(136, 255, 0, 0.9);
+    background: rgba(136, 255, 0, 0.28);
+}
+
 .topbar-kicker {
     margin: 0;
     letter-spacing: 0.08em;
@@ -84,6 +95,23 @@ body {
     grid-template-columns: 1.2fr 1fr;
     gap: 1rem;
     align-items: stretch;
+}
+
+.card-main.question-transition {
+    animation: questionSweepIn 360ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@keyframes questionSweepIn {
+    0% {
+        opacity: 0.28;
+        transform: translateX(36px);
+        filter: blur(1px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+    }
 }
 
 .flag-panel,
@@ -193,12 +221,19 @@ body {
     overflow-wrap: anywhere;
 }
 
+.flag-fact {
+    margin: 0.1rem 0 0.35rem 0;
+    color: #c8d7ec;
+    font-size: 0.92rem;
+    line-height: 1.35;
+}
+
 .flag-wrapper {
     min-height: min(52vh, 460px);
     height: 100%;
     border-radius: 8px;
     border: 0;
-    background: rgba(0, 0, 0, 0.12);
+    background: transparent;
     display: grid;
     place-items: center;
     padding: 1.1rem;
@@ -329,6 +364,64 @@ body {
     align-items: center;
 }
 
+.leaderboard-wrap {
+    margin-top: 0.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    padding-top: 0.7rem;
+}
+
+.leaderboard-wrap h3 {
+    margin: 0 0 0.45rem 0;
+    font-size: 0.95rem;
+}
+
+.leaderboard-submit-row {
+    display: flex;
+    gap: 0.45rem;
+}
+
+.leaderboard-submit-row input {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-main);
+    border-radius: 10px;
+    padding: 0.45rem 0.55rem;
+}
+
+.leaderboard-submit-row button {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-main);
+    border-radius: 10px;
+    padding: 0.45rem 0.7rem;
+    cursor: pointer;
+}
+
+.leaderboard-submit-row button:hover {
+    border-color: rgba(136, 255, 0, 0.6);
+    background: rgba(136, 255, 0, 0.12);
+}
+
+.leaderboard-feedback {
+    margin: 0.35rem 0 0 0;
+    font-size: 0.8rem;
+}
+
+.leaderboard-wrap ol {
+    margin: 0;
+    padding-left: 1.1rem;
+    max-height: 145px;
+    overflow-y: auto;
+}
+
+.leaderboard-wrap li {
+    margin: 0.25rem 0;
+    font-size: 0.84rem;
+    color: var(--text-muted);
+}
+
 .missed-flag-thumb {
     width: 56px;
     height: 42px;
@@ -401,6 +494,13 @@ body {
     margin: 0.95rem 0 0.2rem 0;
     color: var(--text-muted);
     overflow-wrap: anywhere;
+}
+
+.double-enter-hint {
+    margin: 0.15rem 0 0 0;
+    color: #f7d79a;
+    font-size: 0.82rem;
+    line-height: 1.2;
 }
 
 .action-row {
@@ -565,6 +665,10 @@ body {
         min-width: 0;
     }
 
+    .flag-fact {
+        display: none;
+    }
+
     .flag-wrapper {
         min-height: 128px;
         max-height: 24dvh;
@@ -639,6 +743,10 @@ body {
         margin-bottom: 0;
     }
 
+    #mobile-typing-top .double-enter-hint {
+        font-size: 0.74rem;
+    }
+
     #mobile-typing-bottom .action-row {
         margin-top: 0;
     }
@@ -660,6 +768,10 @@ body {
 
     .missed-wrap ul {
         max-height: 145px;
+    }
+
+    .leaderboard-wrap ol {
+        max-height: 120px;
     }
 }
 

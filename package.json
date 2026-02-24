@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npm run test:unit",
     "test:unit": "node --test assets/tests/flagup-core.node.test.cjs",
-    "test:ui": "playwright test assets/tests/flagup.mobile.spec.js assets/tests/homepage.mobile.spec.js assets/tests/homepage.desktop.spec.js"
+    "test:ui": "playwright test assets/tests/flagup.mobile.spec.js assets/tests/flagup.desktop.spec.js assets/tests/flagup-leaderboard.desktop.spec.js assets/tests/homepage.mobile.spec.js assets/tests/homepage.desktop.spec.js",
+    "generate:facts": "node assets/scripts/generate-country-facts.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2"

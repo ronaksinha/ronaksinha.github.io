@@ -9,6 +9,7 @@
 </head>
 <body>
     <header class="topbar">
+        <a class="topbar-link topbar-link-leaderboard" href="flagup-leaderboard.html">View Leaderboard</a>
         <a class="topbar-link" href="../index.html">Back To Main</a>
         <p class="topbar-kicker">Global Flag Challenge</p>
     </header>
@@ -34,11 +35,12 @@
                 </div>
             </div>
 
-            <div class="score-row">
+                <div class="score-row">
                 <span id="score-label">Score: 0</span>
                 <span id="round-label">Round: 0</span>
                 <span id="hint-label" class="hidden">Hints: 6</span>
             </div>
+            <p id="flag-fact" class="flag-fact hidden" aria-live="polite"></p>
 
             <div class="card-main">
                 <div id="mobile-typing-top" class="mobile-layout-slot hidden"></div>
@@ -60,6 +62,7 @@
                             <button id="hint-btn" type="button">Use Hint</button>
                         </div>
                         <p id="feedback" class="feedback" aria-live="polite"></p>
+                        <p id="double-enter-hint" class="double-enter-hint hidden">Tip: press Enter twice quickly to skip this flag (0 points).</p>
                     </div>
 
                     <div id="action-row-anchor"></div>
@@ -82,6 +85,18 @@
                 <h3>Missed Flags</h3>
                 <ul id="gameover-missed-list"></ul>
             </div>
+            <div id="leaderboard-submit-wrap" class="leaderboard-wrap hidden">
+                <h3>Submit Score</h3>
+                <div class="leaderboard-submit-row">
+                    <input id="leaderboard-name-input" type="text" maxlength="20" placeholder="Enter username">
+                    <button id="leaderboard-submit-btn" type="button">Submit</button>
+                </div>
+                <p id="leaderboard-submit-feedback" class="leaderboard-feedback"></p>
+            </div>
+            <div id="leaderboard-wrap" class="leaderboard-wrap hidden">
+                <h3 id="leaderboard-title">Top 10</h3>
+                <ol id="leaderboard-list"></ol>
+            </div>
             <div class="modal-actions">
                 <button id="retry-btn" type="button">Retry</button>
                 <button id="close-modal-btn" type="button">Close</button>
@@ -90,6 +105,7 @@
     </div>
 
     <script src="../assets/scripts/flagup-core.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../assets/scripts/flagup.js"></script>
     <script>
         const interactiveText = document.getElementsByClassName('interactive-text');
