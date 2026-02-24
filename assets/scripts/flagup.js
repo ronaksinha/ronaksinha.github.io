@@ -63,12 +63,20 @@ const hintRow = document.getElementById("hint-row");
 const hintBtn = document.getElementById("hint-btn");
 const giveUpBtn = document.getElementById("giveup-btn");
 const gameOverModal = document.getElementById("gameover-modal");
+const gameOverTitle = document.getElementById("gameover-title");
 const gameOverMessage = document.getElementById("gameover-message");
 const gameOverScore = document.getElementById("gameover-score");
 const gameOverBest = document.getElementById("gameover-best");
+const gameOverMissedWrap = document.getElementById("gameover-missed-wrap");
+const gameOverMissedList = document.getElementById("gameover-missed-list");
 const retryBtn = document.getElementById("retry-btn");
 const closeModalBtn = document.getElementById("close-modal-btn");
 const phoneDifficultyMenuQuery = window.matchMedia("(max-width: 430px)");
+const pageParams = new URLSearchParams(window.location.search);
+const debugRoundLimitRaw = Number(pageParams.get("rounds"));
+const debugRoundLimit = Number.isInteger(debugRoundLimitRaw) && debugRoundLimitRaw > 0
+    ? debugRoundLimitRaw
+    : null;
 
 let countryPool = [];
 let questionQueue = [];
@@ -84,6 +92,8 @@ let hintedThisQuestion = false;
 let gameOver = false;
 let gameOverOpenedAt = 0;
 let gameOverRetryMode = "expert";
+let missedFlags = [];
+let currentQuestionKey = "";
 
 const EXPERT_BEST_SCORE_KEY = "flagup_expert_best_score";
 
@@ -172,21 +182,88 @@ function setInteractionEnabled(enabled) {
     giveUpBtn.disabled = !enabled || (currentMode !== "medium" && currentMode !== "hard");
 }
 
-function showExpertGameOver(message, correctAnswer, retryMode) {
+function noteMissedFlag(attemptValue) {
+    if (!currentQuestion || !currentQuestionKey) {
+        return;
+    }
+
+    const attemptedAnswer = String(attemptValue || "").trim() || "(blank)";
+    const existing = missedFlags.find((entry) => entry.key === currentQuestionKey);
+
+    if (existing) {
+        existing.attempts.push(attemptedAnswer);
+        return;
+    }
+
+    missedFlags.push({
+        key: currentQuestionKey,
+        flag: currentQuestion.country,
+        code: currentQuestion.code,
+        correctAnswer: currentQuestion.country,
+        attempts: [attemptedAnswer]
+    });
+}
+
+function renderMissedFlags() {
+    gameOverMissedList.innerHTML = "";
+    gameOverMissedWrap.classList.remove("hidden");
+
+    if (missedFlags.length === 0) {
+        const item = document.createElement("li");
+        item.textContent = "No missed flags this run.";
+        gameOverMissedList.appendChild(item);
+        return;
+    }
+
+    missedFlags.forEach((entry) => {
+        const item = document.createElement("li");
+        const thumb = document.createElement("img");
+        thumb.className = "missed-flag-thumb";
+        thumb.src = `https://flagcdn.com/w80/${entry.code}.png`;
+        thumb.alt = `Flag of ${entry.flag}`;
+        thumb.loading = "lazy";
+
+        const text = document.createElement("div");
+        text.className = "missed-flag-text";
+        const attempted = entry.attempts.join(", ");
+        text.textContent = `Correct: ${entry.correctAnswer} | Your answers: ${attempted}`;
+
+        item.appendChild(thumb);
+        item.appendChild(text);
+        gameOverMissedList.appendChild(item);
+    });
+}
+
+function showEndScreen(options) {
+    const {
+        title,
+        message,
+        retryMode,
+        includeBestScore
+    } = options;
+
     gameOver = true;
     answered = true;
     setInteractionEnabled(false);
 
     const current = score;
-    const previousBest = getExpertBestScore();
-    const best = Math.max(current, previousBest);
-    if (best !== previousBest) {
-        saveExpertBestScore(best);
+    gameOverTitle.textContent = title;
+    gameOverMessage.textContent = message;
+    gameOverScore.textContent = `Score: ${current} / ${totalRounds}`;
+
+    if (includeBestScore) {
+        const previousBest = getExpertBestScore();
+        const best = Math.max(current, previousBest);
+        if (best !== previousBest) {
+            saveExpertBestScore(best);
+        }
+        gameOverBest.textContent = `All-time best: ${best}`;
+        gameOverBest.classList.remove("hidden");
+    } else {
+        gameOverBest.classList.add("hidden");
     }
 
-    gameOverMessage.textContent = `${message} Correct answer: ${correctAnswer}.`;
-    gameOverScore.textContent = `Score: ${current}`;
-    gameOverBest.textContent = `All-time best: ${best}`;
+    renderMissedFlags();
     gameOverOpenedAt = Date.now();
     gameOverRetryMode = retryMode || currentMode;
     gameOverModal.classList.remove("hidden");
@@ -196,7 +273,7 @@ function hideGameOverModal() {
     gameOverModal.classList.add("hidden");
 }
 
-function retryExpertRun() {
+function retryRun() {
     currentMode = gameOverRetryMode || currentMode;
     hintsRemaining = MEDIUM_HINT_COUNT;
     updateModeUI();
@@ -339,6 +416,7 @@ function handleChoice(button, selectedCountry) {
         button.classList.add("correct");
         setFeedback(`Correct. That is ${currentQuestion.country}.`, true);
     } else {
+        noteMissedFlag(selectedCountry);
         button.classList.add("incorrect");
         setFeedback(`Not quite. The correct answer is ${currentQuestion.country}.`, false);
     }
@@ -383,17 +461,25 @@ function handleTypedSubmit() {
     }
 
     if (result.status === "expert_fail_country" || result.status === "expert_fail") {
+        noteMissedFlag(typed);
         const message = result.status === "expert_fail_country"
             ? `Expert fail. ${result.matchedCountry} is valid, but not this flag.`
             : "Expert fail. Wrong answer.";
         setFeedback(message, false);
-        showExpertGameOver(message, currentQuestion.country, "expert");
+        showEndScreen({
+            title: "Game Over",
+            message: `${message} Correct answer: ${currentQuestion.country}.`,
+            retryMode: "expert",
+            includeBestScore: true
+        });
         return;
     }
 
     if (result.status === "wrong_other_country") {
+        noteMissedFlag(typed);
         setFeedback(`That's ${result.matchedCountry}, but this flag is different. Try again.`, false);
     } else {
+        noteMissedFlag(typed);
         setFeedback("Not quite. Try again.", false);
     }
     countryInput.focus();
@@ -428,11 +514,17 @@ function handleGiveUp() {
     }
 
     answered = true;
+    noteMissedFlag("Gave up");
     setFeedback(`Give up used. The correct answer is ${currentQuestion.country}.`, false);
     giveUpBtn.disabled = true;
 
     if (currentMode === "hard") {
-        showExpertGameOver("Hard mode fail. You gave up.", currentQuestion.country, "hard");
+        showEndScreen({
+            title: "Game Over",
+            message: `Hard mode fail. You gave up. Correct answer: ${currentQuestion.country}.`,
+            retryMode: "hard",
+            includeBestScore: false
+        });
         return;
     }
 
@@ -452,7 +544,12 @@ function finishQuiz() {
     flagImage.alt = "Flag quiz complete";
     choicesEl.innerHTML = "";
     setFeedback(`Quiz complete. Final score: ${score} / ${totalRounds}.`, true);
-    setInteractionEnabled(false);
+    showEndScreen({
+        title: "Quiz Complete",
+        message: "Review your missed flags below.",
+        retryMode: currentMode,
+        includeBestScore: currentMode === "expert"
+    });
 }
 
 function nextQuestion() {
@@ -468,6 +565,7 @@ function nextQuestion() {
     answered = false;
     hintedThisQuestion = false;
     currentQuestion = questionQueue.pop();
+    currentQuestionKey = `${round}-${currentQuestion.code}`;
 
     const options = buildOptions(currentQuestion.country);
     flagImage.src = `https://flagcdn.com/w320/${currentQuestion.code}.png`;
@@ -498,10 +596,15 @@ function restartGame() {
     restartBtn.disabled = false;
     score = 0;
     round = 0;
+    missedFlags = [];
+    currentQuestionKey = "";
     if (currentMode === "medium") {
         hintsRemaining = MEDIUM_HINT_COUNT;
     }
     questionQueue = shuffle(countryPool);
+    if (debugRoundLimit !== null) {
+        questionQueue = questionQueue.slice(0, Math.min(debugRoundLimit, questionQueue.length));
+    }
     totalRounds = questionQueue.length;
     nextQuestion();
 }
@@ -551,7 +654,7 @@ modeExpertBtn.addEventListener("click", function () {
 });
 hintBtn.addEventListener("click", useMediumHint);
 giveUpBtn.addEventListener("click", handleGiveUp);
-retryBtn.addEventListener("click", retryExpertRun);
+retryBtn.addEventListener("click", retryRun);
 closeModalBtn.addEventListener("click", function () {
     hideGameOverModal();
     restartGame();
@@ -631,7 +734,7 @@ document.addEventListener("keydown", function (event) {
     }
 
     event.preventDefault();
-    retryExpertRun();
+    retryRun();
 });
 
 initGame();

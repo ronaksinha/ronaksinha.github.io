@@ -55,3 +55,21 @@ test("expert/hard failure modal is constrained on iphone width", async ({ page }
     expect(viewport).not.toBeNull();
     expect(modalBox.width).toBeLessThanOrEqual(viewport.width * 0.94);
 });
+
+test("hard failure end-screen shows missed flag thumbnail and answer text on iphone", async ({ page }) => {
+    await page.locator("#mode-toggle-btn").click();
+    await page.locator("#mode-hard-btn").click();
+    await page.locator("#giveup-btn").click();
+
+    const missedWrap = page.locator("#gameover-missed-wrap");
+    const missedItem = page.locator("#gameover-missed-list li").first();
+    const missedThumb = missedItem.locator("img.missed-flag-thumb");
+    const missedText = missedItem.locator(".missed-flag-text");
+
+    await expect(missedWrap).toBeVisible();
+    await expect(missedItem).toBeVisible();
+    await expect(missedThumb).toBeVisible();
+    await expect(missedThumb).toHaveAttribute("src", /flagcdn\.com\/w80\//);
+    await expect(missedText).toContainText("Correct:");
+    await expect(missedText).toContainText("Your answers: Gave up");
+});
