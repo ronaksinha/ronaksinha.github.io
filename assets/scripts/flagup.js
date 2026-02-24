@@ -1,7 +1,15 @@
 const LOCAL_COUNTRY_DATA_URL = "../assets/data/countries-195.json";
+const LOCAL_COUNTRY_FACTS_URL = "../assets/data/country-facts.json";
 const DESIRED_COUNTRY_COUNT = 195;
 const MEDIUM_HINT_COUNT = 6;
+const NEXT_QUESTION_TRANSITION_MS = 360;
+const EASY_MODE_ADVANCE_DELAY_MS = 500;
+const DOUBLE_ENTER_SKIP_WINDOW_MS = 450;
+const LEADERBOARD_TABLE = "leaderboard_scores";
+const SUPABASE_URL = "https://cgqazsregqlcgnkehbwg.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_BD9Qn5CNFN7VgjgDdmCJTw_Bv6INgQ0";
 const Core = window.FlagUpCore;
+const FALLBACK_FLAG_FACT_TEMPLATE = "The flag of {country} is a national symbol of the country.";
 const COUNTRY_ALIASES = {
     "United States": ["usa", "us", "u.s.", "u.s.a."],
     "United Kingdom": ["uk", "gbr", "great britain", "britain"],
@@ -49,6 +57,7 @@ const feedbackEl = document.getElementById("feedback");
 const scoreLabel = document.getElementById("score-label");
 const roundLabel = document.getElementById("round-label");
 const hintLabel = document.getElementById("hint-label");
+const flagFactEl = document.getElementById("flag-fact");
 const nextBtn = document.getElementById("next-btn");
 const restartBtn = document.getElementById("restart-btn");
 const modeEasyBtn = document.getElementById("mode-easy-btn");
@@ -70,6 +79,7 @@ const hardAnswerEl = document.getElementById("hard-answer");
 const countryInput = document.getElementById("country-input");
 const hintRow = document.getElementById("hint-row");
 const hintBtn = document.getElementById("hint-btn");
+const doubleEnterHintEl = document.getElementById("double-enter-hint");
 const giveUpBtn = document.getElementById("giveup-btn");
 const gameOverModal = document.getElementById("gameover-modal");
 const gameOverTitle = document.getElementById("gameover-title");
@@ -78,6 +88,13 @@ const gameOverScore = document.getElementById("gameover-score");
 const gameOverBest = document.getElementById("gameover-best");
 const gameOverMissedWrap = document.getElementById("gameover-missed-wrap");
 const gameOverMissedList = document.getElementById("gameover-missed-list");
+const leaderboardSubmitWrap = document.getElementById("leaderboard-submit-wrap");
+const leaderboardNameInput = document.getElementById("leaderboard-name-input");
+const leaderboardSubmitBtn = document.getElementById("leaderboard-submit-btn");
+const leaderboardSubmitFeedback = document.getElementById("leaderboard-submit-feedback");
+const leaderboardWrap = document.getElementById("leaderboard-wrap");
+const leaderboardTitle = document.getElementById("leaderboard-title");
+const leaderboardList = document.getElementById("leaderboard-list");
 const retryBtn = document.getElementById("retry-btn");
 const closeModalBtn = document.getElementById("close-modal-btn");
 const phoneDifficultyMenuQuery = window.matchMedia("(max-width: 430px)");
@@ -103,6 +120,15 @@ let gameOverOpenedAt = 0;
 let gameOverRetryMode = "expert";
 let missedFlags = [];
 let currentQuestionKey = "";
+let countryFactsByCode = new Map();
+let lastEnterPressedAt = 0;
+let doubleEnterHintDismissed = false;
+let leaderboardSubmittedThisRun = false;
+let leaderboardSubmitting = false;
+
+const supabaseClient = (window.supabase && typeof window.supabase.createClient === "function" && SUPABASE_URL && SUPABASE_PUBLISHABLE_KEY)
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
+    : null;
 
 const EXPERT_BEST_SCORE_KEY = "flagup_expert_best_score";
 
@@ -134,6 +160,10 @@ function isPhoneDifficultyMenu() {
     return phoneDifficultyMenuQuery.matches;
 }
 
+function isDesktopFactMode() {
+    return !isPhoneDifficultyMenu() && (currentMode === "easy" || currentMode === "medium");
+}
+
 function updateModeToggleLabel() {
     if (!modeToggleBtn) {
         return;
@@ -157,6 +187,11 @@ function syncDifficultyMenuState() {
         modeRow.classList.remove("collapsed");
     }
     updateModeToggleLabel();
+    if (currentQuestion && isDesktopFactMode()) {
+        showFlagFactForQuestion(currentQuestion);
+    } else {
+        hideFlagFact();
+    }
 }
 
 function collapseDifficultyMenuOnPhone() {
@@ -226,11 +261,226 @@ function saveExpertBestScore(value) {
     window.localStorage.setItem(EXPERT_BEST_SCORE_KEY, String(value));
 }
 
+function canUseLeaderboard() {
+    return Boolean(supabaseClient);
+}
+
+function normalizeUsernameForSubmit(value) {
+    return String(value || "")
+        .trim()
+        .replace(/\s+/g, " ")
+        .slice(0, 20);
+}
+
+function isValidLeaderboardUsername(name) {
+    return /^[A-Za-z0-9 _.-]{2,20}$/.test(name);
+}
+
+function setLeaderboardSubmitFeedback(text, ok) {
+    if (!leaderboardSubmitFeedback) {
+        return;
+    }
+    leaderboardSubmitFeedback.textContent = text;
+    leaderboardSubmitFeedback.style.color = ok ? "#86efac" : "#fecaca";
+}
+
+function renderLeaderboardRows(rows) {
+    if (!leaderboardList) {
+        return;
+    }
+    leaderboardList.innerHTML = "";
+    (Array.isArray(rows) ? rows : []).forEach((row, index) => {
+        const item = document.createElement("li");
+        item.textContent = `${index + 1}. ${row.username} — ${row.score}`;
+        leaderboardList.appendChild(item);
+    });
+    if (leaderboardList.children.length === 0) {
+        const item = document.createElement("li");
+        item.textContent = "No scores yet. Be the first.";
+        leaderboardList.appendChild(item);
+    }
+}
+
+async function refreshLeaderboardForMode(mode) {
+    if (!leaderboardWrap || !leaderboardTitle) {
+        return;
+    }
+    leaderboardTitle.textContent = `Top 10 (${toModeLabel(mode)})`;
+    leaderboardWrap.classList.remove("hidden");
+
+    if (!canUseLeaderboard()) {
+        renderLeaderboardRows([]);
+        return;
+    }
+
+    try {
+        const { data, error } = await supabaseClient
+            .from(LEADERBOARD_TABLE)
+            .select("username,score,created_at")
+            .eq("mode", mode)
+            .order("score", { ascending: false })
+            .order("created_at", { ascending: true })
+            .limit(10);
+
+        if (error) {
+            renderLeaderboardRows([]);
+            return;
+        }
+
+        renderLeaderboardRows(data || []);
+    } catch (error) {
+        renderLeaderboardRows([]);
+    }
+}
+
+function setupLeaderboardSubmitState() {
+    if (!leaderboardSubmitWrap || !leaderboardNameInput || !leaderboardSubmitBtn) {
+        return;
+    }
+    if (!canUseLeaderboard()) {
+        leaderboardSubmitWrap.classList.add("hidden");
+        return;
+    }
+
+    leaderboardSubmitWrap.classList.remove("hidden");
+    leaderboardNameInput.disabled = leaderboardSubmittedThisRun;
+    leaderboardSubmitBtn.disabled = leaderboardSubmittedThisRun;
+    if (!leaderboardSubmittedThisRun) {
+        const remembered = window.localStorage.getItem("flagup_leaderboard_name");
+        if (remembered && !leaderboardNameInput.value) {
+            leaderboardNameInput.value = remembered;
+        }
+        setLeaderboardSubmitFeedback("Submit your score to the leaderboard.", true);
+    } else {
+        setLeaderboardSubmitFeedback("Score submitted for this run.", true);
+    }
+}
+
+async function submitLeaderboardScore() {
+    if (!canUseLeaderboard() || leaderboardSubmittedThisRun || leaderboardSubmitting) {
+        return;
+    }
+
+    const username = normalizeUsernameForSubmit(leaderboardNameInput.value);
+    if (!isValidLeaderboardUsername(username)) {
+        setLeaderboardSubmitFeedback("Use 2-20 chars: letters, numbers, space, dot, dash, underscore.", false);
+        return;
+    }
+
+    leaderboardSubmitting = true;
+    leaderboardSubmitBtn.disabled = true;
+    leaderboardNameInput.disabled = true;
+    setLeaderboardSubmitFeedback("Submitting...", true);
+
+    let error = null;
+    try {
+        const result = await supabaseClient
+            .from(LEADERBOARD_TABLE)
+            .insert({
+                username,
+                score,
+                mode: gameOverRetryMode || currentMode
+            });
+        error = result.error;
+    } catch (submitError) {
+        error = submitError;
+    }
+
+    leaderboardSubmitting = false;
+    if (error) {
+        leaderboardSubmitBtn.disabled = false;
+        leaderboardNameInput.disabled = false;
+        setLeaderboardSubmitFeedback("Failed to submit score. Try again.", false);
+        return;
+    }
+
+    leaderboardSubmittedThisRun = true;
+    window.localStorage.setItem("flagup_leaderboard_name", username);
+    setLeaderboardSubmitFeedback("Score submitted.", true);
+    await refreshLeaderboardForMode(gameOverRetryMode || currentMode);
+}
+
 function setInteractionEnabled(enabled) {
     nextBtn.disabled = !enabled;
     countryInput.disabled = !enabled;
     hintBtn.disabled = !enabled || currentMode !== "medium" || hintedThisQuestion || hintsRemaining <= 0;
     giveUpBtn.disabled = !enabled || (currentMode !== "medium" && currentMode !== "hard");
+}
+
+function playNextQuestionTransition() {
+    if (!cardMain) {
+        return;
+    }
+    cardMain.classList.remove("question-transition");
+    // Force reflow so repeated transitions always restart cleanly.
+    void cardMain.offsetWidth;
+    cardMain.classList.add("question-transition");
+    window.setTimeout(function () {
+        cardMain.classList.remove("question-transition");
+    }, NEXT_QUESTION_TRANSITION_MS);
+}
+
+function hideFlagFact() {
+    if (!flagFactEl) {
+        return;
+    }
+    flagFactEl.textContent = "";
+    flagFactEl.classList.add("hidden");
+}
+
+function updateDoubleEnterHint() {
+    if (!doubleEnterHintEl) {
+        return;
+    }
+    const shouldShow = (currentMode === "medium" || currentMode === "hard") && !doubleEnterHintDismissed;
+    doubleEnterHintEl.classList.toggle("hidden", !shouldShow);
+}
+
+function getQuestionFacts(question) {
+    if (!question) {
+        return [];
+    }
+    const code = String(question.code || "").toLowerCase();
+    const facts = countryFactsByCode.get(code);
+    if (facts && facts.length > 0) {
+        return facts;
+    }
+    return [FALLBACK_FLAG_FACT_TEMPLATE.replace("{country}", question.country)];
+}
+
+function escapeRegex(value) {
+    return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function anonymizeFactText(factText, countryName) {
+    const raw = String(factText || "").trim();
+    const country = String(countryName || "").trim();
+
+    if (!country) {
+        return raw;
+    }
+
+    const possessivePattern = new RegExp(`${escapeRegex(country)}'s`, "gi");
+    const countryPattern = new RegExp(escapeRegex(country), "gi");
+
+    return raw
+        .replace(possessivePattern, "this country's")
+        .replace(countryPattern, "this country");
+}
+
+function showFlagFactForQuestion(question) {
+    if (!flagFactEl || !question || !isDesktopFactMode()) {
+        hideFlagFact();
+        return;
+    }
+
+    const facts = getQuestionFacts(question);
+    const fact = anonymizeFactText(
+        facts[Math.floor(Math.random() * facts.length)],
+        question.country
+    );
+    flagFactEl.textContent = `Flag fact: ${fact}`;
+    flagFactEl.classList.remove("hidden");
 }
 
 function noteMissedFlag(attemptValue) {
@@ -315,6 +565,8 @@ function showEndScreen(options) {
     }
 
     renderMissedFlags();
+    setupLeaderboardSubmitState();
+    void refreshLeaderboardForMode(retryMode || currentMode);
     gameOverOpenedAt = Date.now();
     gameOverRetryMode = retryMode || currentMode;
     gameOverModal.classList.remove("hidden");
@@ -405,6 +657,38 @@ async function loadCountryPool() {
     countryPool = fallbackFlagData;
 }
 
+async function loadCountryFacts() {
+    try {
+        const response = await fetch(LOCAL_COUNTRY_FACTS_URL);
+        if (!response.ok) {
+            throw new Error(`Local facts file failed with ${response.status}`);
+        }
+
+        const rawFacts = await response.json();
+        const factMap = new Map();
+
+        (Array.isArray(rawFacts) ? rawFacts : []).forEach((entry) => {
+            if (!entry || !entry.code || !Array.isArray(entry.facts)) {
+                return;
+            }
+            const code = String(entry.code).toLowerCase().trim();
+            const facts = entry.facts
+                .map((fact) => String(fact || "").trim())
+                .filter(Boolean);
+
+            if (!code || facts.length === 0) {
+                return;
+            }
+            factMap.set(code, facts);
+        });
+
+        countryFactsByCode = factMap;
+    } catch (error) {
+        console.error("Falling back to in-script fact template.", error);
+        countryFactsByCode = new Map();
+    }
+}
+
 function buildOptions(correctCountry) {
     const distractors = shuffle(
         countryPool
@@ -445,6 +729,10 @@ function updateModeUI() {
     if (currentMode === "expert") {
         nextBtn.disabled = true;
     }
+    updateDoubleEnterHint();
+    if (!isDesktopFactMode()) {
+        hideFlagFact();
+    }
     syncMobileTypingLayout();
     updateModeToggleLabel();
 }
@@ -467,6 +755,12 @@ function handleChoice(button, selectedCountry) {
         score += 1;
         button.classList.add("correct");
         setFeedback(`Correct. That is ${currentQuestion.country}.`, true);
+        if (currentMode === "easy") {
+            nextBtn.disabled = true;
+            window.setTimeout(function () {
+                nextQuestion();
+            }, EASY_MODE_ADVANCE_DELAY_MS);
+        }
     } else {
         noteMissedFlag(selectedCountry);
         button.classList.add("incorrect");
@@ -589,6 +883,23 @@ function handleGiveUp() {
     updateStats();
 }
 
+function skipQuestionWithDoubleEnter() {
+    if (gameOver || answered || !currentQuestion) {
+        return;
+    }
+
+    answered = true;
+    noteMissedFlag("Skipped (double Enter)");
+    setFeedback("Skipped. Moving to the next flag (0 points).", false);
+    countryInput.value = "";
+    updateStats();
+    doubleEnterHintDismissed = true;
+    updateDoubleEnterHint();
+    window.setTimeout(function () {
+        nextQuestion();
+    }, 120);
+}
+
 function finishQuiz() {
     currentQuestion = null;
     answered = true;
@@ -596,6 +907,7 @@ function finishQuiz() {
     flagImage.alt = "Flag quiz complete";
     choicesEl.innerHTML = "";
     setFeedback(`Quiz complete. Final score: ${score} / ${totalRounds}.`, true);
+    hideFlagFact();
     showEndScreen({
         title: "Quiz Complete",
         message: "Review your missed flags below.",
@@ -618,10 +930,13 @@ function nextQuestion() {
     hintedThisQuestion = false;
     currentQuestion = questionQueue.pop();
     currentQuestionKey = `${round}-${currentQuestion.code}`;
+    lastEnterPressedAt = 0;
+    playNextQuestionTransition();
 
     const options = buildOptions(currentQuestion.country);
     flagImage.src = `https://flagcdn.com/w320/${currentQuestion.code}.png`;
     flagImage.alt = `Flag of ${currentQuestion.country}`;
+    showFlagFactForQuestion(currentQuestion);
 
     if (currentMode === "easy") {
         renderChoices(options);
@@ -650,6 +965,18 @@ function restartGame() {
     round = 0;
     missedFlags = [];
     currentQuestionKey = "";
+    lastEnterPressedAt = 0;
+    leaderboardSubmittedThisRun = false;
+    leaderboardSubmitting = false;
+    if (leaderboardSubmitFeedback) {
+        leaderboardSubmitFeedback.textContent = "";
+    }
+    if (leaderboardNameInput) {
+        leaderboardNameInput.disabled = false;
+    }
+    if (leaderboardSubmitBtn) {
+        leaderboardSubmitBtn.disabled = false;
+    }
     if (currentMode === "medium") {
         hintsRemaining = MEDIUM_HINT_COUNT;
     }
@@ -682,6 +1009,7 @@ async function initGame() {
     disableChoices();
 
     await loadCountryPool();
+    await loadCountryFacts();
     rebuildCountryLookup();
 
     restartBtn.disabled = false;
@@ -724,9 +1052,32 @@ if (typeof phoneDifficultyMenuQuery.addEventListener === "function") {
 } else if (typeof phoneDifficultyMenuQuery.addListener === "function") {
     phoneDifficultyMenuQuery.addListener(syncDifficultyMenuState);
 }
+if (leaderboardSubmitBtn) {
+    leaderboardSubmitBtn.addEventListener("click", submitLeaderboardScore);
+}
+if (leaderboardNameInput) {
+    leaderboardNameInput.addEventListener("keydown", function (event) {
+        if (event.key !== "Enter") {
+            return;
+        }
+        event.preventDefault();
+        submitLeaderboardScore();
+    });
+}
 countryInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         event.preventDefault();
+        if ((currentMode === "medium" || currentMode === "hard") && !answered && !gameOver && currentQuestion) {
+            const now = Date.now();
+            if (now - lastEnterPressedAt <= DOUBLE_ENTER_SKIP_WINDOW_MS) {
+                lastEnterPressedAt = 0;
+                skipQuestionWithDoubleEnter();
+                return;
+            }
+            lastEnterPressedAt = now;
+        } else {
+            lastEnterPressedAt = 0;
+        }
         handleTypedSubmit();
     }
 });
@@ -782,6 +1133,9 @@ document.addEventListener("keydown", function (event) {
         return;
     }
     if (Date.now() - gameOverOpenedAt < 180) {
+        return;
+    }
+    if (event.target === leaderboardNameInput) {
         return;
     }
 
