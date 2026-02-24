@@ -4,6 +4,11 @@
   "version": "1.0.0",
   "description": "Local unit tests for FlagUp core logic",
   "scripts": {
-    "test": "node --test assets/tests/flagup-core.node.test.cjs"
+    "test": "npm run test:unit",
+    "test:unit": "node --test assets/tests/flagup-core.node.test.cjs",
+    "test:ui": "playwright test assets/tests/flagup.mobile.spec.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2"
   }
 }
