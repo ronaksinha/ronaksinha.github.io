@@ -10,8 +10,8 @@ const COUNTRY_ALIASES = {
     "Eswatini": ["swaziland"],
     "Myanmar": ["burma"],
     "Cote d'Ivoire": ["ivory coast"],
-    "Democratic Republic of the Congo": ["drc", "congo kinshasa"],
-    "Republic of the Congo": ["congo brazzaville"],
+    "Democratic Republic of the Congo": ["drc", "congo kinshasa", "democratic republic of congo", "dr congo"],
+    "Republic of the Congo": ["congo brazzaville", "republic of congo"],
     "South Korea": ["rok", "republic of korea"],
     "North Korea": ["dprk"],
     "Cape Verde": ["cabo verde"],
@@ -57,6 +57,15 @@ const modeHardBtn = document.getElementById("mode-hard-btn");
 const modeExpertBtn = document.getElementById("mode-expert-btn");
 const modeToggleBtn = document.getElementById("mode-toggle-btn");
 const modeRow = document.getElementById("mode-row");
+const cardMain = document.querySelector(".card-main");
+const flagPanel = document.querySelector(".flag-panel");
+const answerPanel = document.querySelector(".answer-panel");
+const mobileTypingTop = document.getElementById("mobile-typing-top");
+const mobileTypingBottom = document.getElementById("mobile-typing-bottom");
+const typingStack = document.getElementById("typing-stack");
+const typingStackAnchor = document.getElementById("typing-stack-anchor");
+const actionRow = document.querySelector(".action-row");
+const actionRowAnchor = document.getElementById("action-row-anchor");
 const hardAnswerEl = document.getElementById("hard-answer");
 const countryInput = document.getElementById("country-input");
 const hintRow = document.getElementById("hint-row");
@@ -157,6 +166,48 @@ function collapseDifficultyMenuOnPhone() {
     modeToggleBtn.setAttribute("aria-expanded", "false");
     modeRow.classList.add("collapsed");
     updateModeToggleLabel();
+}
+
+function insertAfter(parent, node, anchor) {
+    if (!parent || !node || !anchor) {
+        return;
+    }
+    if (anchor.nextSibling) {
+        parent.insertBefore(node, anchor.nextSibling);
+    } else {
+        parent.appendChild(node);
+    }
+}
+
+function syncMobileTypingLayout() {
+    if (!cardMain || !answerPanel || !typingStack || !actionRow || !flagPanel || !mobileTypingTop || !mobileTypingBottom) {
+        return;
+    }
+
+    const usePhoneTypingLayout = isPhoneDifficultyMenu() && isTypingMode();
+
+    if (usePhoneTypingLayout) {
+        mobileTypingTop.classList.remove("hidden");
+        mobileTypingBottom.classList.remove("hidden");
+
+        if (typingStack.parentElement !== mobileTypingTop) {
+            mobileTypingTop.appendChild(typingStack);
+        }
+        if (actionRow.parentElement !== mobileTypingBottom) {
+            mobileTypingBottom.appendChild(actionRow);
+        }
+        return;
+    }
+
+    mobileTypingTop.classList.add("hidden");
+    mobileTypingBottom.classList.add("hidden");
+
+    if (typingStack.parentElement !== answerPanel) {
+        insertAfter(answerPanel, typingStack, typingStackAnchor);
+    }
+    if (actionRow.parentElement !== answerPanel) {
+        insertAfter(answerPanel, actionRow, actionRowAnchor);
+    }
 }
 
 function updateStats() {
@@ -394,6 +445,7 @@ function updateModeUI() {
     if (currentMode === "expert") {
         nextBtn.disabled = true;
     }
+    syncMobileTypingLayout();
     updateModeToggleLabel();
 }
 
@@ -739,3 +791,4 @@ document.addEventListener("keydown", function (event) {
 
 initGame();
 syncDifficultyMenuState();
+syncMobileTypingLayout();
