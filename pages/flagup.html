@@ -5,17 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FlagUp | Ronak Sinha</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon-black-green.svg">
     <link rel="stylesheet" href="../assets/styles/flagup.css">
 </head>
 <body>
     <header class="topbar">
-        <a class="topbar-link topbar-link-leaderboard" href="flagup-leaderboard.html">View Leaderboard</a>
+        <a class="topbar-link topbar-link-leaderboard topbar-link-mobile" href="flagup-leaderboard.html">View Leaderboard</a>
         <a class="topbar-link" href="../index.html">Back To Main</a>
         <p class="topbar-kicker">Global Flag Challenge</p>
     </header>
 
     <main class="game-shell">
-        <section class="game-card">
+        <div id="arena-layout" class="arena-layout">
+            <aside id="desktop-lb-left" class="side-panel side-panel-left" aria-hidden="true">
+                <button class="side-panel-peek" type="button" aria-label="Toggle leaderboard side panels" aria-expanded="false">Leaderboard</button>
+                <div class="side-panel-card">
+                    <h2>Live Leaderboard</h2>
+                    <p class="side-panel-subhead">Top unique players by mode.</p>
+                    <div id="desktop-lb-loading" class="rail-loading hidden" aria-live="polite" aria-label="Loading leaderboard">
+                        <span class="rail-loader"><span class="rail-loader-inner"></span></span>
+                        <span class="rail-loader"><span class="rail-loader-inner"></span></span>
+                        <span class="rail-loader"><span class="rail-loader-inner"></span></span>
+                    </div>
+                    <div class="desktop-lb-mode-row" role="group" aria-label="Desktop leaderboard mode">
+                        <button id="desktop-lb-mode-easy" class="desktop-lb-mode-btn active" type="button">Easy</button>
+                        <button id="desktop-lb-mode-medium" class="desktop-lb-mode-btn" type="button">Medium</button>
+                        <button id="desktop-lb-mode-hard" class="desktop-lb-mode-btn" type="button">Hard</button>
+                        <button id="desktop-lb-mode-expert" class="desktop-lb-mode-btn" type="button">Expert</button>
+                    </div>
+                    <p id="desktop-lb-status" class="desktop-lb-status">Loading...</p>
+                    <ol id="desktop-lb-list" class="desktop-lb-list"></ol>
+                </div>
+            </aside>
+
+            <section class="game-card">
             <div class="card-top">
                 <h1 class="title">
                     <span class="interactive-text">F</span>
@@ -35,16 +58,16 @@
                 </div>
             </div>
 
-                <div class="score-row">
+            <div class="score-row">
                 <span id="score-label">Score: 0</span>
                 <span id="round-label">Round: 0</span>
                 <span id="hint-label" class="hidden">Hints: 6</span>
             </div>
-            <p id="flag-fact" class="flag-fact hidden" aria-live="polite"></p>
 
             <div class="card-main">
                 <div id="mobile-typing-top" class="mobile-layout-slot hidden"></div>
                 <div class="flag-panel">
+                    <p id="flag-fact" class="flag-fact hidden" aria-live="polite"></p>
                     <div class="flag-wrapper">
                         <img id="flag-image" src="" alt="Country flag quiz prompt">
                     </div>
@@ -73,7 +96,25 @@
                     </div>
                 </div>
             </div>
-        </section>
+            </section>
+
+            <aside id="desktop-lb-right" class="side-panel side-panel-right" aria-hidden="true">
+                <button class="side-panel-peek" type="button" aria-label="Toggle leaderboard side panels" aria-expanded="false">Insights</button>
+                <div class="side-panel-card">
+                    <h2>Performance Snapshot</h2>
+                    <div id="desktop-lb-insights-loading" class="rail-loading hidden" aria-live="polite" aria-label="Loading insights">
+                        <span class="rail-loader"><span class="rail-loader-inner"></span></span>
+                        <span class="rail-loader"><span class="rail-loader-inner"></span></span>
+                        <span class="rail-loader"><span class="rail-loader-inner"></span></span>
+                    </div>
+                    <p id="desktop-lb-summary" class="desktop-lb-summary">Preparing average score data...</p>
+                    <p id="desktop-lb-top-player" class="desktop-lb-top-player">Top player: -</p>
+                    <div id="desktop-lb-chart-hook" class="desktop-lb-chart-hook" role="img" aria-label="Animated placeholder for future leaderboard bar chart">
+                        Future bar graph data hook.
+                    </div>
+                </div>
+            </aside>
+        </div>
     </main>
     <div id="gameover-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="gameover-title">
         <div class="modal-card">

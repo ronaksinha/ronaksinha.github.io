@@ -6,6 +6,8 @@ const NEXT_QUESTION_TRANSITION_MS = 360;
 const EASY_MODE_ADVANCE_DELAY_MS = 500;
 const DOUBLE_ENTER_SKIP_WINDOW_MS = 450;
 const LEADERBOARD_TABLE = "leaderboard_scores";
+const LEADERBOARD_MAX_ROWS = 10;
+const LEADERBOARD_FETCH_LIMIT = 200;
 const SUPABASE_URL = "https://cgqazsregqlcgnkehbwg.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_BD9Qn5CNFN7VgjgDdmCJTw_Bv6INgQ0";
 const Core = window.FlagUpCore;
@@ -95,9 +97,27 @@ const leaderboardSubmitFeedback = document.getElementById("leaderboard-submit-fe
 const leaderboardWrap = document.getElementById("leaderboard-wrap");
 const leaderboardTitle = document.getElementById("leaderboard-title");
 const leaderboardList = document.getElementById("leaderboard-list");
+const desktopLbPeekButtons = document.querySelectorAll(".side-panel-peek");
+const arenaLayout = document.getElementById("arena-layout");
+const desktopLbLeft = document.getElementById("desktop-lb-left");
+const desktopLbRight = document.getElementById("desktop-lb-right");
+const desktopLbStatus = document.getElementById("desktop-lb-status");
+const desktopLbList = document.getElementById("desktop-lb-list");
+const desktopLbLoading = document.getElementById("desktop-lb-loading");
+const desktopLbInsightsLoading = document.getElementById("desktop-lb-insights-loading");
+const desktopLbSummary = document.getElementById("desktop-lb-summary");
+const desktopLbTopPlayer = document.getElementById("desktop-lb-top-player");
+const desktopLbChartHook = document.getElementById("desktop-lb-chart-hook");
+const desktopLbModeButtons = {
+    easy: document.getElementById("desktop-lb-mode-easy"),
+    medium: document.getElementById("desktop-lb-mode-medium"),
+    hard: document.getElementById("desktop-lb-mode-hard"),
+    expert: document.getElementById("desktop-lb-mode-expert")
+};
 const retryBtn = document.getElementById("retry-btn");
 const closeModalBtn = document.getElementById("close-modal-btn");
 const phoneDifficultyMenuQuery = window.matchMedia("(max-width: 430px)");
+const desktopLeaderboardQuery = window.matchMedia("(min-width: 1200px)");
 const pageParams = new URLSearchParams(window.location.search);
 const debugRoundLimitRaw = Number(pageParams.get("rounds"));
 const debugRoundLimit = Number.isInteger(debugRoundLimitRaw) && debugRoundLimitRaw > 0
@@ -125,6 +145,8 @@ let lastEnterPressedAt = 0;
 let doubleEnterHintDismissed = false;
 let leaderboardSubmittedThisRun = false;
 let leaderboardSubmitting = false;
+let desktopLeaderboardMode = "easy";
+let desktopLeaderboardExpanded = false;
 
 const supabaseClient = (window.supabase && typeof window.supabase.createClient === "function" && SUPABASE_URL && SUPABASE_PUBLISHABLE_KEY)
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
@@ -284,6 +306,231 @@ function setLeaderboardSubmitFeedback(text, ok) {
     leaderboardSubmitFeedback.style.color = ok ? "#86efac" : "#fecaca";
 }
 
+function normalizeLeaderboardUsername(value) {
+    return String(value || "")
+        .trim()
+        .replace(/\s+/g, " ");
+}
+
+function buildTopLeaderboardRows(rawRows) {
+    const bestByUser = new Map();
+
+    (Array.isArray(rawRows) ? rawRows : []).forEach((row) => {
+        const username = normalizeLeaderboardUsername(row.username);
+        const scoreValue = Number(row.score);
+        if (!username || !Number.isFinite(scoreValue)) {
+            return;
+        }
+
+        const key = username.toLowerCase();
+        const createdAt = row.created_at ? new Date(row.created_at) : null;
+        const createdMs = createdAt && !Number.isNaN(createdAt.getTime())
+            ? createdAt.getTime()
+            : Number.MAX_SAFE_INTEGER;
+        const next = {
+            username,
+            score: scoreValue,
+            createdMs
+        };
+        const existing = bestByUser.get(key);
+
+        if (!existing || next.score > existing.score) {
+            bestByUser.set(key, next);
+            return;
+        }
+        if (next.score === existing.score && next.createdMs < existing.createdMs) {
+            bestByUser.set(key, next);
+        }
+    });
+
+    const sorted = Array.from(bestByUser.values())
+        .sort((a, b) => {
+            if (b.score !== a.score) {
+                return b.score - a.score;
+            }
+            if (a.createdMs !== b.createdMs) {
+                return a.createdMs - b.createdMs;
+            }
+            return a.username.localeCompare(b.username, undefined, { sensitivity: "base" });
+        })
+        .slice(0, LEADERBOARD_MAX_ROWS);
+
+    let rank = 0;
+    let previousScore = null;
+    return sorted.map((entry, index) => {
+        if (entry.score !== previousScore) {
+            rank = index + 1;
+            previousScore = entry.score;
+        }
+        return {
+            rank,
+            username: entry.username,
+            score: entry.score
+        };
+    });
+}
+
+function canUseDesktopLeaderboard() {
+    return Boolean(arenaLayout && desktopLeaderboardQuery.matches);
+}
+
+function setDesktopLeaderboardStatus(text, ok) {
+    if (!desktopLbStatus) {
+        return;
+    }
+    desktopLbStatus.textContent = text;
+    desktopLbStatus.style.color = ok ? "#86efac" : "#fecaca";
+}
+
+function setDesktopRailLoading(loading) {
+    const isLoading = Boolean(loading);
+
+    if (desktopLbLoading) {
+        desktopLbLoading.classList.toggle("hidden", !isLoading);
+    }
+    if (desktopLbInsightsLoading) {
+        desktopLbInsightsLoading.classList.toggle("hidden", !isLoading);
+    }
+    if (desktopLbStatus) {
+        desktopLbStatus.classList.toggle("hidden", isLoading);
+    }
+    if (desktopLbSummary) {
+        desktopLbSummary.classList.toggle("hidden", isLoading);
+    }
+    if (desktopLbTopPlayer) {
+        desktopLbTopPlayer.classList.toggle("hidden", isLoading);
+    }
+    if (desktopLbChartHook) {
+        desktopLbChartHook.classList.toggle("hidden", isLoading);
+    }
+}
+
+function setDesktopLeaderboardExpanded(expanded) {
+    if (!arenaLayout) {
+        return;
+    }
+    const next = Boolean(expanded) && canUseDesktopLeaderboard();
+    desktopLeaderboardExpanded = next;
+    arenaLayout.classList.toggle("leaderboard-expanded", next);
+    Array.from(desktopLbPeekButtons).forEach((button) => {
+        button.setAttribute("aria-expanded", String(next));
+    });
+    if (desktopLbLeft) {
+        desktopLbLeft.setAttribute("aria-hidden", String(!next));
+    }
+    if (desktopLbRight) {
+        desktopLbRight.setAttribute("aria-hidden", String(!next));
+    }
+}
+
+function syncDesktopLeaderboardViewport() {
+    if (!arenaLayout) {
+        return;
+    }
+    if (canUseDesktopLeaderboard()) {
+        setDesktopLeaderboardExpanded(desktopLeaderboardExpanded);
+        return;
+    }
+    setDesktopLeaderboardExpanded(false);
+}
+
+function setDesktopLeaderboardModeButtons(mode) {
+    Object.keys(desktopLbModeButtons).forEach((key) => {
+        const button = desktopLbModeButtons[key];
+        if (!button) {
+            return;
+        }
+        button.classList.toggle("active", key === mode);
+    });
+}
+
+function renderDesktopLeaderboardRows(rows) {
+    if (!desktopLbList) {
+        return;
+    }
+    desktopLbList.innerHTML = "";
+
+    (Array.isArray(rows) ? rows : []).forEach((row, index) => {
+        const item = document.createElement("li");
+        const rankLabel = Number.isFinite(Number(row.rank)) ? row.rank : (index + 1);
+        item.textContent = `#${rankLabel} ${row.username} - ${row.score}`;
+        desktopLbList.appendChild(item);
+    });
+
+    if (desktopLbList.children.length === 0) {
+        const item = document.createElement("li");
+        item.textContent = "No scores yet.";
+        desktopLbList.appendChild(item);
+    }
+}
+
+function updateDesktopLeaderboardInsights(mode, rows) {
+    if (!desktopLbSummary || !desktopLbChartHook || !desktopLbTopPlayer) {
+        return;
+    }
+
+    if (!rows || rows.length === 0) {
+        desktopLbSummary.textContent = `No ${toModeLabel(mode)} data yet for average calculations.`;
+        desktopLbTopPlayer.textContent = "Top player: -";
+        desktopLbChartHook.textContent = "Future bar graph data hook.";
+        return;
+    }
+
+    const total = rows.reduce((sum, row) => sum + row.score, 0);
+    const average = total / rows.length;
+    const best = rows[0];
+    desktopLbSummary.textContent = `${toModeLabel(mode)} average: ${average.toFixed(2)} (${rows.length} players)`;
+    desktopLbTopPlayer.textContent = `Top player: ${best.username} (${best.score})`;
+    desktopLbChartHook.textContent = `Chart payload -> { mode: "${mode}", averageScore: ${average.toFixed(2)}, sampleSize: ${rows.length} }`;
+}
+
+async function refreshDesktopLeaderboardForMode(mode) {
+    if (!desktopLbList || !desktopLbStatus || !desktopLbSummary) {
+        return;
+    }
+
+    desktopLeaderboardMode = mode;
+    setDesktopLeaderboardModeButtons(mode);
+    setDesktopRailLoading(true);
+
+    if (!canUseLeaderboard()) {
+        renderDesktopLeaderboardRows([]);
+        updateDesktopLeaderboardInsights(mode, []);
+        setDesktopLeaderboardStatus("Leaderboard unavailable right now.", false);
+        setDesktopRailLoading(false);
+        return;
+    }
+
+    try {
+        const { data, error } = await supabaseClient
+            .from(LEADERBOARD_TABLE)
+            .select("username,score,created_at")
+            .eq("mode", mode)
+            .order("score", { ascending: false })
+            .order("created_at", { ascending: true })
+            .limit(LEADERBOARD_FETCH_LIMIT);
+
+        if (error) {
+            renderDesktopLeaderboardRows([]);
+            updateDesktopLeaderboardInsights(mode, []);
+            setDesktopLeaderboardStatus("Failed to load leaderboard.", false);
+            setDesktopRailLoading(false);
+            return;
+        }
+
+        const rows = buildTopLeaderboardRows(data || []);
+        renderDesktopLeaderboardRows(rows);
+        updateDesktopLeaderboardInsights(mode, rows);
+        setDesktopLeaderboardStatus(`Showing top ${LEADERBOARD_MAX_ROWS} for ${toModeLabel(mode)}.`, true);
+        setDesktopRailLoading(false);
+    } catch (error) {
+        renderDesktopLeaderboardRows([]);
+        updateDesktopLeaderboardInsights(mode, []);
+        setDesktopLeaderboardStatus("Failed to load leaderboard.", false);
+        setDesktopRailLoading(false);
+    }
+}
+
 function renderLeaderboardRows(rows) {
     if (!leaderboardList) {
         return;
@@ -291,7 +538,8 @@ function renderLeaderboardRows(rows) {
     leaderboardList.innerHTML = "";
     (Array.isArray(rows) ? rows : []).forEach((row, index) => {
         const item = document.createElement("li");
-        item.textContent = `${index + 1}. ${row.username} — ${row.score}`;
+        const rankLabel = Number.isFinite(Number(row.rank)) ? row.rank : (index + 1);
+        item.textContent = `${rankLabel}. ${row.username} - ${row.score}`;
         leaderboardList.appendChild(item);
     });
     if (leaderboardList.children.length === 0) {
@@ -305,7 +553,7 @@ async function refreshLeaderboardForMode(mode) {
     if (!leaderboardWrap || !leaderboardTitle) {
         return;
     }
-    leaderboardTitle.textContent = `Top 10 (${toModeLabel(mode)})`;
+    leaderboardTitle.textContent = `Top ${LEADERBOARD_MAX_ROWS} (${toModeLabel(mode)})`;
     leaderboardWrap.classList.remove("hidden");
 
     if (!canUseLeaderboard()) {
@@ -320,14 +568,14 @@ async function refreshLeaderboardForMode(mode) {
             .eq("mode", mode)
             .order("score", { ascending: false })
             .order("created_at", { ascending: true })
-            .limit(10);
+            .limit(LEADERBOARD_FETCH_LIMIT);
 
         if (error) {
             renderLeaderboardRows([]);
             return;
         }
 
-        renderLeaderboardRows(data || []);
+        renderLeaderboardRows(buildTopLeaderboardRows(data || []));
     } catch (error) {
         renderLeaderboardRows([]);
     }
@@ -398,6 +646,7 @@ async function submitLeaderboardScore() {
     window.localStorage.setItem("flagup_leaderboard_name", username);
     setLeaderboardSubmitFeedback("Score submitted.", true);
     await refreshLeaderboardForMode(gameOverRetryMode || currentMode);
+    await refreshDesktopLeaderboardForMode(gameOverRetryMode || currentMode);
 }
 
 function setInteractionEnabled(enabled) {
@@ -997,8 +1246,10 @@ function switchMode(mode) {
     }
     currentMode = mode;
     hintsRemaining = MEDIUM_HINT_COUNT;
+    desktopLeaderboardMode = mode;
     updateModeUI();
     restartGame();
+    void refreshDesktopLeaderboardForMode(mode);
     collapseDifficultyMenuOnPhone();
 }
 
@@ -1016,6 +1267,7 @@ async function initGame() {
     setFeedback(`Loaded ${countryPool.length} countries.`, true);
     updateModeUI();
     restartGame();
+    void refreshDesktopLeaderboardForMode(desktopLeaderboardMode);
 }
 
 nextBtn.addEventListener("click", nextQuestion);
@@ -1047,10 +1299,39 @@ if (modeToggleBtn && modeRow) {
         updateModeToggleLabel();
     });
 }
+Array.from(desktopLbPeekButtons).forEach((button) => {
+    button.addEventListener("click", function () {
+        const next = !desktopLeaderboardExpanded;
+        setDesktopLeaderboardExpanded(next);
+        if (next) {
+            void refreshDesktopLeaderboardForMode(desktopLeaderboardMode);
+        }
+    });
+});
+Object.keys(desktopLbModeButtons).forEach((mode) => {
+    const button = desktopLbModeButtons[mode];
+    if (!button) {
+        return;
+    }
+    button.addEventListener("click", function () {
+        desktopLeaderboardMode = mode;
+        if (currentMode !== mode) {
+            switchMode(mode);
+            return;
+        }
+        setDesktopLeaderboardModeButtons(mode);
+        void refreshDesktopLeaderboardForMode(mode);
+    });
+});
 if (typeof phoneDifficultyMenuQuery.addEventListener === "function") {
     phoneDifficultyMenuQuery.addEventListener("change", syncDifficultyMenuState);
 } else if (typeof phoneDifficultyMenuQuery.addListener === "function") {
     phoneDifficultyMenuQuery.addListener(syncDifficultyMenuState);
+}
+if (typeof desktopLeaderboardQuery.addEventListener === "function") {
+    desktopLeaderboardQuery.addEventListener("change", syncDesktopLeaderboardViewport);
+} else if (typeof desktopLeaderboardQuery.addListener === "function") {
+    desktopLeaderboardQuery.addListener(syncDesktopLeaderboardViewport);
 }
 if (leaderboardSubmitBtn) {
     leaderboardSubmitBtn.addEventListener("click", submitLeaderboardScore);
@@ -1146,3 +1427,4 @@ document.addEventListener("keydown", function (event) {
 initGame();
 syncDifficultyMenuState();
 syncMobileTypingLayout();
+syncDesktopLeaderboardViewport();

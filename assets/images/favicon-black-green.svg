@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Black and green website icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#020303"/>
+      <stop offset="100%" stop-color="#0c1110"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#9dff2e"/>
+      <stop offset="100%" stop-color="#3cff00"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect x="6" y="6" width="116" height="116" rx="26" fill="url(#bg)" stroke="#1f3a21" stroke-width="2"/>
+  <circle cx="64" cy="64" r="36" fill="none" stroke="#15351a" stroke-width="2"/>
+  <circle cx="64" cy="64" r="27" fill="none" stroke="#214b28" stroke-width="1.5"/>
+
+  <path d="M45 83V45h24c12 0 20 8 20 18 0 9-7 15-17 16l18 24H73L57 81h-3v22H45zm9-30v18h14c7 0 12-3 12-9 0-6-5-9-12-9H54z"
+        fill="url(#accent)" filter="url(#glow)"/>
+
+  <path d="M32 98c10 10 54 10 64 0" fill="none" stroke="#50ff16" stroke-opacity="0.55" stroke-width="1.4"/>
+</svg>

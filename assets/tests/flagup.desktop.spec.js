@@ -12,6 +12,7 @@ async function installSupabaseMock(page, options = {}) {
     const initialRows = Array.isArray(options.initialRows) ? options.initialRows : [];
     const failSelect = options.failSelect === true;
     const failInsert = options.failInsert === true;
+    const selectDelayMs = Number.isFinite(options.selectDelayMs) ? Number(options.selectDelayMs) : 0;
 
     const stubScript = `
         (function () {
@@ -26,13 +27,21 @@ async function installSupabaseMock(page, options = {}) {
                                 eq: function (_col, value) { state.mode = value; return this; },
                                 order: function () { return this; },
                                 limit: function (n) {
+                                    const respond = function (payload) {
+                                        if (${selectDelayMs} <= 0) {
+                                            return Promise.resolve(payload);
+                                        }
+                                        return new Promise(function (resolve) {
+                                            setTimeout(function () { resolve(payload); }, ${selectDelayMs});
+                                        });
+                                    };
                                     if (${failSelect ? "true" : "false"}) {
-                                        return Promise.resolve({ data: null, error: { message: "select failed" } });
+                                        return respond({ data: null, error: { message: "select failed" } });
                                     }
                                     const filtered = (window.__leaderboardRows || [])
                                         .filter(function (row) { return !state.mode || row.mode === state.mode; })
                                         .slice(0, n);
-                                    return Promise.resolve({ data: filtered, error: null });
+                                    return respond({ data: filtered, error: null });
                                 },
                                 insert: function (row) {
                                     if (${failInsert ? "true" : "false"}) {
@@ -172,4 +181,30 @@ test("enter in leaderboard name input submits score and does not trigger retry",
 
     await expect(page.locator("#leaderboard-submit-feedback")).toContainText("Score submitted.");
     await expect(page.locator("#gameover-modal")).toBeVisible();
+});
+
+test("desktop side-rail loader appears while fetching and hides after load", async ({ page }) => {
+    await installSupabaseMock(page, {
+        selectDelayMs: 500,
+        initialRows: [
+            { username: "EasyOne", score: 9, mode: "easy", created_at: "2026-01-01T00:00:00.000Z" },
+            { username: "HardOne", score: 7, mode: "hard", created_at: "2026-01-02T00:00:00.000Z" }
+        ]
+    });
+    await openFlagUp(page);
+
+    await page.locator("#desktop-lb-left .side-panel-peek").click();
+    await expect(page.locator("#desktop-lb-left .side-panel-card")).toBeVisible();
+
+    await page.locator("#desktop-lb-mode-hard").click();
+
+    await expect(page.locator("#desktop-lb-loading")).toBeVisible();
+    await expect(page.locator("#desktop-lb-insights-loading")).toBeVisible();
+    await expect(page.locator("#desktop-lb-status")).toBeHidden();
+    await expect(page.locator("#desktop-lb-summary")).toBeHidden();
+
+    await expect(page.locator("#desktop-lb-loading")).toBeHidden();
+    await expect(page.locator("#desktop-lb-insights-loading")).toBeHidden();
+    await expect(page.locator("#desktop-lb-status")).toContainText("Hard");
+    await expect(page.locator("#desktop-lb-list li").first()).toContainText("HardOne");
 });
