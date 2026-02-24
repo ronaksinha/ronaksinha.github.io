@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FlagUp Leaderboard | Ronak Sinha</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon-black-green.svg">
     <link rel="stylesheet" href="../assets/styles/flagup-leaderboard.css">
 </head>
 <body>
@@ -16,7 +17,7 @@
     <main class="board-shell">
         <section class="board-card">
             <h1>FlagUp Leaderboard</h1>
-            <p class="subhead">Top 10 scores by mode.</p>
+            <p class="subhead">Top players by mode. One best score per player.</p>
 
             <div class="mode-row" role="group" aria-label="Leaderboard mode">
                 <button id="lb-mode-easy" class="mode-btn active" type="button">Easy</button>
@@ -26,7 +27,22 @@
             </div>
 
             <p id="leaderboard-status" class="status">Loading...</p>
+
+            <div class="leaderboard-head" aria-hidden="true">
+                <span>Rank</span>
+                <span>Player</span>
+                <span>Score</span>
+                <span>When</span>
+            </div>
             <ol id="leaderboard-list" class="leaderboard-list"></ol>
+
+            <section class="chart-section" aria-labelledby="chart-title">
+                <h2 id="chart-title">Average Performance (Chart Hook)</h2>
+                <p id="chart-summary" class="chart-summary">Preparing chart data...</p>
+                <div id="chart-hook" class="chart-hook" role="img" aria-label="Bar chart placeholder for average scores">
+                    Replace this with a real bar chart in a later update.
+                </div>
+            </section>
         </section>
     </main>
 
