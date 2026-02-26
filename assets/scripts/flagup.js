@@ -154,6 +154,7 @@ let desktopLeaderboardMode = "easy";
 let desktopLeaderboardExpanded = false;
 let desktopLeaderboardLastRows = [];
 let desktopHistogramResizeTimer = 0;
+let mobileScrollSnapTimer = 0;
 
 const supabaseClient = (window.supabase && typeof window.supabase.createClient === "function" && SUPABASE_URL && SUPABASE_PUBLISHABLE_KEY)
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
@@ -211,6 +212,37 @@ function syncPhoneDifficultyScrollState() {
     const expanded = modeToggleBtn.getAttribute("aria-expanded") === "true";
     const shouldEnableScroll = isPhoneDifficultyMenu() && expanded;
     body.classList.toggle("phone-difficulty-open", shouldEnableScroll);
+}
+
+function shouldAutoSnapMobileScroll() {
+    if (!isPhoneDifficultyMenu()) {
+        return false;
+    }
+    if (document.body && document.body.classList.contains("phone-difficulty-open")) {
+        return false;
+    }
+    if (gameOverModal && !gameOverModal.classList.contains("hidden")) {
+        return false;
+    }
+    return true;
+}
+
+function scheduleMobileScrollSnapBack() {
+    window.clearTimeout(mobileScrollSnapTimer);
+    if (!shouldAutoSnapMobileScroll()) {
+        return;
+    }
+
+    mobileScrollSnapTimer = window.setTimeout(function () {
+        if (!shouldAutoSnapMobileScroll()) {
+            return;
+        }
+        const offset = window.scrollY || window.pageYOffset || 0;
+        if (offset <= 2) {
+            return;
+        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 120);
 }
 
 function syncDifficultyMenuState() {
@@ -1526,6 +1558,12 @@ window.addEventListener("resize", function () {
         renderDesktopLeaderboardBarGraph(desktopLeaderboardMode, desktopLeaderboardLastRows);
     }, 90);
 });
+window.addEventListener("scroll", function () {
+    scheduleMobileScrollSnapBack();
+}, { passive: true });
+window.addEventListener("touchend", function () {
+    scheduleMobileScrollSnapBack();
+}, { passive: true });
 if (leaderboardSubmitBtn) {
     leaderboardSubmitBtn.addEventListener("click", submitLeaderboardScore);
 }
