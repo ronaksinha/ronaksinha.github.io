@@ -70,7 +70,7 @@ test("leaderboard page supports mode switching", async ({ page }) => {
 
     await page.locator("#lb-mode-hard").click();
     await expect(page.locator("#lb-mode-hard")).toHaveClass(/active/);
-    await expect(page.locator("#leaderboard-status")).toContainText("Hard");
+    await expect(page.locator("#leaderboard-status")).toContainText("Top 10 Players All Time");
     await expect(page.locator("#leaderboard-list li").first()).toContainText("HardOne");
 });
 
