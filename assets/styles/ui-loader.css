@@ -66,3 +66,30 @@
         height: 0%;
     }
 }
+
+.ui-pull-refresh {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 0;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 40;
+}
+
+.ui-pull-refresh-indicator {
+    margin-top: 8px;
+    padding: 8px 10px;
+    border-radius: 11px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(8, 12, 19, 0.9);
+    opacity: 0;
+    transform: translateY(-28px) scale(0.9);
+    transition: transform 140ms ease, opacity 140ms ease, border-color 140ms ease;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+}
+
+.ui-pull-refresh.ready .ui-pull-refresh-indicator,
+.ui-pull-refresh.refreshing .ui-pull-refresh-indicator {
+    border-color: rgba(136, 255, 0, 0.72);
+}

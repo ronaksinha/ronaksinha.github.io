@@ -245,6 +245,27 @@ function scheduleMobileScrollSnapBack() {
     }, 120);
 }
 
+function setupMobilePullToRefresh() {
+    const UiLoader = window.UiLoader;
+    if (!UiLoader || typeof UiLoader.enablePullToRefresh !== "function") {
+        return;
+    }
+
+    UiLoader.enablePullToRefresh({
+        threshold: 92,
+        maxPull: 165,
+        label: "Pull to refresh FlagUp",
+        isEnabled: function () {
+            return isPhoneDifficultyMenu()
+                && !document.body.classList.contains("phone-difficulty-open")
+                && gameOverModal.classList.contains("hidden");
+        },
+        onRefresh: function () {
+            window.location.reload();
+        }
+    });
+}
+
 function syncDifficultyMenuState() {
     if (!modeToggleBtn || !modeRow) {
         return;
@@ -1660,3 +1681,4 @@ syncDifficultyMenuState();
 syncMobileTypingLayout();
 syncDesktopLeaderboardViewport();
 syncPhoneDifficultyScrollState();
+setupMobilePullToRefresh();
