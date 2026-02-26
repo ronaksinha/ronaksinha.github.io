@@ -43,10 +43,12 @@ body {
     transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.topbar-link:hover {
-    transform: translateY(-1px);
-    border-color: rgba(136, 255, 0, 0.55);
-    background: rgba(136, 255, 0, 0.12);
+@media (hover: hover) {
+    .topbar-link:hover {
+        transform: translateY(-1px);
+        border-color: rgba(136, 255, 0, 0.55);
+        background: rgba(136, 255, 0, 0.12);
+    }
 }
 
 .topbar-link-leaderboard {
@@ -55,9 +57,11 @@ body {
     font-weight: 700;
 }
 
-.topbar-link-leaderboard:hover {
-    border-color: rgba(136, 255, 0, 0.9);
-    background: rgba(136, 255, 0, 0.28);
+@media (hover: hover) {
+    .topbar-link-leaderboard:hover {
+        border-color: rgba(136, 255, 0, 0.9);
+        background: rgba(136, 255, 0, 0.28);
+    }
 }
 
 .topbar-kicker {
@@ -198,9 +202,11 @@ body {
     cursor: pointer;
 }
 
-.mode-toggle-btn:hover {
-    border-color: rgba(136, 255, 0, 0.55);
-    background: rgba(136, 255, 0, 0.12);
+@media (hover: hover) {
+    .mode-toggle-btn:hover {
+        border-color: rgba(136, 255, 0, 0.55);
+        background: rgba(136, 255, 0, 0.12);
+    }
 }
 
 .mode-btn {
@@ -220,8 +226,10 @@ body {
     white-space: nowrap;
 }
 
-.mode-btn:hover {
-    border-color: rgba(136, 255, 0, 0.55);
+@media (hover: hover) {
+    .mode-btn:hover {
+        border-color: rgba(136, 255, 0, 0.55);
+    }
 }
 
 .mode-btn.active {
@@ -315,9 +323,11 @@ body {
     cursor: pointer;
 }
 
-.hint-row button:hover {
-    border-color: rgba(136, 255, 0, 0.6);
-    background: rgba(136, 255, 0, 0.12);
+@media (hover: hover) {
+    .hint-row button:hover {
+        border-color: rgba(136, 255, 0, 0.6);
+        background: rgba(136, 255, 0, 0.12);
+    }
 }
 
 .hint-row button:disabled {
@@ -426,9 +436,11 @@ body {
     cursor: pointer;
 }
 
-.leaderboard-submit-row button:hover {
-    border-color: rgba(136, 255, 0, 0.6);
-    background: rgba(136, 255, 0, 0.12);
+@media (hover: hover) {
+    .leaderboard-submit-row button:hover {
+        border-color: rgba(136, 255, 0, 0.6);
+        background: rgba(136, 255, 0, 0.12);
+    }
 }
 
 .leaderboard-feedback {
@@ -477,9 +489,11 @@ body {
     cursor: pointer;
 }
 
-.modal-actions button:hover {
-    border-color: rgba(136, 255, 0, 0.6);
-    background: rgba(136, 255, 0, 0.12);
+@media (hover: hover) {
+    .modal-actions button:hover {
+        border-color: rgba(136, 255, 0, 0.6);
+        background: rgba(136, 255, 0, 0.12);
+    }
 }
 
 .choice-btn {
@@ -565,9 +579,11 @@ body {
     transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.action-row button:hover {
-    border-color: rgba(136, 255, 0, 0.6);
-    background: rgba(136, 255, 0, 0.12);
+@media (hover: hover) {
+    .action-row button:hover {
+        border-color: rgba(136, 255, 0, 0.6);
+        background: rgba(136, 255, 0, 0.12);
+    }
 }
 
 @media (min-width: 1200px) {
@@ -696,9 +712,11 @@ body {
         left: 0;
     }
 
-    .side-panel-peek:hover {
-        border-color: rgba(136, 255, 0, 0.62);
-        background: rgba(136, 255, 0, 0.12);
+    @media (hover: hover) {
+        .side-panel-peek:hover {
+            border-color: rgba(136, 255, 0, 0.62);
+            background: rgba(136, 255, 0, 0.12);
+        }
     }
 
     .side-panel-peek:focus-visible {
@@ -1194,9 +1212,9 @@ body {
     }
 
     .flag-wrapper {
-        min-height: 152px;
-        height: 26dvh;
-        max-height: 230px;
+        min-height: 166px;
+        height: 29dvh;
+        max-height: 250px;
         padding: 0.4rem;
         width: 100%;
         max-width: min(94vw, 360px);
@@ -1207,8 +1225,8 @@ body {
     #flag-image {
         width: 100%;
         height: 100%;
-        max-width: min(84vw, 320px);
-        max-height: min(21dvh, 170px);
+        max-width: min(88vw, 336px);
+        max-height: min(24dvh, 190px);
         object-fit: contain;
         object-position: center;
     }
@@ -1222,9 +1240,9 @@ body {
     }
 
     .choice-btn {
-        font-size: 0.94rem;
-        padding: 0.68rem 0.54rem;
-        min-height: 50px;
+        font-size: 1rem;
+        padding: 0.74rem 0.58rem;
+        min-height: 56px;
         line-height: 1.2;
         width: 100%;
         max-width: none;
