@@ -404,12 +404,23 @@ function setDesktopLeaderboardStatus(text, ok) {
 
 function setDesktopRailLoading(loading) {
     const isLoading = Boolean(loading);
+    const UiLoader = window.UiLoader;
 
     if (desktopLbLoading) {
-        desktopLbLoading.classList.toggle("hidden", !isLoading);
+        if (UiLoader) {
+            UiLoader.mount(desktopLbLoading, { label: "Loading leaderboard" });
+            UiLoader.setVisible(desktopLbLoading, isLoading);
+        } else {
+            desktopLbLoading.classList.toggle("hidden", !isLoading);
+        }
     }
     if (desktopLbInsightsLoading) {
-        desktopLbInsightsLoading.classList.toggle("hidden", !isLoading);
+        if (UiLoader) {
+            UiLoader.mount(desktopLbInsightsLoading, { label: "Loading insights" });
+            UiLoader.setVisible(desktopLbInsightsLoading, isLoading);
+        } else {
+            desktopLbInsightsLoading.classList.toggle("hidden", !isLoading);
+        }
     }
     if (desktopLbStatus) {
         desktopLbStatus.classList.toggle("hidden", isLoading);

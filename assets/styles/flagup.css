@@ -807,32 +807,6 @@ body {
         display: none;
     }
 
-    .rail-loader {
-        display: inline-block;
-        width: 13px;
-        height: 13px;
-        border: 2px solid #eef3fc;
-        border-radius: 3px;
-        transform: rotate(0deg);
-        animation: railLoaderSpin 1.6s infinite ease-in-out;
-    }
-
-    .rail-loader:nth-child(2) {
-        animation-delay: 0.1s;
-    }
-
-    .rail-loader:nth-child(3) {
-        animation-delay: 0.2s;
-    }
-
-    .rail-loader-inner {
-        display: block;
-        width: 100%;
-        height: 0%;
-        background: #eef3fc;
-        animation: railLoaderFill 1.6s infinite ease-in-out;
-    }
-
     .desktop-lb-list {
         margin: 0;
         padding: 0;
@@ -1028,42 +1002,6 @@ body {
     }
     50% {
         box-shadow: 0 0 18px rgba(136, 255, 0, 0.16);
-    }
-}
-
-@keyframes railLoaderSpin {
-    0% {
-        transform: rotate(0deg);
-    }
-    25% {
-        transform: rotate(180deg);
-    }
-    50% {
-        transform: rotate(180deg);
-    }
-    75% {
-        transform: rotate(360deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes railLoaderFill {
-    0% {
-        height: 0%;
-    }
-    25% {
-        height: 0%;
-    }
-    50% {
-        height: 100%;
-    }
-    75% {
-        height: 100%;
-    }
-    100% {
-        height: 0%;
     }
 }
 

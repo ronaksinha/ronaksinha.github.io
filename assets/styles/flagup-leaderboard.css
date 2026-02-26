@@ -21,6 +21,10 @@ body {
         linear-gradient(170deg, var(--bg-0) 0%, var(--bg-1) 45%, var(--bg-2) 100%);
 }
 
+.hidden {
+    display: none !important;
+}
+
 .topbar {
     display: flex;
     gap: 0.8rem;
@@ -46,6 +50,7 @@ body {
 
 .board-shell {
     padding: 0.75rem 1rem 1.5rem 1rem;
+    box-sizing: border-box;
 }
 
 .board-card {
@@ -58,6 +63,7 @@ body {
         linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
         var(--panel);
     box-shadow: 0 16px 35px rgba(0, 0, 0, 0.32);
+    box-sizing: border-box;
 }
 
 .board-card h1 {
@@ -97,10 +103,19 @@ body {
     font-size: 0.9rem;
 }
 
+.leaderboard-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    width: 100%;
+    min-height: 130px;
+}
+
 .leaderboard-head {
     margin-top: 0.8rem;
     display: grid;
-    grid-template-columns: 56px 1fr 76px 88px;
+    grid-template-columns: 56px 1fr 76px;
     gap: 0.6rem;
     font-size: 0.74rem;
     letter-spacing: 0.08em;
@@ -124,9 +139,20 @@ body {
     border-radius: 12px;
     padding: 0.58rem 0.7rem;
     display: grid;
-    grid-template-columns: 56px 1fr 76px 88px;
+    grid-template-columns: 56px 1fr 76px;
     gap: 0.6rem;
     align-items: center;
+}
+
+.leaderboard-list li.leaderboard-rank-1 .leaderboard-cell-rank,
+.leaderboard-list li.leaderboard-rank-1 .leaderboard-cell-player {
+    color: #ffd45e;
+}
+
+.leaderboard-list li.leaderboard-rank-1 .wave-letter {
+    display: inline-block;
+    animation: rankOneWave 3.8s ease-in-out infinite;
+    text-shadow: 0 0 6px rgba(255, 210, 94, 0.35);
 }
 
 .leaderboard-cell-rank {
@@ -180,9 +206,35 @@ body {
 }
 
 @media (max-width: 430px) {
+    .topbar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.45rem;
+        padding: 0.45rem 0.75rem;
+        flex-wrap: nowrap;
+    }
+
+    .topbar-link {
+        font-size: 0.88rem;
+        padding: 0.45rem 0.7rem;
+    }
+
+    .topbar-link:first-child {
+        margin-right: auto;
+    }
+
+    .board-shell {
+        padding: 0.7rem 0.75rem 1.25rem 0.75rem;
+        box-sizing: border-box;
+    }
+
     .board-card {
         padding: 0.8rem;
         border-radius: 14px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .board-card h1 {
@@ -191,7 +243,7 @@ body {
 
     .leaderboard-head,
     .leaderboard-list li {
-        grid-template-columns: 48px 1fr 62px 72px;
+        grid-template-columns: 48px 1fr 62px;
         gap: 0.42rem;
     }
 
@@ -205,7 +257,93 @@ body {
         padding: 0.5rem 0.55rem;
     }
 
-    .leaderboard-cell-date {
+    .mobile-hist-empty {
+        margin: 0;
         font-size: 0.74rem;
+        color: #c8d7ec;
+    }
+
+    .mobile-hist-columns {
+        display: grid;
+        grid-template-columns: repeat(16, minmax(0, 1fr));
+        gap: 0.12rem;
+        width: 100%;
+        align-items: end;
+        height: 176px;
+        border-left: 1px solid rgba(255, 255, 255, 0.14);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+        padding: 0.2rem 0.14rem 0.36rem 0.2rem;
+        box-sizing: border-box;
+        background:
+            repeating-linear-gradient(
+                to top,
+                rgba(255, 255, 255, 0.06) 0,
+                rgba(255, 255, 255, 0.06) 1px,
+                transparent 1px,
+                transparent 20%
+            );
+    }
+
+    .mobile-hist-column {
+        display: grid;
+        grid-template-rows: 10px 1fr 34px;
+        gap: 0.1rem;
+        min-width: 0;
+        align-items: end;
+        justify-items: center;
+    }
+
+.mobile-hist-value {
+        font-size: 0.5rem;
+        color: #f2f7ff;
+        font-variant-numeric: tabular-nums;
+        line-height: 1;
+    }
+
+    .mobile-hist-col-wrap {
+        width: 100%;
+        height: 84px;
+        border-radius: 7px;
+        background: rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .mobile-hist-col-bar {
+        display: block;
+        width: 100%;
+        min-height: 2px;
+        border-radius: 7px 7px 3px 3px;
+        background: linear-gradient(180deg, rgba(136, 255, 0, 0.98), rgba(193, 255, 128, 0.88));
+    }
+
+    .mobile-hist-label {
+        display: block;
+        font-size: 0.34rem;
+        color: #dce8f8;
+        line-height: 1;
+        white-space: nowrap;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        justify-self: center;
+    }
+
+    .chart-hook {
+        display: block;
+        overflow-x: hidden;
+    }
+}
+
+@keyframes rankOneWave {
+    0%, 79%, 100% {
+        transform: translateY(0);
+    }
+    10% {
+        transform: translateY(-3px);
+    }
+    20% {
+        transform: translateY(0);
     }
 }

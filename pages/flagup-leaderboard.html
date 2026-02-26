@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FlagUp Leaderboard | Ronak Sinha</title>
     <link rel="icon" type="image/svg+xml" href="../assets/images/favicon-black-green.svg">
+    <link rel="stylesheet" href="../assets/styles/ui-loader.css">
     <link rel="stylesheet" href="../assets/styles/flagup-leaderboard.css">
 </head>
 <body>
@@ -26,13 +27,14 @@
                 <button id="lb-mode-expert" class="mode-btn" type="button">Expert</button>
             </div>
 
+            <div id="leaderboard-loading" class="leaderboard-loading hidden"></div>
+
             <p id="leaderboard-status" class="status">Loading...</p>
 
             <div class="leaderboard-head" aria-hidden="true">
                 <span>Rank</span>
                 <span>Player</span>
                 <span>Score</span>
-                <span>When</span>
             </div>
             <ol id="leaderboard-list" class="leaderboard-list"></ol>
 
@@ -46,6 +48,7 @@
         </section>
     </main>
 
+    <script src="../assets/scripts/ui-loader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../assets/scripts/flagup-leaderboard.js"></script>
 </body>
