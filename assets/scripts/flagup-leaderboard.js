@@ -21,6 +21,25 @@ const chartTitle = document.getElementById("chart-title");
 const mobileHistogramQuery = window.matchMedia("(max-width: 430px)");
 
 let currentMode = "easy";
+let mobileScrollSnapTimer = 0;
+
+function setupMobilePullToRefresh() {
+    const UiLoader = window.UiLoader;
+    if (!UiLoader || typeof UiLoader.enablePullToRefresh !== "function") {
+        return;
+    }
+    UiLoader.enablePullToRefresh({
+        threshold: 92,
+        maxPull: 165,
+        label: "Pull to refresh leaderboard",
+        isEnabled: function () {
+            return mobileHistogramQuery.matches;
+        },
+        onRefresh: function () {
+            window.location.reload();
+        }
+    });
+}
 
 const supabaseClient = (window.supabase && typeof window.supabase.createClient === "function")
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
@@ -32,6 +51,28 @@ function toModeLabel(mode) {
 
 function isMobileHistogramMode() {
     return mobileHistogramQuery.matches;
+}
+
+function shouldAutoSnapMobileScroll() {
+    return mobileHistogramQuery.matches;
+}
+
+function scheduleMobileScrollSnapBack() {
+    window.clearTimeout(mobileScrollSnapTimer);
+    if (!shouldAutoSnapMobileScroll()) {
+        return;
+    }
+
+    mobileScrollSnapTimer = window.setTimeout(function () {
+        if (!shouldAutoSnapMobileScroll()) {
+            return;
+        }
+        const offset = window.scrollY || window.pageYOffset || 0;
+        if (offset <= 2) {
+            return;
+        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 120);
 }
 
 function setStatus(text, ok) {
@@ -366,3 +407,11 @@ if (typeof mobileHistogramQuery.addEventListener === "function") {
 }
 
 loadLeaderboard(currentMode);
+setupMobilePullToRefresh();
+
+window.addEventListener("scroll", function () {
+    scheduleMobileScrollSnapBack();
+}, { passive: true });
+window.addEventListener("touchend", function () {
+    scheduleMobileScrollSnapBack();
+}, { passive: true });

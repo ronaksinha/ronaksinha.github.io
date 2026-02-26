@@ -208,6 +208,11 @@ body {
 }
 
 @media (max-width: 430px) {
+    html,
+    body {
+        background-color: var(--bg-0);
+    }
+
     .topbar {
         display: flex;
         flex-direction: row;
@@ -345,6 +350,17 @@ body {
     .chart-hook {
         display: block;
         overflow-x: hidden;
+    }
+
+    body::after {
+        content: "";
+        display: block;
+        height: 120px;
+        background:
+            radial-gradient(1200px 700px at 10% 5%, #1f242f 0%, transparent 55%),
+            radial-gradient(900px 600px at 85% 90%, #20262f 0%, transparent 55%),
+            linear-gradient(170deg, var(--bg-0) 0%, var(--bg-1) 45%, var(--bg-2) 100%);
+        pointer-events: none;
     }
 }
 

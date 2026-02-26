@@ -27,7 +27,7 @@ test("iphone layout fits viewport and hides non-essential header kicker", async 
     });
 
     expect(pageMetrics.scrollHeight).toBeGreaterThan(pageMetrics.clientHeight);
-    expect(pageMetrics.scrollHeight).toBeLessThanOrEqual(pageMetrics.clientHeight + 40);
+    expect(pageMetrics.scrollHeight).toBeLessThanOrEqual(pageMetrics.clientHeight + 140);
 
     const toggle = page.locator("#mode-toggle-btn");
     const toggleBox = await toggle.boundingBox();
