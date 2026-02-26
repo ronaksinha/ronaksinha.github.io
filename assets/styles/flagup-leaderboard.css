@@ -42,10 +42,12 @@ body {
     transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }
 
-.topbar-link:hover {
-    transform: translateY(-1px);
-    border-color: rgba(136, 255, 0, 0.55);
-    background: rgba(136, 255, 0, 0.12);
+@media (hover: hover) {
+    .topbar-link:hover {
+        transform: translateY(-1px);
+        border-color: rgba(136, 255, 0, 0.55);
+        background: rgba(136, 255, 0, 0.12);
+    }
 }
 
 .board-shell {
