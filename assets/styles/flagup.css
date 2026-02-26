@@ -1336,6 +1336,14 @@ body {
     .leaderboard-wrap ol {
         max-height: 120px;
     }
+
+    /* Gives iOS Safari a small root-scroll runway so the URL bar can collapse. */
+    body::after {
+        content: "";
+        display: block;
+        height: 28px;
+        pointer-events: none;
+    }
 }
 
 @media (max-width: 360px) {
