@@ -889,6 +889,7 @@ body {
         color: #d8f0b2;
         min-height: 130px;
         flex: 1 1 auto;
+        overflow: hidden;
         animation: chartPulse 2.5s ease-in-out infinite;
     }
 
@@ -927,6 +928,8 @@ body {
         display: grid;
         gap: 0.2rem;
         align-items: center;
+        min-height: 0;
+        overflow: hidden;
         background:
             repeating-linear-gradient(
                 to right,

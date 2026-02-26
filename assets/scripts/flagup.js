@@ -551,7 +551,7 @@ function renderDesktopLeaderboardBarGraph(mode, rows) {
 
     const plot = document.createElement("div");
     plot.className = "desktop-lb-chart-plot";
-    plot.style.gridTemplateRows = `repeat(${bins.length}, auto)`;
+    plot.style.gridTemplateRows = `repeat(${bins.length}, minmax(0, 1fr))`;
 
     bins.forEach((bin) => {
         const widthRatio = (bin.count / maxFrequency) * 100;
