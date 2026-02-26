@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FlagUp | Ronak Sinha</title>
     <link rel="icon" type="image/svg+xml" href="../assets/images/favicon-black-green.svg">
-    <link rel="stylesheet" href="../assets/styles/flagup.css">
+    <link rel="stylesheet" href="../assets/styles/flagup.css?v=2026.02.26.1">
 </head>
 <body>
     <header class="topbar">
@@ -90,7 +90,7 @@
                     <div id="typing-stack-anchor"></div>
                     <div id="typing-stack">
                         <div id="hard-answer" class="hard-answer hidden">
-                            <input id="country-input" type="text" autocomplete="off" placeholder="Type country name">
+                            <input id="country-input" type="text" autocomplete="new-password" autocorrect="off" autocapitalize="none" spellcheck="false" placeholder="Type country name">
                         </div>
                         <div id="hint-row" class="hint-row hidden">
                             <button id="hint-btn" type="button">Use Hint</button>
@@ -123,7 +123,7 @@
             <div id="leaderboard-submit-wrap" class="leaderboard-wrap hidden">
                 <h3>Submit Score</h3>
                 <div class="leaderboard-submit-row">
-                    <input id="leaderboard-name-input" type="text" maxlength="20" placeholder="Enter username">
+                    <input id="leaderboard-name-input" type="text" maxlength="20" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" placeholder="Enter username">
                     <button id="leaderboard-submit-btn" type="button">Submit</button>
                 </div>
                 <p id="leaderboard-submit-feedback" class="leaderboard-feedback"></p>
@@ -139,9 +139,9 @@
         </div>
     </div>
 
-    <script src="../assets/scripts/flagup-core.js"></script>
+    <script src="../assets/scripts/flagup-core.js?v=2026.02.26.1"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../assets/scripts/flagup.js"></script>
+    <script src="../assets/scripts/flagup.js?v=2026.02.26.1"></script>
     <script>
         const interactiveText = document.getElementsByClassName('interactive-text');
 
