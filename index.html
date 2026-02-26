@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-        <title>Home</title>
+    <title>Home</title>
     <link rel="icon" type="image/svg+xml" href="assets/images/favicon-black-green.svg">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="assets/styles/ui-loader.css">
     <link rel="stylesheet" href="assets/styles/style.css">
 </head>
 
@@ -532,13 +533,16 @@
             </div>
             
         </section>  
-        <div class="loader-wrapper">
-            <span class="loader"><span class="loader-inner"></span></span>
-            <span class="loader"><span class="loader-inner"></span></span>
-            <span class="loader"><span class="loader-inner"></span></span>
-          </div>
+        <div class="loader-wrapper" aria-live="polite" aria-label="Loading home page"></div>
         
     </main>
+    <script src="assets/scripts/ui-loader.js"></script>
+    <script>
+        const loader = document.querySelector('.loader-wrapper');
+        if (loader && window.UiLoader) {
+            window.UiLoader.mount(loader, { label: "Loading home page" });
+        }
+    </script>
     <script>
         window.addEventListener('load', function () {
             const loader = document.querySelector('.loader-wrapper');

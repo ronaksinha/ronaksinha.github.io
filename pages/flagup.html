@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FlagUp | Ronak Sinha</title>
     <link rel="icon" type="image/svg+xml" href="../assets/images/favicon-black-green.svg">
+    <link rel="stylesheet" href="../assets/styles/ui-loader.css">
     <link rel="stylesheet" href="../assets/styles/flagup.css?v=2026.02.26.1">
 </head>
 <body>
@@ -22,11 +23,7 @@
                 <div class="side-panel-card">
                     <h2>Live Leaderboard</h2>
                     <p class="side-panel-subhead">Top unique players by mode.</p>
-                    <div id="desktop-lb-loading" class="rail-loading hidden" aria-live="polite" aria-label="Loading leaderboard">
-                        <span class="rail-loader"><span class="rail-loader-inner"></span></span>
-                        <span class="rail-loader"><span class="rail-loader-inner"></span></span>
-                        <span class="rail-loader"><span class="rail-loader-inner"></span></span>
-                    </div>
+                    <div id="desktop-lb-loading" class="rail-loading hidden"></div>
                     <div class="desktop-lb-mode-row" role="group" aria-label="Desktop leaderboard mode">
                         <button id="desktop-lb-mode-easy" class="desktop-lb-mode-btn active" type="button">Easy</button>
                         <button id="desktop-lb-mode-medium" class="desktop-lb-mode-btn" type="button">Medium</button>
@@ -37,11 +34,7 @@
                     <ol id="desktop-lb-list" class="desktop-lb-list"></ol>
                     <section class="desktop-lb-insights">
                         <h2>Performance Snapshot</h2>
-                        <div id="desktop-lb-insights-loading" class="rail-loading hidden" aria-live="polite" aria-label="Loading insights">
-                            <span class="rail-loader"><span class="rail-loader-inner"></span></span>
-                            <span class="rail-loader"><span class="rail-loader-inner"></span></span>
-                            <span class="rail-loader"><span class="rail-loader-inner"></span></span>
-                        </div>
+                        <div id="desktop-lb-insights-loading" class="rail-loading hidden"></div>
                         <p id="desktop-lb-summary" class="desktop-lb-summary">Preparing average score data...</p>
                         <p id="desktop-lb-top-player" class="desktop-lb-top-player">Top player: -</p>
                         <div id="desktop-lb-chart-hook" class="desktop-lb-chart-hook" role="img" aria-label="Leaderboard bar chart"></div>
@@ -140,6 +133,7 @@
     </div>
 
     <script src="../assets/scripts/flagup-core.js?v=2026.02.26.1"></script>
+    <script src="../assets/scripts/ui-loader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../assets/scripts/flagup.js?v=2026.02.26.1"></script>
     <script>

@@ -12,8 +12,13 @@ const modeButtons = {
 };
 const leaderboardStatus = document.getElementById("leaderboard-status");
 const leaderboardList = document.getElementById("leaderboard-list");
+const leaderboardHead = document.querySelector(".leaderboard-head");
+const leaderboardLoading = document.getElementById("leaderboard-loading");
+const chartSection = document.querySelector(".chart-section");
 const chartSummary = document.getElementById("chart-summary");
 const chartHook = document.getElementById("chart-hook");
+const chartTitle = document.getElementById("chart-title");
+const mobileHistogramQuery = window.matchMedia("(max-width: 430px)");
 
 let currentMode = "easy";
 
@@ -25,9 +30,38 @@ function toModeLabel(mode) {
     return mode.charAt(0).toUpperCase() + mode.slice(1);
 }
 
+function isMobileHistogramMode() {
+    return mobileHistogramQuery.matches;
+}
+
 function setStatus(text, ok) {
     leaderboardStatus.textContent = text;
     leaderboardStatus.style.color = ok ? "#86efac" : "#fecaca";
+}
+
+function setLoading(loading) {
+    const isLoading = Boolean(loading);
+    const UiLoader = window.UiLoader;
+    if (leaderboardLoading) {
+        if (UiLoader) {
+            UiLoader.mount(leaderboardLoading, { label: "Loading leaderboard" });
+            UiLoader.setVisible(leaderboardLoading, isLoading);
+        } else {
+            leaderboardLoading.classList.toggle("hidden", !isLoading);
+        }
+    }
+    if (leaderboardStatus) {
+        leaderboardStatus.classList.toggle("hidden", isLoading);
+    }
+    if (leaderboardHead) {
+        leaderboardHead.classList.toggle("hidden", isLoading);
+    }
+    if (leaderboardList) {
+        leaderboardList.classList.toggle("hidden", isLoading);
+    }
+    if (chartSection) {
+        chartSection.classList.toggle("hidden", isLoading);
+    }
 }
 
 function setModeButtons(mode) {
@@ -91,10 +125,7 @@ function toDenseRankedRows(rawRows) {
         return {
             rank,
             username: entry.username,
-            score: entry.score,
-            when: Number.isFinite(entry.createdMs)
-                ? new Date(entry.createdMs).toLocaleDateString(undefined, { month: "short", day: "numeric" })
-                : "-"
+            score: entry.score
         };
     });
 }
@@ -110,6 +141,9 @@ function renderRows(rows) {
 
     rows.forEach((row) => {
         const item = document.createElement("li");
+        if (row.rank === 1) {
+            item.classList.add("leaderboard-rank-1");
+        }
 
         const rank = document.createElement("span");
         rank.className = "leaderboard-cell-rank";
@@ -123,16 +157,100 @@ function renderRows(rows) {
         score.className = "leaderboard-cell-score";
         score.textContent = String(row.score);
 
-        const date = document.createElement("span");
-        date.className = "leaderboard-cell-date";
-        date.textContent = row.when;
-
         item.appendChild(rank);
         item.appendChild(player);
         item.appendChild(score);
-        item.appendChild(date);
         leaderboardList.appendChild(item);
+
+        if (row.rank === 1) {
+            applyWaveText(rank, `#${row.rank}`);
+            applyWaveText(player, row.username);
+        }
     });
+}
+
+function applyWaveText(target, text) {
+    if (!target) {
+        return;
+    }
+    const content = String(text || "");
+    target.innerHTML = "";
+    Array.from(content).forEach((ch, index) => {
+        const letter = document.createElement("span");
+        letter.className = "wave-letter";
+        letter.textContent = ch === " " ? "\u00A0" : ch;
+        letter.style.animationDelay = `${index * 80}ms`;
+        target.appendChild(letter);
+    });
+}
+
+function renderMobileHistogram(mode, rows) {
+    if (!chartHook) {
+        return;
+    }
+
+    chartHook.innerHTML = "";
+
+    if (!rows || rows.length === 0) {
+        const empty = document.createElement("p");
+        empty.className = "mobile-hist-empty";
+        empty.textContent = `No ${toModeLabel(mode)} histogram data yet.`;
+        chartHook.appendChild(empty);
+        chartHook.setAttribute("aria-label", `${toModeLabel(mode)} mobile histogram has no data`);
+        return;
+    }
+
+    const maxPossibleScore = 195;
+    const binCount = 16;
+    const bins = Array.from({ length: binCount }, function (_, index) {
+        const start = Math.floor((index * (maxPossibleScore + 1)) / binCount);
+        const end = Math.floor((((index + 1) * (maxPossibleScore + 1)) / binCount) - 1);
+        return { start, end, count: 0 };
+    });
+
+    rows.forEach((row) => {
+        const score = Math.max(0, Math.min(maxPossibleScore, Number(row.score) || 0));
+        const index = Math.min(
+            binCount - 1,
+            Math.floor((score / (maxPossibleScore + 1)) * binCount)
+        );
+        bins[index].count += 1;
+    });
+
+    const maxFrequency = Math.max(...bins.map((bin) => bin.count), 1);
+    const list = document.createElement("div");
+    list.className = "mobile-hist-columns";
+
+    bins.forEach((bin, index) => {
+        const column = document.createElement("div");
+        column.className = "mobile-hist-column";
+        column.title = `${bin.start}-${bin.end}: ${bin.count}`;
+
+        const value = document.createElement("span");
+        value.className = "mobile-hist-value";
+        value.textContent = bin.count > 0 ? String(bin.count) : "";
+
+        const barWrap = document.createElement("div");
+        barWrap.className = "mobile-hist-col-wrap";
+
+        const bar = document.createElement("span");
+        bar.className = "mobile-hist-col-bar";
+        const heightRatio = (bin.count / maxFrequency) * 100;
+        bar.style.height = `${Math.max(heightRatio, bin.count > 0 ? 2 : 0)}%`;
+
+        const label = document.createElement("span");
+        label.className = "mobile-hist-label";
+        label.textContent = `${bin.start}-${bin.end}`;
+
+        barWrap.appendChild(bar);
+        column.appendChild(value);
+        column.appendChild(barWrap);
+        column.appendChild(label);
+        list.appendChild(column);
+    });
+
+    chartHook.appendChild(list);
+    chartHook.setAttribute("aria-label", `${toModeLabel(mode)} score histogram`);
 }
 
 function updateChartHook(mode, rows) {
@@ -140,6 +258,25 @@ function updateChartHook(mode, rows) {
         return;
     }
 
+    if (isMobileHistogramMode()) {
+        if (chartTitle) {
+            chartTitle.textContent = "Score Histogram";
+        }
+        if (!rows || rows.length === 0) {
+            chartSummary.textContent = `No ${toModeLabel(mode)} scores yet.`;
+            renderMobileHistogram(mode, []);
+            return;
+        }
+        const total = rows.reduce((sum, row) => sum + row.score, 0);
+        const avg = total / rows.length;
+        chartSummary.textContent = `${toModeLabel(mode)} score distribution (${rows.length} players, avg ${avg.toFixed(1)}).`;
+        renderMobileHistogram(mode, rows);
+        return;
+    }
+
+    if (chartTitle) {
+        chartTitle.textContent = "Average Performance (Chart Hook)";
+    }
     if (!rows || rows.length === 0) {
         chartSummary.textContent = `No ${toModeLabel(mode)} data yet for average calculations.`;
         chartHook.textContent = "Chart hook ready. Once scores exist, this section will carry average-score bar data.";
@@ -155,12 +292,13 @@ function updateChartHook(mode, rows) {
 async function loadLeaderboard(mode) {
     currentMode = mode;
     setModeButtons(mode);
-    setStatus(`Loading ${toModeLabel(mode)} leaderboard...`, true);
+    setLoading(true);
 
     if (!supabaseClient) {
         renderRows([]);
         updateChartHook(mode, []);
         setStatus("Leaderboard unavailable right now.", false);
+        setLoading(false);
         return;
     }
 
@@ -177,6 +315,7 @@ async function loadLeaderboard(mode) {
             renderRows([]);
             updateChartHook(mode, []);
             setStatus("Failed to load leaderboard.", false);
+            setLoading(false);
             return;
         }
 
@@ -184,10 +323,12 @@ async function loadLeaderboard(mode) {
         renderRows(rows);
         updateChartHook(mode, rows);
         setStatus(`Showing top ${MAX_ROWS} unique players for ${toModeLabel(mode)}.`, true);
+        setLoading(false);
     } catch (error) {
         renderRows([]);
         updateChartHook(mode, []);
         setStatus("Failed to load leaderboard.", false);
+        setLoading(false);
     }
 }
 
@@ -199,5 +340,15 @@ Object.keys(modeButtons).forEach((mode) => {
         loadLeaderboard(mode);
     });
 });
+
+if (typeof mobileHistogramQuery.addEventListener === "function") {
+    mobileHistogramQuery.addEventListener("change", function () {
+        loadLeaderboard(currentMode);
+    });
+} else if (typeof mobileHistogramQuery.addListener === "function") {
+    mobileHistogramQuery.addListener(function () {
+        loadLeaderboard(currentMode);
+    });
+}
 
 loadLeaderboard(currentMode);
