@@ -235,6 +235,6 @@ test("desktop side-rail loader appears while fetching and hides after load", asy
 
     await expect(page.locator("#desktop-lb-loading")).toBeHidden();
     await expect(page.locator("#desktop-lb-insights-loading")).toBeHidden();
-    await expect(page.locator("#desktop-lb-status")).toContainText("Hard");
+    await expect(page.locator("#desktop-lb-status")).toContainText("Top 10 Players All Time");
     await expect(page.locator("#desktop-lb-list li").first()).toContainText("HardOne");
 });

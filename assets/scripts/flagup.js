@@ -671,7 +671,7 @@ async function refreshDesktopLeaderboardForMode(mode) {
         const rows = buildTopLeaderboardRows(data || []);
         renderDesktopLeaderboardRows(rows);
         updateDesktopLeaderboardInsights(mode, rows);
-        setDesktopLeaderboardStatus(`Showing top ${LEADERBOARD_MAX_ROWS} for ${toModeLabel(mode)}.`, true);
+        setDesktopLeaderboardStatus("Top 10 Players All Time", true);
         setDesktopRailLoading(false);
     } catch (error) {
         renderDesktopLeaderboardRows([]);

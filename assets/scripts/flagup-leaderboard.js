@@ -336,7 +336,7 @@ async function loadLeaderboard(mode) {
         const rows = toDenseRankedRows(data || []);
         renderRows(rows);
         updateChartHook(mode, rows);
-        setStatus(`Showing top ${MAX_ROWS} unique players for ${toModeLabel(mode)}.`, true);
+        setStatus("Top 10 Players All Time", true);
         setLoading(false);
     } catch (error) {
         renderRows([]);
