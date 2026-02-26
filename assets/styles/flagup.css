@@ -590,7 +590,7 @@ body {
         max-width: 1780px;
         margin: 0 auto;
         display: grid;
-        grid-template-columns: 42px minmax(0, 1fr) 42px;
+        grid-template-columns: 42px minmax(0, 1fr);
         gap: 1rem;
         align-items: stretch;
         transition: grid-template-columns 520ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -598,7 +598,7 @@ body {
     }
 
     .arena-layout.leaderboard-expanded {
-        grid-template-columns: clamp(220px, 18vw, 280px) minmax(0, 1fr) clamp(220px, 18vw, 280px);
+        grid-template-columns: clamp(320px, 28vw, 440px) minmax(0, 1fr);
     }
 
     .arena-layout > * {
@@ -693,10 +693,6 @@ body {
         left: 0;
     }
 
-    .side-panel-right .side-panel-peek {
-        right: 0;
-    }
-
     .side-panel-peek:hover {
         border-color: rgba(136, 255, 0, 0.62);
         background: rgba(136, 255, 0, 0.12);
@@ -728,6 +724,11 @@ body {
         box-sizing: border-box;
         will-change: transform, opacity, left, right;
         transform: translate3d(0, 0, 0);
+        overflow-x: hidden;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        display: flex;
+        flex-direction: column;
     }
 
     .side-panel-left .side-panel-card {
@@ -735,17 +736,8 @@ body {
         transform: translate3d(-24px, 0, 0);
     }
 
-    .side-panel-right .side-panel-card {
-        right: 0;
-        transform: translate3d(24px, 0, 0);
-    }
-
     .arena-layout.leaderboard-expanded .side-panel-left .side-panel-card {
         left: 46px;
-    }
-
-    .arena-layout.leaderboard-expanded .side-panel-right .side-panel-card {
-        right: 46px;
     }
 
     .arena-layout.leaderboard-expanded .side-panel-peek {
@@ -847,7 +839,8 @@ body {
         display: grid;
         gap: 0.4rem;
         max-height: none;
-        overflow: hidden;
+        overflow: visible;
+        padding-right: 0.2rem;
     }
 
     .desktop-lb-list li {
@@ -872,15 +865,115 @@ body {
         font-size: 0.82rem;
     }
 
+    .desktop-lb-insights {
+        margin-top: 0.75rem;
+        padding-top: 0.65rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
+    }
+
+    .desktop-lb-insights h2 {
+        margin: 0 0 0.45rem 0;
+        font-size: 0.96rem;
+    }
+
     .desktop-lb-chart-hook {
-        border: 1px dashed rgba(136, 255, 0, 0.45);
+        border: 1px solid rgba(136, 255, 0, 0.35);
         border-radius: 10px;
         background: linear-gradient(90deg, rgba(136, 255, 0, 0.08), rgba(136, 255, 0, 0.02));
-        padding: 0.55rem;
-        font-size: 0.78rem;
+        padding: 0.52rem;
         color: #d8f0b2;
-        line-height: 1.35;
+        min-height: 130px;
+        flex: 1 1 auto;
         animation: chartPulse 2.5s ease-in-out infinite;
+    }
+
+    .desktop-lb-chart-empty {
+        margin: 0;
+        font-size: 0.76rem;
+        color: #c8d7ec;
+    }
+
+    .desktop-lb-chart-bars {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: 0.32rem;
+        align-items: stretch;
+        height: 100%;
+    }
+
+    .desktop-lb-chart-x-axis {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        align-items: center;
+        font-size: 0.62rem;
+        color: #dce8f8;
+        padding-left: 62px;
+    }
+
+    .desktop-lb-chart-x-tick {
+        line-height: 1;
+        text-align: right;
+    }
+
+    .desktop-lb-chart-plot {
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        border-right: 1px solid rgba(255, 255, 255, 0.14);
+        padding: 0.22rem 0.2rem 0.1rem 0;
+        display: grid;
+        gap: 0.2rem;
+        align-items: center;
+        background:
+            repeating-linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0.06) 0,
+                rgba(255, 255, 255, 0.06) 1px,
+                transparent 1px,
+                transparent 20%
+            );
+    }
+
+    .desktop-lb-chart-column {
+        display: grid;
+        grid-template-columns: 24px 52px minmax(0, 1fr);
+        align-items: center;
+        gap: 0.28rem;
+        min-width: 0;
+    }
+
+    .desktop-lb-chart-bar-wrap {
+        width: 100%;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+    }
+
+    .desktop-lb-chart-bar {
+        display: block;
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, rgba(136, 255, 0, 0.98), rgba(193, 255, 128, 0.88));
+    }
+
+    .desktop-lb-chart-value {
+        font-size: 0.64rem;
+        color: #f2f7ff;
+        font-variant-numeric: tabular-nums;
+        text-align: right;
+    }
+
+    .desktop-lb-chart-x-label {
+        font-size: 0.56rem;
+        color: #dce8f8;
+        text-align: right;
+        line-height: 1.1;
     }
 }
 
@@ -889,6 +982,39 @@ body {
     .side-panel-card,
     .side-panel-peek {
         transition: none !important;
+    }
+}
+
+@media (min-width: 1200px) and (max-height: 980px) {
+    .game-shell {
+        padding-top: 0;
+        padding-bottom: 0.25rem;
+    }
+
+    .arena-layout .game-card {
+        padding-top: 0;
+        gap: 0.32rem;
+    }
+
+    .arena-layout .subhead {
+        margin-bottom: 0.34rem;
+    }
+
+    .arena-layout .score-row {
+        gap: 0.85rem;
+    }
+
+    .arena-layout .flag-wrapper {
+        min-height: clamp(190px, 30vh, 320px);
+        padding: 0.32rem 0.5rem 0.4rem 0.5rem;
+    }
+
+    .arena-layout .choices {
+        margin-top: 0.72rem;
+    }
+
+    .arena-layout .action-row {
+        margin-top: 0.55rem;
     }
 }
 

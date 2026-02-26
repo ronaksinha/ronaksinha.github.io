@@ -5,6 +5,11 @@ const MEDIUM_HINT_COUNT = 6;
 const NEXT_QUESTION_TRANSITION_MS = 360;
 const EASY_MODE_ADVANCE_DELAY_MS = 500;
 const DOUBLE_ENTER_SKIP_WINDOW_MS = 450;
+const DESKTOP_HISTOGRAM_MIN_BINS = 10;
+const DESKTOP_HISTOGRAM_MAX_BINS = 24;
+const DESKTOP_HISTOGRAM_ROW_TARGET_PX = 13;
+const DESKTOP_HISTOGRAM_USAGE_RATIO = 0.55;
+const DESKTOP_HISTOGRAM_BOTTOM_BUFFER_RATIO = 0.15;
 const LEADERBOARD_TABLE = "leaderboard_scores";
 const LEADERBOARD_MAX_ROWS = 10;
 const LEADERBOARD_FETCH_LIMIT = 200;
@@ -147,6 +152,8 @@ let leaderboardSubmittedThisRun = false;
 let leaderboardSubmitting = false;
 let desktopLeaderboardMode = "easy";
 let desktopLeaderboardExpanded = false;
+let desktopLeaderboardLastRows = [];
+let desktopHistogramResizeTimer = 0;
 
 const supabaseClient = (window.supabase && typeof window.supabase.createClient === "function" && SUPABASE_URL && SUPABASE_PUBLISHABLE_KEY)
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
@@ -464,24 +471,143 @@ function renderDesktopLeaderboardRows(rows) {
     }
 }
 
+function clampNumber(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+}
+
+function getDesktopHistogramBinCount() {
+    const fallback = 12;
+    if (!desktopLbChartHook) {
+        return fallback;
+    }
+
+    let chartHeight = desktopLbChartHook.clientHeight;
+    const railCard = desktopLbChartHook.closest(".side-panel-card");
+    if (railCard) {
+        const cardRect = railCard.getBoundingClientRect();
+        const chartRect = desktopLbChartHook.getBoundingClientRect();
+        const remainingHeight = Math.max(0, cardRect.bottom - chartRect.top);
+        const minBottomBuffer = Math.floor(cardRect.height * DESKTOP_HISTOGRAM_BOTTOM_BUFFER_RATIO);
+        const maxChartHeight = Math.max(130, remainingHeight - minBottomBuffer);
+        const targetChartHeight = Math.floor(remainingHeight * DESKTOP_HISTOGRAM_USAGE_RATIO);
+        chartHeight = clampNumber(targetChartHeight, 130, maxChartHeight);
+        desktopLbChartHook.style.height = `${chartHeight}px`;
+    }
+
+    if (!Number.isFinite(chartHeight) || chartHeight <= 0) {
+        return fallback;
+    }
+
+    const rawBins = Math.floor((chartHeight - 20) / DESKTOP_HISTOGRAM_ROW_TARGET_PX);
+    return clampNumber(rawBins, DESKTOP_HISTOGRAM_MIN_BINS, DESKTOP_HISTOGRAM_MAX_BINS);
+}
+
+function renderDesktopLeaderboardBarGraph(mode, rows) {
+    if (!desktopLbChartHook) {
+        return;
+    }
+
+    desktopLbChartHook.innerHTML = "";
+
+    if (!rows || rows.length === 0) {
+        const empty = document.createElement("p");
+        empty.className = "desktop-lb-chart-empty";
+        empty.textContent = `No ${toModeLabel(mode)} score bars yet.`;
+        desktopLbChartHook.appendChild(empty);
+        desktopLbChartHook.setAttribute("aria-label", `${toModeLabel(mode)} leaderboard chart has no data`);
+        return;
+    }
+
+    const maxPossibleScore = DESIRED_COUNTRY_COUNT;
+    const binCount = getDesktopHistogramBinCount();
+    const bins = Array.from({ length: binCount }, function (_, index) {
+        const start = Math.floor((index * (maxPossibleScore + 1)) / binCount);
+        const end = Math.floor((((index + 1) * (maxPossibleScore + 1)) / binCount) - 1);
+        return { start, end, count: 0 };
+    });
+
+    rows.forEach((row) => {
+        const scoreValue = Math.max(0, Math.min(maxPossibleScore, Number(row.score) || 0));
+        const binIndex = Math.min(
+            binCount - 1,
+            Math.floor((scoreValue / (maxPossibleScore + 1)) * binCount)
+        );
+        bins[binIndex].count += 1;
+    });
+
+    const maxFrequency = Math.max(...bins.map((bin) => bin.count), 1);
+    const bars = document.createElement("div");
+    bars.className = "desktop-lb-chart-bars";
+
+    const axis = document.createElement("div");
+    axis.className = "desktop-lb-chart-x-axis";
+    const xTickCount = 4;
+    for (let i = 0; i <= xTickCount; i += 1) {
+        const tick = document.createElement("span");
+        tick.className = "desktop-lb-chart-x-tick";
+        tick.textContent = String(Math.round((maxFrequency / xTickCount) * i));
+        axis.appendChild(tick);
+    }
+
+    const plot = document.createElement("div");
+    plot.className = "desktop-lb-chart-plot";
+    plot.style.gridTemplateRows = `repeat(${bins.length}, auto)`;
+
+    bins.forEach((bin) => {
+        const widthRatio = (bin.count / maxFrequency) * 100;
+
+        const column = document.createElement("div");
+        column.className = "desktop-lb-chart-column";
+        column.title = `${bin.start}-${bin.end}: ${bin.count}`;
+
+        const barWrap = document.createElement("div");
+        barWrap.className = "desktop-lb-chart-bar-wrap";
+
+        const bar = document.createElement("span");
+        bar.className = "desktop-lb-chart-bar";
+        bar.style.width = `${Math.max(widthRatio, bin.count > 0 ? 2 : 0)}%`;
+
+        const label = document.createElement("span");
+        label.className = "desktop-lb-chart-x-label";
+        label.textContent = `${bin.start}-${bin.end}`;
+
+        const value = document.createElement("span");
+        value.className = "desktop-lb-chart-value";
+        value.textContent = String(bin.count);
+
+        barWrap.appendChild(bar);
+        column.appendChild(value);
+        column.appendChild(label);
+        column.appendChild(barWrap);
+        plot.appendChild(column);
+    });
+
+    bars.appendChild(axis);
+    bars.appendChild(plot);
+    desktopLbChartHook.appendChild(bars);
+    desktopLbChartHook.setAttribute("aria-label", `${toModeLabel(mode)} horizontal histogram across score bins 0 to ${maxPossibleScore}`);
+}
+
 function updateDesktopLeaderboardInsights(mode, rows) {
     if (!desktopLbSummary || !desktopLbChartHook || !desktopLbTopPlayer) {
         return;
     }
 
     if (!rows || rows.length === 0) {
+        desktopLeaderboardLastRows = [];
         desktopLbSummary.textContent = `No ${toModeLabel(mode)} data yet for average calculations.`;
         desktopLbTopPlayer.textContent = "Top player: -";
-        desktopLbChartHook.textContent = "Future bar graph data hook.";
+        renderDesktopLeaderboardBarGraph(mode, []);
         return;
     }
 
+    desktopLeaderboardLastRows = rows;
     const total = rows.reduce((sum, row) => sum + row.score, 0);
     const average = total / rows.length;
     const best = rows[0];
     desktopLbSummary.textContent = `${toModeLabel(mode)} average: ${average.toFixed(2)} (${rows.length} players)`;
     desktopLbTopPlayer.textContent = `Top player: ${best.username} (${best.score})`;
-    desktopLbChartHook.textContent = `Chart payload -> { mode: "${mode}", averageScore: ${average.toFixed(2)}, sampleSize: ${rows.length} }`;
+    renderDesktopLeaderboardBarGraph(mode, rows);
 }
 
 async function refreshDesktopLeaderboardForMode(mode) {
@@ -1366,6 +1492,15 @@ if (typeof desktopLeaderboardQuery.addEventListener === "function") {
 } else if (typeof desktopLeaderboardQuery.addListener === "function") {
     desktopLeaderboardQuery.addListener(syncDesktopLeaderboardViewport);
 }
+window.addEventListener("resize", function () {
+    if (!canUseDesktopLeaderboard()) {
+        return;
+    }
+    window.clearTimeout(desktopHistogramResizeTimer);
+    desktopHistogramResizeTimer = window.setTimeout(function () {
+        renderDesktopLeaderboardBarGraph(desktopLeaderboardMode, desktopLeaderboardLastRows);
+    }, 90);
+});
 if (leaderboardSubmitBtn) {
     leaderboardSubmitBtn.addEventListener("click", submitLeaderboardScore);
 }
