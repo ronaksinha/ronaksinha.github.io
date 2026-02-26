@@ -240,7 +240,21 @@ function renderMobileHistogram(mode, rows) {
 
         const label = document.createElement("span");
         label.className = "mobile-hist-label";
-        label.textContent = `${bin.start}-${bin.end}`;
+        const min = document.createElement("span");
+        min.className = "mobile-hist-label-min";
+        min.textContent = String(bin.start);
+
+        const separator = document.createElement("span");
+        separator.className = "mobile-hist-label-sep";
+        separator.textContent = "—";
+
+        const max = document.createElement("span");
+        max.className = "mobile-hist-label-max";
+        max.textContent = String(bin.end);
+
+        label.appendChild(min);
+        label.appendChild(separator);
+        label.appendChild(max);
 
         barWrap.appendChild(bar);
         column.appendChild(value);
