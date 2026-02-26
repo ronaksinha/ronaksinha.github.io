@@ -495,10 +495,12 @@ body {
     word-break: break-word;
 }
 
-.choice-btn:hover {
-    transform: translateY(-1px);
-    border-color: rgba(136, 255, 0, 0.6);
-    background: rgba(136, 255, 0, 0.12);
+@media (hover: hover) {
+    .choice-btn:hover {
+        transform: translateY(-1px);
+        border-color: rgba(136, 255, 0, 0.6);
+        background: rgba(136, 255, 0, 0.12);
+    }
 }
 
 .choice-btn:disabled {
@@ -1171,8 +1173,8 @@ body {
     .mode-btn {
         flex: 1 1 calc(50% - 0.45rem);
         min-width: 0;
-        padding: 0.36rem 0.44rem;
-        font-size: 0.8rem;
+        padding: 0.24rem 0.32rem;
+        font-size: 0.71rem;
         text-align: center;
     }
 
@@ -1220,12 +1222,14 @@ body {
     }
 
     .choice-btn {
-        font-size: 0.82rem;
-        padding: 0.5rem 0.45rem;
+        font-size: 0.94rem;
+        padding: 0.68rem 0.54rem;
+        min-height: 50px;
         line-height: 1.2;
         width: 100%;
         max-width: none;
         box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
     }
 
     .hard-answer {
