@@ -522,6 +522,22 @@ body {
     overflow-wrap: anywhere;
 }
 
+.feedback-hint-line,
+.feedback-response-line {
+    display: block;
+    line-height: 1.35;
+}
+
+.feedback-hint-line {
+    color: #86efac;
+    font-weight: 700;
+}
+
+.feedback-response-line {
+    margin-top: 0.22rem;
+    color: #fecaca;
+}
+
 .double-enter-hint {
     margin: 0.15rem 0 0 0;
     color: #f7d79a;
@@ -555,7 +571,7 @@ body {
     html,
     body {
         overflow-x: hidden;
-        overflow-y: clip;
+        overflow-y: auto;
     }
 
     .topbar-link-mobile {

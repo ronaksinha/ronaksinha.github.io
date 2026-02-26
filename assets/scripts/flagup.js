@@ -837,6 +837,41 @@ function setFeedback(text, ok) {
     feedbackEl.style.color = ok ? "#86efac" : "#fecaca";
 }
 
+function buildMediumHintText(countryName) {
+    const hint = Core.buildMediumHint(countryName);
+    const wordCount = String(countryName || "").trim().split(/\s+/).filter(Boolean).length;
+    const wordCountText = wordCount > 1 ? ` It has ${wordCount} words.` : "";
+    return `Hint: starts with "${hint.first}" and ends with "${hint.last}".${wordCountText}`;
+}
+
+function getActiveMediumHintText() {
+    if (currentMode !== "medium" || !hintedThisQuestion || !currentQuestion || answered) {
+        return "";
+    }
+    return buildMediumHintText(currentQuestion.country);
+}
+
+function setTypingFeedback(text, ok) {
+    const hintText = getActiveMediumHintText();
+    if (hintText && !String(text || "").startsWith("Hint:")) {
+        feedbackEl.textContent = "";
+        feedbackEl.style.color = ok ? "#86efac" : "#fecaca";
+
+        const hintLine = document.createElement("span");
+        hintLine.className = "feedback-hint-line";
+        hintLine.textContent = hintText;
+
+        const responseLine = document.createElement("span");
+        responseLine.className = "feedback-response-line";
+        responseLine.textContent = text;
+
+        feedbackEl.appendChild(hintLine);
+        feedbackEl.appendChild(responseLine);
+        return;
+    }
+    setFeedback(text, ok);
+}
+
 function normalizeAnswer(value) {
     return Core.normalizeAnswer(value);
 }
@@ -1033,7 +1068,7 @@ function handleTypedSubmit() {
 
     const typed = countryInput.value;
     if (!typed.trim()) {
-        setFeedback("Enter a country name first.", false);
+        setTypingFeedback("Enter a country name first.", false);
         return;
     }
 
@@ -1072,10 +1107,10 @@ function handleTypedSubmit() {
 
     if (result.status === "wrong_other_country") {
         noteMissedFlag(typed);
-        setFeedback(`That's ${result.matchedCountry}, but this flag is different. Try again.`, false);
+        setTypingFeedback(`That's ${result.matchedCountry}, but this flag is different. Try again.`, false);
     } else {
         noteMissedFlag(typed);
-        setFeedback("Not quite. Try again.", false);
+        setTypingFeedback("Not quite. Try again.", false);
     }
     countryInput.focus();
     countryInput.select();
@@ -1094,12 +1129,10 @@ function useMediumHint() {
         return;
     }
 
-    const hint = Core.buildMediumHint(currentQuestion.country);
-
     hintsRemaining -= 1;
     hintedThisQuestion = true;
     hintBtn.disabled = true;
-    setFeedback(`Hint: starts with "${hint.first}" and ends with "${hint.last}".`, true);
+    setFeedback(buildMediumHintText(currentQuestion.country), true);
     updateStats();
 }
 
@@ -1383,7 +1416,7 @@ countryInput.addEventListener("input", function () {
     }
 
     if (result.status === "wrong_other_country" && result.matchedCountry) {
-        setFeedback(`You're thinking of ${result.matchedCountry}, but this flag is different.`, false);
+        setTypingFeedback(`You're thinking of ${result.matchedCountry}, but this flag is different.`, false);
     } else if (currentMode === "medium" && hintedThisQuestion) {
         // Keep the active hint visible throughout this question.
         return;

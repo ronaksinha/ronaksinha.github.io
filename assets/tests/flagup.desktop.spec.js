@@ -89,6 +89,18 @@ test.beforeEach(async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
 });
 
+test("desktop layout can scroll on shorter laptop heights", async ({ page }) => {
+    await page.setViewportSize({ width: 1366, height: 640 });
+    await openFlagUp(page);
+
+    const overflowY = await page.evaluate(() => getComputedStyle(document.body).overflowY);
+    expect(overflowY).not.toBe("clip");
+
+    const scrollBefore = await page.evaluate(() => window.scrollY);
+    await page.mouse.wheel(0, 1200);
+    await expect.poll(async () => page.evaluate(() => window.scrollY)).toBeGreaterThan(scrollBefore);
+});
+
 test("desktop shows random flag facts in easy and medium, hides in expert", async ({ page }) => {
     await openFlagUp(page);
 
@@ -136,6 +148,24 @@ test("medium double-enter skips to next flag without points and hides hint", asy
     await expect(roundLabel).toContainText("Round: 2");
     await expect(scoreLabel).toContainText("Score: 0");
     await expect(skipHint).toBeHidden();
+});
+
+test("medium hint stays visible after submitting a valid but wrong country", async ({ page }) => {
+    await openFlagUp(page);
+    await page.locator("#mode-medium-btn").click();
+
+    const feedback = page.locator("#feedback");
+    await page.locator("#hint-btn").click();
+    await expect(feedback).toContainText("Hint: starts with");
+
+    const currentCountry = ((await page.locator("#flag-image").getAttribute("alt")) || "").replace(/^Flag of /, "");
+    const wrongGuess = currentCountry === "Canada" ? "Mexico" : "Canada";
+
+    await page.locator("#country-input").fill(wrongGuess);
+    await page.locator("#country-input").press("Enter");
+
+    await expect(feedback).toContainText("Hint: starts with");
+    await expect(feedback).toContainText("but this flag is different");
 });
 
 test("leaderboard submit succeeds and disables re-submit", async ({ page }) => {
