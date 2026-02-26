@@ -202,6 +202,17 @@ function updateModeToggleLabel() {
     modeToggleBtn.textContent = `Difficulty: ${toModeLabel(currentMode)}${suffix}`;
 }
 
+function syncPhoneDifficultyScrollState() {
+    const body = document.body;
+    if (!body || !modeToggleBtn || !modeRow) {
+        return;
+    }
+
+    const expanded = modeToggleBtn.getAttribute("aria-expanded") === "true";
+    const shouldEnableScroll = isPhoneDifficultyMenu() && expanded;
+    body.classList.toggle("phone-difficulty-open", shouldEnableScroll);
+}
+
 function syncDifficultyMenuState() {
     if (!modeToggleBtn || !modeRow) {
         return;
@@ -216,6 +227,7 @@ function syncDifficultyMenuState() {
         modeRow.classList.remove("collapsed");
     }
     updateModeToggleLabel();
+    syncPhoneDifficultyScrollState();
     if (currentQuestion && isDesktopFactMode()) {
         showFlagFactForQuestion(currentQuestion);
     } else {
@@ -230,6 +242,7 @@ function collapseDifficultyMenuOnPhone() {
     modeToggleBtn.setAttribute("aria-expanded", "false");
     modeRow.classList.add("collapsed");
     updateModeToggleLabel();
+    syncPhoneDifficultyScrollState();
 }
 
 function insertAfter(parent, node, anchor) {
@@ -551,7 +564,7 @@ function renderDesktopLeaderboardBarGraph(mode, rows) {
 
     const plot = document.createElement("div");
     plot.className = "desktop-lb-chart-plot";
-    plot.style.gridTemplateRows = `repeat(${bins.length}, auto)`;
+    plot.style.gridTemplateRows = `repeat(${bins.length}, minmax(0, 1fr))`;
 
     bins.forEach((bin) => {
         const widthRatio = (bin.count / maxFrequency) * 100;
@@ -1456,6 +1469,7 @@ if (modeToggleBtn && modeRow) {
         modeToggleBtn.setAttribute("aria-expanded", String(!expanded));
         modeRow.classList.toggle("collapsed", expanded);
         updateModeToggleLabel();
+        syncPhoneDifficultyScrollState();
     });
 }
 Array.from(desktopLbPeekButtons).forEach((button) => {
@@ -1596,3 +1610,4 @@ initGame();
 syncDifficultyMenuState();
 syncMobileTypingLayout();
 syncDesktopLeaderboardViewport();
+syncPhoneDifficultyScrollState();
