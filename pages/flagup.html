@@ -18,7 +18,7 @@
     <main class="game-shell">
         <div id="arena-layout" class="arena-layout">
             <aside id="desktop-lb-left" class="side-panel side-panel-left" aria-hidden="true">
-                <button class="side-panel-peek" type="button" aria-label="Toggle leaderboard side panels" aria-expanded="false">Leaderboard</button>
+                <button class="side-panel-peek" type="button" aria-label="Toggle leaderboard and insights panel" aria-expanded="false">Leaderboard</button>
                 <div class="side-panel-card">
                     <h2>Live Leaderboard</h2>
                     <p class="side-panel-subhead">Top unique players by mode.</p>
@@ -35,6 +35,17 @@
                     </div>
                     <p id="desktop-lb-status" class="desktop-lb-status">Loading...</p>
                     <ol id="desktop-lb-list" class="desktop-lb-list"></ol>
+                    <section class="desktop-lb-insights">
+                        <h2>Performance Snapshot</h2>
+                        <div id="desktop-lb-insights-loading" class="rail-loading hidden" aria-live="polite" aria-label="Loading insights">
+                            <span class="rail-loader"><span class="rail-loader-inner"></span></span>
+                            <span class="rail-loader"><span class="rail-loader-inner"></span></span>
+                            <span class="rail-loader"><span class="rail-loader-inner"></span></span>
+                        </div>
+                        <p id="desktop-lb-summary" class="desktop-lb-summary">Preparing average score data...</p>
+                        <p id="desktop-lb-top-player" class="desktop-lb-top-player">Top player: -</p>
+                        <div id="desktop-lb-chart-hook" class="desktop-lb-chart-hook" role="img" aria-label="Leaderboard bar chart"></div>
+                    </section>
                 </div>
             </aside>
 
@@ -95,25 +106,8 @@
                         <button id="restart-btn" type="button">Restart</button>
                     </div>
                 </div>
-            </div>
-            </section>
-
-            <aside id="desktop-lb-right" class="side-panel side-panel-right" aria-hidden="true">
-                <button class="side-panel-peek" type="button" aria-label="Toggle leaderboard side panels" aria-expanded="false">Insights</button>
-                <div class="side-panel-card">
-                    <h2>Performance Snapshot</h2>
-                    <div id="desktop-lb-insights-loading" class="rail-loading hidden" aria-live="polite" aria-label="Loading insights">
-                        <span class="rail-loader"><span class="rail-loader-inner"></span></span>
-                        <span class="rail-loader"><span class="rail-loader-inner"></span></span>
-                        <span class="rail-loader"><span class="rail-loader-inner"></span></span>
-                    </div>
-                    <p id="desktop-lb-summary" class="desktop-lb-summary">Preparing average score data...</p>
-                    <p id="desktop-lb-top-player" class="desktop-lb-top-player">Top player: -</p>
-                    <div id="desktop-lb-chart-hook" class="desktop-lb-chart-hook" role="img" aria-label="Animated placeholder for future leaderboard bar chart">
-                        Future bar graph data hook.
-                    </div>
                 </div>
-            </aside>
+            </section>
         </div>
     </main>
     <div id="gameover-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="gameover-title">
